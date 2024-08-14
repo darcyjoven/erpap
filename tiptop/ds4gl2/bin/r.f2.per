@@ -1,0 +1,63 @@
+######
+# Compiler form file
+######
+
+cd ../per
+umask 000
+# Change and Cut per if necessary
+#pre42f $1.per $1T.per
+
+# Prompt how to work
+if [ "$1" = "" ] ; then
+   echo "Usage: r.f2 form_name\n"
+   exit 1
+# If has no correspond form file
+elif [ ! -s ${1}.per ] ; then
+   echo "\033[7m${1}\033[m error happens, check if:"
+   echo "  1) Do you specify the right form name ?"
+   echo "  2) Do you execute in PER directory ?"
+   echo "  3) File size is zero ?\n"
+   exit 1
+fi
+
+# Delete the previous temporary & error file(if it has)
+if [ -s ${1}T.per ] ; then
+   rm -f ${1}T.per
+fi
+if [ -s ../42f/${1}.err ] ; then
+   rm -f ../42f/${1}.err
+fi
+FGLRUN=${FGLRUN:=fglrun};export FGLRUN #BUG-4C0168
+
+cp -f ${1}.per ${1}T.per
+chmod 777 ${1}T.per
+
+# Cut unnecessary block & append default TOPMENU 
+ed - ${1}T.per <<%% 1 2 >/dev/null
+1
+g/▼-/.,$ d
+g/□-/.,$ d
+w
+q
+%%
+
+#orafrm ${1}T.per /tmp/$$.per && rm -f ${1}T.per && mv /tmp/$$.per ${1}T.per
+
+# Compiler the form file, and to see if has error during compilation
+echo $1
+fglform -M ${1}T
+if [ $? -ne 0 ] ; then
+   fglform ${1}T
+fi
+rm -f ${1}T.per
+if [ -s ${1}T.err ] ; then
+   mv ${1}T.err ../42f/${1}.err
+   pg -p '(Page %d)' +/See/ ../42f/${1}.err
+   exit 1
+else
+   if [ -s ${1}T.42f ] ; then
+      mv ${1}T.42f ../42f/${1}.42f
+   else
+      exit 1
+   fi
+fi

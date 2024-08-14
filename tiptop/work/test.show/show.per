@@ -1,0 +1,97 @@
+SCREEN
+{
+========================員工基本資料維護作業 (apyi030)============[cnt]=======
+員工代號:[cpf01   ]     身分證號:[cpf07     ]        是否付薪:[i] (Y/N)
+中文姓名:[cpf02     ]   英文姓名:[cpf08           ]  試用期滿:[j] (Y/N)
+性    別:[a] (F/M)      技能代號:[c ] [d ] [e ] [f ] 役    別:[k] (1/2/3)
+出生日期:[cpf04     ]   正式臨時:[g] (P/T)           婚姻狀況:[l] (1/2/3)
+血    型:[b ]           直接間接:[h] (1/2)           扶養人數:[m ]
+籍    貫:[cpf06       ] 通訊電話:[cpf15       ]      郵遞區號:[cpf21]
+戶籍地址:[cpf23                                                           ]
+通訊地址:[cpf22                                                           ]
+戶籍電話:[cpf68       ] 畢業學校:[cpf26                               ]
+學    歷:[n]            主修科系:[cpf27                               ]
+畢業日期:[cpf25   ] 公司/廠別:[o ][cpd02   ][c281] 部門別:[cpf29 ][gem02   ]
+級職代號:[cpf31 ]       復職日期:[cpf32   ]        所屬班別:[p   ][cpe02   ]
+職    稱:[cpf34       ] 離職日期:[cpf35   ]        試用期滿日:[cpf33   ]
+線    別:[r   ]         到職日期:[cpf70   ]        留職停薪否:[q] (Y/N)
+目前年資:[cpf69]        以前年資:[cpf38]           留職停薪日:[cpf39   ]
+須刷卡否:[s] (Y/N)      備    註:[cpf41                                   ]
+刷卡卡號:[cpf72     ]========[cpfuser   ][grup][cpfmodu   ][cpfdate ]==[z]====
+}
+END
+
+ATTRIBUTES
+
+cpf01 = FORMONLY.cpf01, COLOR=YELLOW;
+cpf02 = FORMONLY.cpf02, COLOR=YELLOW;
+a     = FORMONLY.cpf03, UPSHIFT,COLOR=YELLOW,
+      COMMENTS = 'F-女性 , M-男性';
+cpf04 = FORMONLY.cpf04, COLOR=YELLOW,FORMAT='YYYY/MM/DD';
+b     = FORMONLY.cpf05, UPSHIFT,COLOR=YELLOW;
+cpf06 = FORMONLY.cpf06, COLOR=YELLOW;
+cpf07 = FORMONLY.cpf07, COLOR=YELLOW;
+cpf08 = FORMONLY.cpf08, COLOR=YELLOW;
+c     = FORMONLY.cpf09, COLOR=YELLOW,
+      COMMENTS = '<^P> 查詢技能代碼';
+d     = FORMONLY.cpf10, COLOR=YELLOW,
+      COMMENTS = '<^P> 查詢技能代碼';
+e     = FORMONLY.cpf11, COLOR=YELLOW,
+      COMMENTS = '<^P> 查詢技能代碼';
+f     = FORMONLY.cpf12, COLOR=YELLOW,
+      COMMENTS = '<^P> 查詢技能代碼';
+g     = FORMONLY.cpf13, UPSHIFT,COLOR=YELLOW,
+      COMMENTS = 'P-正式 , T-臨時';
+h     = FORMONLY.cpf14, UPSHIFT,COLOR=YELLOW,
+      COMMENTS = '1-直接 , 2-間接';
+cpf15 = FORMONLY.cpf15, COLOR=YELLOW;
+i     = FORMONLY.cpf16, NOENTRY, COLOR=YELLOW;
+j     = FORMONLY.cpf17, NOENTRY, COLOR=YELLOW;
+k     = FORMONLY.cpf18, COLOR=YELLOW,
+      COMMENTS = '1-未役 , 2-已役 , 3-免役';
+l     = FORMONLY.cpf19, COLOR=YELLOW,
+      COMMENTS = '1-已婚 , 2-未婚 , 3-其它';
+m     = FORMONLY.cpf20, COLOR=YELLOW;
+cpf21 = FORMONLY.cpf21, COLOR=YELLOW;
+cpf23 = FORMONLY.cpf23, COLOR=YELLOW;
+cpf22 = FORMONLY.cpf22, COLOR=YELLOW;
+cpf68 = FORMONLY.cpf68, COLOR=YELLOW;
+n     = FORMONLY.cpf24, COLOR=YELLOW,
+      COMMENTS = '<^P> 查詢學歷代號';
+cpf25 = FORMONLY.cpf25, COLOR=YELLOW;
+cpf26 = FORMONLY.cpf26, COLOR=YELLOW;
+cpf27 = FORMONLY.cpf27, COLOR=YELLOW;
+o     = FORMONLY.cpf28, COLOR=YELLOW,
+      COMMENTS = '<^P> 查詢公司別代碼';
+cpd02 = FORMONLY.cpd02, COLOR=YELLOW;
+c281  = FORMONLY.cpf281,COLOR=YELLOW,
+        COMMENTS = '<^P> 查詢廠別代碼';
+cpf29 = FORMONLY.cpf29, COLOR=YELLOW,
+      COMMENTS = '<^P> 查詢部門別代碼';
+gem02 = FORMONLY.gem02,  COLOR=YELLOW;
+cpf31 = FORMONLY.cpf31, COLOR=YELLOW,
+      COMMENTS = '<^P> 查詢級等別代碼';
+cpf32 = FORMONLY.cpf32, NOENTRY, COLOR=YELLOW;
+p     = FORMONLY.cpf30, COLOR=YELLOW,
+      COMMENTS = '<^P> 查詢班別代碼';
+cpe02 = FORMONLY.cpe02, COLOR=YELLOW;
+cpf34 = FORMONLY.cpf34, COLOR=YELLOW;
+cpf35 = FORMONLY.cpf35, NOENTRY, COLOR=YELLOW;
+cpf33 = FORMONLY.cpf33, NOENTRY, COLOR=YELLOW;
+r     = FORMONLY.cpf37, COLOR=YELLOW;
+cpf70 = FORMONLY.cpf70, NOENTRY, COLOR=YELLOW;
+q     = FORMONLY.cpf36, NOENTRY, COLOR=YELLOW;
+cpf69 = FORMONLY.cpf69, COLOR=YELLOW;
+cpf38 = FORMONLY.cpf38, COLOR=YELLOW;
+cpf39 = FORMONLY.cpf39,NOENTRY, COLOR=YELLOW;
+s     = FORMONLY.cpf40, UPSHIFT,COLOR=YELLOW,
+      COMMENTS = 'Y-須刷卡 , N-不需刷卡';
+cpf72 = FORMONLY.cpf72, COLOR=YELLOW;
+cpf41 = FORMONLY.cpf41, COLOR=YELLOW;
+cpfuser= FORMONLY.cpfuser,NOENTRY, COLOR=YELLOW;
+grup   = FORMONLY.cpfgrup,NOENTRY, COLOR=YELLOW;
+cpfmodu= FORMONLY.cpfmodu,NOENTRY, COLOR=YELLOW;
+cpfdate= FORMONLY.cpfdate,NOENTRY, COLOR=YELLOW;
+z      = FORMONLY.cpfacti, UPSHIFT,NOENTRY,COLOR=YELLOW;
+cnt    = FORMONLY.cnt TYPE SMALLINT,NOENTRY;
+END

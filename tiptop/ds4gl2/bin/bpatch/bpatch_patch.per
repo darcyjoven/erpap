@@ -1,0 +1,111 @@
+LAYOUT
+  VBOX
+    GROUP
+      VBOX
+        GRID
+          {
+           Dbspace       [dbspace                ]
+           Log folder    [log_path                                    ]
+           Backup folder [backup_path                                 ]
+          [dummy70                                                    ]
+          [dummy71                                                    ]
+          [dummy72                                        ][del_unpack]
+          ---------------------------------------------------------------
+          [btn01] [dummy01                         ]    [sch_rep        ]
+          [btn02] [dummy02                         ]    [prog_rep       ]
+          [btn03] [dummy03                         ]    [alter_list     ]
+          [img01]      [dummy04                    ]    [data_fill      ]
+          [img02] [c01][dummy05                    ]    [ds_tb_log      ]
+          [img03] [c02][dummy06                    ]    [fill_ds_log    ]
+          [img04] [c03][dummy07                    ]    [ds_idx_log     ]
+          [img05] [c04][dummy08                    ]    [other_tb_log   ]
+          [img06] [c05][dummy09                    ]    [fill_other_log ]
+          [img07] [c06][dummy10                    ]    [other_idx_log  ]
+          [btn04] [dummy11                         ]    [data_log       ]
+          [img08] [c07][dummy12                    ]
+          [img09] [c08][dummy13                    ]
+          [btn05] [dummy14                         ]
+          [img10]      [dummy15                    ]
+          [img11]      [dummy16                    ]
+          [btn06] [dummy17                         ]    [rebuild_log    ]
+          [img12] [c09][dummy18                    ]
+          [img13] [c10][dummy19                    ]
+          [img14] [c11][dummy20                    ]
+          }
+        END
+      END
+    END
+  END
+END
+
+ATTRIBUTES
+           dbspace       = FORMONLY.dbspace;
+           log_path      = FORMONLY.log_path;
+           backup_path   = FORMONLY.backup_path;
+  IMAGE    img01         = FORMONLY.img01, STYLE="imageresult";
+  IMAGE    img02         = FORMONLY.img02, STYLE="imageresult";
+  IMAGE    img03         = FORMONLY.img03, STYLE="imageresult";
+  IMAGE    img04         = FORMONLY.img04, STYLE="imageresult";
+  IMAGE    img05         = FORMONLY.img05, STYLE="imageresult";
+  IMAGE    img06         = FORMONLY.img06, STYLE="imageresult";
+  IMAGE    img07         = FORMONLY.img07, STYLE="imageresult";
+  IMAGE    img08         = FORMONLY.img08, STYLE="imageresult";
+  IMAGE    img09         = FORMONLY.img09, STYLE="imageresult";
+  IMAGE    img10         = FORMONLY.img10, STYLE="imageresult";
+  IMAGE    img11         = FORMONLY.img11, STYLE="imageresult";
+  IMAGE    img12         = FORMONLY.img12, STYLE="imageresult";
+  IMAGE    img13         = FORMONLY.img13, STYLE="imageresult";
+  IMAGE    img14         = FORMONLY.img14, STYLE="imageresult";
+  BUTTON   btn01         : btn01, TEXT="Start";
+  BUTTON   btn02         : btn02, TEXT="Start";
+  BUTTON   btn03         : btn03, TEXT="Start";
+  BUTTON   btn04         : btn04, TEXT="Start";
+  BUTTON   btn05         : btn05, TEXT="Start";
+  BUTTON   btn06         : btn06, TEXT="Start";
+  LABEL    dummy01       = FORMONLY.dummy01, STYLE="process";
+  LABEL    dummy02       : dummy02, TEXT="比對指定區域與出貨標準區的程式差異", STYLE="process";
+  LABEL    dummy03       : dummy03, TEXT="更新資料庫Schema", STYLE="process";
+  LABEL    dummy04       : dummy04, TEXT="備份資料庫並解析版更Schema", STYLE="process";
+  LABEL    dummy05       : dummy05, TEXT="標準(ds)資料庫的表格欄位更新", STYLE="process";
+  LABEL    dummy06       : dummy06, TEXT="標準(ds)資料庫NOT NULL欄位的預設值更新", STYLE="process";
+  LABEL    dummy07       : dummy07, TEXT="標準(ds)資料庫的Index更新", STYLE="process";
+  LABEL    dummy08       : dummy08, TEXT="其他資料庫的表格欄位更新", STYLE="process";
+  LABEL    dummy09       : dummy09, TEXT="其他資料庫NOT NULL欄位的預設值更新", STYLE="process";
+  LABEL    dummy10       : dummy10, TEXT="其他資料庫的Index更新", STYLE="process";
+  LABEL    dummy11       : dummy11, TEXT="更新程式基本資料", STYLE="process";
+  LABEL    dummy12       : dummy12, TEXT="基本資料的暫存資料庫建立", STYLE="process";
+  LABEL    dummy13       : dummy13, TEXT="更新基本資料至標準(ds)資料庫", STYLE="process";
+  LABEL    dummy14       : dummy14, TEXT="更新TIPTOP檔案", STYLE="process";
+  LABEL    dummy15       : dummy15, TEXT="備份客戶端TIPTOP程式", STYLE="process";
+  LABEL    dummy16       : dummy16, TEXT="解壓縮並更新TIPTOP", STYLE="process";
+  LABEL    dummy17       : dummy17, TEXT="Rebuild", STYLE="process";
+  LABEL    dummy18       : dummy18, TEXT="Compile All 4gl of System", STYLE="process";
+  LABEL    dummy19       : dummy19, TEXT="Link All Program of System (include 42x)", STYLE="process";
+  LABEL    dummy20       : dummy20, TEXT="Compile All 4fd of System", STYLE="process";
+  LABEL    dummy70       : dummy70, TEXT="";
+  LABEL    dummy71       : dummy71, TEXT="* 版更時會自動備份資料庫及程式, 建議可自行備份多份於其他區域";
+  LABEL    dummy72       : dummy72, TEXT="* 若還原系統並重新執行版更動作的話, 建議將舊有版更記錄刪除 (請自行備份)";
+  CHECKBOX c01           = FORMONLY.c01, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="", DEFAULT="N";
+  CHECKBOX c02           = FORMONLY.c02, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="", DEFAULT="N";
+  CHECKBOX c03           = FORMONLY.c03, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="", DEFAULT="N";
+  CHECKBOX c04           = FORMONLY.c04, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="", DEFAULT="N";
+  CHECKBOX c05           = FORMONLY.c05, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="", DEFAULT="N";
+  CHECKBOX c06           = FORMONLY.c06, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="", DEFAULT="N";
+  CHECKBOX c07           = FORMONLY.c07, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="", DEFAULT="N";
+  CHECKBOX c08           = FORMONLY.c08, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="", DEFAULT="N";
+  CHECKBOX c09           = FORMONLY.c09, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="", DEFAULT="N";
+  CHECKBOX c10           = FORMONLY.c10, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="", DEFAULT="N";
+  CHECKBOX c11           = FORMONLY.c11, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="", DEFAULT="N";
+  BUTTON   del_unpack    : del_unpack, TEXT="刪除版更記錄";
+  BUTTON   sch_rep       : sch_rep, TEXT="比對結果";
+  BUTTON   prog_rep      : prog_rep, TEXT="比對結果";
+  BUTTON   alter_list    : alter_list, TEXT="Alter List";
+  BUTTON   data_fill     : data_fill, TEXT="Data Fill List";
+  BUTTON   ds_tb_log     : ds_tb_log, TEXT="DS Alter Result";
+  BUTTON   fill_ds_log   : fill_ds_log, TEXT="Data Fill Result";
+  BUTTON   ds_idx_log    : ds_idx_log, TEXT="DS Alter Index Result";
+  BUTTON   other_tb_log  : other_tb_log, TEXT="Other DB Alter Result";
+  BUTTON   fill_other_log: fill_other_log, TEXT="Data Fill Result";
+  BUTTON   other_idx_log : other_idx_log, TEXT="Other DB Alter Result";
+  BUTTON   data_log      : data_log, TEXT="更新資料Log";
+  BUTTON   rebuild_log   : rebuild_log, TEXT="Rebuild Result";

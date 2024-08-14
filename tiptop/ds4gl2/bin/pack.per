@@ -1,0 +1,22 @@
+SCHEMA FORMONLY
+
+LAYOUT
+  GRID
+    {
+     路徑     [path                        ]
+     版本別   [ver         ] [dummy01                            ]
+     日期區間 [d01         ]~[d02          ]
+    [packall                           ]
+    }
+  END
+END
+
+ATTRIBUTES
+   CHECKBOX packall = FORMONLY.packall, NOT NULL, REQUIRED,
+                      VALUECHECKED="Y", VALUEUNCHECKED="N", TEXT="Pack All 4gl,per of topfinal";
+            path    = FORMONLY.path,SCROLL,NOT NULL, REQUIRED;
+            ver     = FORMONLY.ver,NOT NULL, REQUIRED;
+   DATEEDIT d01     = FORMONLY.d01;
+   DATEEDIT d02     = FORMONLY.d02;
+   LABEL    dummy01 : dummy01, TEXT = "可輸入'1.30.03'或者'1.3*'";
+END

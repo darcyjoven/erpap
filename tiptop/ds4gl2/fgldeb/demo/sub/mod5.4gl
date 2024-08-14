@@ -1,0 +1,3 @@
+FUNCTION mod5()
+  DISPLAY "in mod5"
+END FUNCTION

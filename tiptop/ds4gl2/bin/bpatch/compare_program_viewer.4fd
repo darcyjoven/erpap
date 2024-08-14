@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Form CHECKSUM="-1" database_name="formonly" fourSTFile="" gstVersion="11401" height="25" lstrtext="false" lstrtoallcomment="false" lstrtoallitem="false" lstrtoalltext="false" lstrtoalltitle="false" name="compare_program_viewer" posX="0" posY="0" spacing="normal" text="compare_program_viewer" width="80">
+  <Grid fontPitch="default" height="21" hidden="--------" lstrcomment="false" name="gr1" posX="1" posY="1" width="54">
+    <FormField colName="std_path" fieldtype="FORM_ONLY" name="std_path" sqlTabName="formonly">
+      <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="std_path" noEntry="--------" notNull="--------" posX="7" posY="0" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="1" verify="--------" width="45"/>
+    </FormField>
+    <Text height="1" name="text1" posX="2" posY="0" text="&lt;" width="1"/>
+    <Text height="1" name="text2" posX="2" posY="1" text="&gt;" width="1"/>
+    <FormField colName="cur_path" fieldtype="FORM_ONLY" name="cur_path" sqlTabName="formonly">
+      <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="cur_path" noEntry="--------" notNull="--------" posX="7" posY="1" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="2" verify="--------" width="45"/>
+    </FormField>
+    <FormField colName="show_diff" fieldtype="FORM_ONLY" name="show_diff" sqlTabName="formonly">
+      <TextEdit case="NONE" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield1" height="17" hidden="--------" lstrcomment="false" name="show_diff" noEntry="--------" notNull="--------" posX="2" posY="2" required="--------" scrollBars="both" sizePolicy="initial" stretch="both" tabIndex="3" wantNoReturns="--------" wantTabs="--------" width="50"/>
+    </FormField>
+    <Button action="exit" flag_text_changed="TRUE" fontPitch="default" height="1" hidden="--------" imagetype="Image as URL" lstrcomment="false" lstrtext="false" name="bt1" posX="41" posY="19" sizePolicy="initial" text="Exit" width="11"/>
+  </Grid>
+</Form>

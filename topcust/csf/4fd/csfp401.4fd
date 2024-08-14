@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm databaseName="ds" gstVersion="22800" name="ManagedForm" uid="{a6a16eaf-3c29-4c2f-b9e7-9edbaa1ec184}">
+  <AGSettings/>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="undefined" order="" uid="{817093fc-cb28-439f-bb5a-9e913740f6ae}" where="">
+    <RecordField colName="cn3" fieldIdRef="11" name="cn3" sqlTabName="formonly" sqlType="CHAR" table_alias_name="" uid="{c731e808-3c68-4f18-a7d9-7b3a94d74dd8}"/>
+    <RecordField colName="cn2" fieldIdRef="12" name="cn2" sqlTabName="formonly" sqlType="CHAR" table_alias_name="" uid="{39dd1656-9af2-4bca-b2fd-b6422fd8eade}"/>
+  </Record>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="s_sfb" order="" uid="{8f93ce1f-ea55-440f-899b-a87dc980f1df}" where="">
+    <RecordField colName="sure" fieldIdRef="0" name="sure" sqlTabName="formonly" sqlType="VARCHAR" table_alias_name="" uid="{6f3e39ab-3502-4476-ad9f-28474a13b6ad}"/>
+    <RecordField colName="sfb01" fieldIdRef="1" fieldType="TABLE_COLUMN" name="sfb_file.sfb01" sqlTabName="sfb_file" sqlType="VARCHAR" table_alias_name="" uid="{1267c1ca-e5d8-406e-b848-47efdf94b325}"/>
+    <RecordField colName="" fieldIdRef="2" name="sfb02" sqlTabName="" table_alias_name="" uid="{de4587ef-9834-48d4-948d-6ff69f7caa5b}"/>
+    <RecordField colName="" fieldIdRef="3" name="sfb81" sqlTabName="" table_alias_name="" uid="{fdfd7b79-be71-4ba9-ae65-3cced251c1a9}"/>
+    <RecordField colName="" fieldIdRef="4" name="sfb87" sqlTabName="" table_alias_name="" uid="{cf1e70e7-c1cb-45f8-824d-a6a9dcd168c4}"/>
+    <RecordField colName="" fieldIdRef="5" name="sfb44" sqlTabName="" table_alias_name="" uid="{76eb75ed-0738-4a9a-8379-87eb78aff0ac}"/>
+    <RecordField colName="" fieldIdRef="7" name="gen02" sqlTabName="" table_alias_name="" uid="{25886b08-e249-48c5-a262-4a18ba15e2bf}"/>
+    <RecordField colName="" fieldIdRef="6" name="sfb22" sqlTabName="" table_alias_name="" uid="{2ea30f80-e8e1-42da-a910-e20eebbb98ac}"/>
+    <RecordField colName="" fieldIdRef="8" name="sfb221" sqlTabName="" table_alias_name="" uid="{441290f0-8252-45b3-85f4-8575841d140a}"/>
+    <RecordField colName="" fieldIdRef="9" name="sfb86" sqlTabName="" table_alias_name="" uid="{2e8b29a3-a8da-4f26-b026-87f8d8d233a0}"/>
+    <RecordField colName="" fieldIdRef="10" name="sfb89" sqlTabName="" table_alias_name="" uid="{903d78f5-1e3d-42c7-b286-546a4609ab35}"/>
+    <RecordField colName="" fieldIdRef="13" name="sfb05" sqlTabName="" table_alias_name="" uid="{454c15a9-be95-4d45-8d68-02049a3e6e41}"/>
+    <RecordField colName="" fieldIdRef="14" name="sfb06" sqlTabName="" table_alias_name="" uid="{9316d067-b00a-4a98-983c-c3e6a7d545f9}"/>
+    <RecordField colName="" fieldIdRef="15" name="ima02" sqlTabName="" table_alias_name="" uid="{bd213be6-bc59-4950-90ec-04d2735c3a1d}"/>
+    <RecordField colName="" fieldIdRef="16" name="ima021" sqlTabName="" table_alias_name="" uid="{2225f41c-94dd-497c-91aa-4d32f37eae4d}"/>
+    <RecordField colName="" fieldIdRef="17" name="sfb08" sqlTabName="" table_alias_name="" uid="{f82fda48-8127-40cb-bbe8-81fe20eaa933}"/>
+    <RecordField colName="" fieldIdRef="18" name="sfbud07" sqlTabName="" table_alias_name="" uid="{a37b129b-ee21-4731-8d4c-2b8158b75a52}"/>
+    <RecordField colName="" fieldIdRef="19" name="sfb13" sqlTabName="" table_alias_name="" uid="{24fdf8ad-0cba-4b6f-9e4d-9e9fa5816f5e}"/>
+    <RecordField colName="" fieldIdRef="20" name="sfb15" sqlTabName="" table_alias_name="" uid="{375075ee-ed51-4c24-8a3a-e64737c24d67}"/>
+    <RecordField colName="" fieldIdRef="21" name="sfbud08" sqlTabName="" table_alias_name="" uid="{6a306009-7b49-4339-ab89-af8ee2eca3e1}"/>
+    <RecordField colName="" fieldIdRef="22" name="sfbud09" sqlTabName="" table_alias_name="" uid="{eaac616f-a61f-4c68-b153-b9a943e4518b}"/>
+  </Record>
+  <Form gridHeight="18" gridWidth="268" lstrtext="true" name="asfp401" spacing="normal" text="asfp401">
+    <VBox gridHeight="18" gridWidth="268" name="vbox1" posX="0" posY="0">
+      <Folder gridHeight="14" gridWidth="268" name="pc127" posX="0" posY="1">
+        <Page name="page01" text="Main">
+          <VBox gridHeight="13" gridWidth="268" name="vbox2" posX="0" posY="0">
+            <Table gridHeight="11" gridWidth="268" name="s_sfb" posX="0" posY="1" totalRows="10">
+              <CheckBox aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="sure" columnCount="" fieldId="0" gridHeight="1" gridWidth="7" name="sure" notNull="true" posX="0" posY="0" required="true" rowCount="" sqlTabName="formonly" sqlType="VARCHAR" stepX="" stepY="" tabIndex="1" table_alias_name="" title="Select" valueChecked="Y" valueUnchecked="N" widget="CheckBox"/>
+              <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="sfb01" columnCount="" fieldId="1" fieldType="TABLE_COLUMN" gridHeight="1" gridWidth="15" image="zoom" name="sfb_file.sfb01" noEntry="true" notNull="true" posX="7" posY="0" required="true" rowCount="" sqlTabName="sfb_file" sqlType="VARCHAR" stepX="" stepY="" tabIndex="1" table_alias_name="" title="WO No." widget="ButtonEdit"/>
+              <ComboBox aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="2" gridHeight="1" gridWidth="10" items="1, 5, 7, 8, 11, 13, 15" name="sfb02" noEntry="true" posX="22" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="6" table_alias_name="" title="sfb02" widget="ComboBox">
+                <Item lstrtext="false" name="1" text="1"/>
+                <Item lstrtext="false" name="5" text="5"/>
+                <Item lstrtext="false" name="7" text="7"/>
+                <Item lstrtext="false" name="8" text="8"/>
+                <Item lstrtext="false" name="11" text="11"/>
+                <Item lstrtext="false" name="13" text="13"/>
+                <Item lstrtext="false" name="15" text="15"/>
+              </ComboBox>
+              <DateEdit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="3" gridHeight="1" gridWidth="11" name="sfb81" noEntry="true" posX="32" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="7" table_alias_name="" title="sfb81" widget="DateEdit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="4" gridHeight="1" gridWidth="8" name="sfb87" noEntry="true" posX="43" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="8" table_alias_name="" title="sfb87" widget="Edit"/>
+              <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="5" gridHeight="1" gridWidth="8" image="zoom" name="sfb44" noEntry="true" posX="51" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="9" table_alias_name="" title="sfb44" widget="ButtonEdit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="7" gridHeight="1" gridWidth="9" name="gen02" noEntry="true" posX="59" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="11" table_alias_name="" title="gen02" widget="Edit"/>
+              <ButtonEdit action="control" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="6" gridHeight="1" gridWidth="15" image="zoom" name="sfb22" noEntry="true" posX="68" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="10" table_alias_name="" title="sfb22" widget="ButtonEdit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="8" gridHeight="1" gridWidth="8" name="sfb221" noEntry="true" posX="83" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="12" table_alias_name="" title="sfb221" widget="Edit"/>
+              <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="9" gridHeight="1" gridWidth="15" image="zoom" name="sfb86" noEntry="true" posX="91" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="13" table_alias_name="" title="sfb86" widget="ButtonEdit"/>
+              <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="10" gridHeight="1" gridWidth="15" image="zoom" name="sfb89" noEntry="true" posX="106" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="14" table_alias_name="" title="sfb89" widget="ButtonEdit"/>
+              <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="13" gridHeight="1" gridWidth="10" image="zoom" name="sfb05" noEntry="true" posX="121" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="15" table_alias_name="" title="sfb05" widget="ButtonEdit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="14" gridHeight="1" gridWidth="8" name="sfb06" noEntry="true" posX="131" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="16" table_alias_name="" title="sfb06" widget="Edit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="15" gridHeight="1" gridWidth="14" name="ima02" noEntry="true" posX="139" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="17" table_alias_name="" title="ima02" widget="Edit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="16" gridHeight="1" gridWidth="16" name="ima021" noEntry="true" posX="153" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="18" table_alias_name="" title="ima021" widget="Edit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="17" gridHeight="1" gridWidth="13" name="sfb08" noEntry="true" posX="169" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="19" table_alias_name="" title="sfb08" widget="Edit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="18" gridHeight="1" gridWidth="14" name="sfbud07" noEntry="true" posX="182" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="20" table_alias_name="" title="sfbud07" widget="Edit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="19" gridHeight="1" gridWidth="11" name="sfb13" noEntry="true" posX="196" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="21" table_alias_name="" title="sfb13" widget="Edit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="20" gridHeight="1" gridWidth="11" name="sfb15" noEntry="true" posX="207" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="22" table_alias_name="" title="sfb15" widget="Edit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="21" gridHeight="1" gridWidth="11" name="sfbud08" noEntry="true" posX="218" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="23" table_alias_name="" title="sfbud08" widget="Edit"/>
+              <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="22" gridHeight="1" gridWidth="11" name="sfbud09" noEntry="true" posX="229" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="24" table_alias_name="" title="sfbud09" widget="Edit"/>
+            </Table>
+          </VBox>
+        </Page>
+      </Folder>
+      <Grid gridHeight="2" gridWidth="268" name="gr538" posX="0" posY="15">
+        <Button comment="Select All" gridHeight="1" gridWidth="14" name="select_all" posX="1" posY="0" tabIndex="2"/>
+        <Button comment="Cancel All" gridHeight="1" gridWidth="12" name="inverse" posX="18" posY="0" tabIndex="3"/>
+        <Label posX="54" posY="0" text="Select Counts"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="cn3" columnCount="" fieldId="11" gridHeight="1" gridWidth="10" name="cn3" noEntry="true" posX="75" posY="0" rowCount="" sqlTabName="formonly" sqlType="CHAR" stepX="" stepY="" tabIndex="4" table_alias_name="" widget="Edit"/>
+        <HLine gridWidth="10" name="HLine1" posX="1" posY="1"/>
+        <Label posX="11" posY="1" text="Rows"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="cn2" columnCount="" fieldId="12" gridHeight="1" gridWidth="6" name="cn2" noEntry="true" posX="17" posY="1" rowCount="" sqlTabName="formonly" sqlType="CHAR" stepX="" stepY="" tabIndex="5" table_alias_name="" widget="Edit"/>
+        <HLine gridWidth="10" name="HLine2" posX="25" posY="1"/>
+      </Grid>
+    </VBox>
+  </Form>
+  <DiagramLayout>
+    <![CDATA[AAAAAgAAAEwAewA4AGYAOQAzAGMAZQAxAGYALQBlAGEANQA1AC0ANAA0ADAAZgAtADgAOQA5AGIALQBhADgANwBkAGMAOQA4ADAAZgAxAGQAZgB9QG3gAAAAAADAAAAAAAAAAD9ok3S8an76AQAAAEwAewBkAGUANAA1ADgANwBlAGYALQA5ADgAMwA0AC0ANAA4AGQANAAtADkANAA4AGQALQA2AGYAZgA2ADkAZgA3AGMAYQBhADUAYgB9QCQAAAAAAABAVEAAAAAAAAAAAAAAAAAAAQAAAEwAewAyADQAZgBkAGYAOABhAGQALQAwAGMAYgBhAC0ANABiADYAZgAtADkAZQA0AGQALQA5AGUAOQBmAGEANQA4ADEANgBmADUAZQB9QCQAAAAAAABAebAAAAAAAAAAAAAAAAAAAQAAAEwAewBjADcAMwAxAGUAOAAwADgALQAzAGMANgA4AC0ANABmADEAOAAtAGEANwBkADkALQA3AGIAMwBhADkANABkADcANABkAGQAOAB9QCQAAAAAAABAQoAAAAAAAAAAAAAAAAAAAQAAAEwAewAyAGUAYQAzADAAZgA4ADAALQBlADgAZQAxAC0ANAAyAGQAYQAtAGEAOQAxADAALQBlADIAMABlAGUAYgBiAGIAOQA4AGEAYwB9QCQAAAAAAABAZ+AAAAAAAAAAAAAAAAAAAQAAAEwAewAyADUAOAA4ADYAYgAwADgALQBlADIANAA5AC0ANAA4AGMANQAtAGEAMgA2ADIALQA0AGEAMQA4AGIAYQAxADUAZQAyAGIAZgB9QCQAAAAAAABAZSAAAAAAAAAAAAAAAAAAAQAAAEwAewBhADMANwBiADEAMgA5AGIALQBlAGUAMgAxAC0ANAA3ADMAMQAtADgAZAA0AGMALQAyAGIAOAAxADUAOABiADcANQBhADUAMgB9QCQAAAAAAABAeFAAAAAAAAAAAAAAAAAAAQAAAEwAewA2AGEAMwAwADYAMAAwADkALQA3AGIANAA5AC0ANAAzADMAOQAtAGEAYgA4ADkALQBhAGYAOABlAGUAMgBlAGMAYQAzAGUAMQB9QCQAAAAAAABAfHAAAAAAAAAAAAAAAAAAAQAAAEwAewA2AGYAMwBlADMAOQBhAGIALQAzADUAMAAyAC0ANAA0ADcANgAtAGEAZAA5AGYALQAyADgANAA3ADQAYQAxADMAYgA2AGEAZAB9QCQAAAAAAABAQoAAAAAAAAAAAAAAAAAAAQAAAEwAewA5ADMAMQA2AGQAMAA2ADcALQBiADAAMABhAC0ANABhADkAOAAtADkAOAAzAGMALQBjADMAZQA2AGEANwBkADUANAA1AGYAOQB9QCQAAAAAAABActAAAAAAAAAAAAAAAAAAAQAAAEwAewBmADgAMgBmAGQAYQA0ADgALQA4ADEAMgA3AC0ANAAwAGMAYgAtAGIAYgBlADgALQA4ADEAZgBlADIAMABlAGEAYQA5ADMAMwB9QCQAAAAAAABAdvAAAAAAAAAAAAAAAAAAAQAAAEwAewA0ADQAMQAyADkAMABmADAALQA4ADIANQAyAC0ANAA1AGIAMwAtADgANQBmADQALQA4ADUANwA1ADgANAAxAGQAMQA0ADAAYQB9QCQAAAAAAABAaqAAAAAAAAAAAAAAAAAAAQAAAEwAewAyAGUAOABiADIAOQBhADMALQBhADgAZABhAC0ANABmADIANgAtAGIAMAAyADYALQA4ADcAZgA4AGQAOABkADIAMwAzAGEAMAB9QCQAAAAAAABAbWAAAAAAAAAAAAAAAAAAAQAAAEwAewBlAGEAYQBjADYAMQA2AGYALQBhADYAMQBmAC0ANABjADYAOAAtAGIAMQA1ADMALQBiADkAYQA5ADQAMwBlADQANQAxADgAYgB9QCQAAAAAAABAfdAAAAAAAAAAAAAAAAAAAQAAAEwAewAyADIAMgA1AGYANAAxAGMALQA5ADQAZABkAC0ANAA5ADcAYwAtADkAMQBhAGEALQA0AGQAMwAyAGYAMwA3AGUAYQBlADQAZAB9QCQAAAAAAABAdZAAAAAAAAAAAAAAAAAAAQAAAEwAewA4ADEANwAwADkAMwBmAGMALQBjAGIAMgA4AC0ANAAzADkAZgAtAGIAYgA1AGEALQA5AGUAOQAxADMANwA0ADAAZgA2AGEAZQB9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAEwAewBmAGQAZgBkADcAYgA3ADkALQBiAGUANwAxAC0ANABiAGEAOQAtAGEAZQA2ADUALQAzAGMAYwBlAGQAMgA1ADEAYwAxAGEAOQB9QCQAAAAAAABAWcAAAAAAAAAAAAAAAAAAAQAAAEwAewA3ADYAZQBiADcANQBlAGQALQAwADcAMwA4AC0ANABhADkAYQAtADgAMwA3ADkALQA4ADcAZQBiADcAOABhAGYAZgAwAGEAYwB9QCQAAAAAAABAYmAAAAAAAAAAAAAAAAAAAQAAAEwAewAzADcANQAwADcANQBlAGUALQBlAGQANQAxAC0ANABjADIANAAtADgAYQAzAGEALQBlADYANAA3ADMANwBjADIANABkADYANwB9QCQAAAAAAABAexAAAAAAAAAAAAAAAAAAAQAAAEwAewBjAGYAMQBlADcAMABlADcALQBjADEAYwBiAC0ANAA1AGYAOAAtADgAMgA0AGQALQBhADYAYQA5AGQAYwBkADEANgA4AGMANAB9QCQAAAAAAABAX0AAAAAAAAAAAAAAAAAAAQAAAEwAewA0ADUANABjADEANQBhADkALQBiAGUAOQA1AC0ANABkADQANQAtADgAZAA2ADgALQAwADIAMAA0ADkAYQAzAGUANgBlADQAMQB9QCQAAAAAAABAcXAAAAAAAAAAAAAAAAAAAQAAAEwAewBiAGQAMgAxADMAYgBlADYALQBiAGMANQA5AC0ANAA5ADUAMAAtADkAMABlAGMALQAwADQAZAAyADcAMwA1AGMAMwBhADEAZAB9QCQAAAAAAABAdDAAAAAAAAAAAAAAAAAAAQAAAEwAewAzADkAZABkADEANgA1ADYALQA5AGEAZgAyAC0ANABiAGMAYQAtAGIAMgBmAGQALQBiADYANAAyADIAZgBkADgAZQBhAGQAZQB9QCQAAAAAAABATYAAAAAAAAAAAAAAAAAAAQAAAEwAewAxADIANgA3AGMAMQBjAGEALQBlADUAZAA4AC0ANAAwADYAZQAtAGIAOAA0ADgALQA0ADcAZQBmAGQAZgA5ADQAYgAzADIANQB9QCQAAAAAAABATYAAAAAAAAAAAAAAAAAAAQAAAEwAewA5ADAAMwBkADcAOABmADUALQAxAGUAMwBkAC0ANAAyAGMANwAtAGIAMgA4ADYALQA1ADQANgBhADQANgAwADkAYQBiADMANQB9QCQAAAAAAABAcBAAAAAAAAAAAAAAAAAAAQ==]]>
+  </DiagramLayout>
+</ManagedForm>

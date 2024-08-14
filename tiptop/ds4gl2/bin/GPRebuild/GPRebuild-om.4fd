@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm databaseName="ds" gstVersion="21e00" name="Root" uid="{7e532eca-41b0-4b23-b1a6-fdc386c7a59e}">
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="s_hjr" order="" uid="{333e9647-b28a-4dc9-b2fb-2c952bd2507a}" where="">
+    <RecordField colName="hjr01" fieldIdRef="1" fieldType="TABLE_COLUMN" name="hjr_file.hjr01" sqlTabName="hjr_file" sqlType="VARCHAR" table_alias_name="" uid="{302a0b6e-3089-49dd-9674-2e67aeb7e421}"/>
+    <RecordField colName="hjr07" fieldIdRef="2" fieldType="TABLE_COLUMN" name="hjr_file.hjr07" sqlTabName="hjr_file" sqlType="VARCHAR" table_alias_name="" uid="{68f4f37c-eb88-4c13-b675-565f8b926f72}"/>
+  </Record>
+  <Form gridHeight="25" gridWidth="80" name="Form" text="Form">
+    <ActionDefaultList name="ActionDefaultList1">
+      <ActionDefault name="accept" text="View"/>
+      <ActionDefault name="cancel" text="Exit"/>
+      <ActionDefault name="remove_data" text="Remove The Record"/>
+    </ActionDefaultList>
+    <Table gridHeight="12" gridWidth="30" name="ds1" posX="5" posY="2" totalRows="10">
+      <Edit colName="hjr07" columnCount="" fieldId="2" fieldType="TABLE_COLUMN" gridHeight="1" gridWidth="12" name="hjr_file.hjr07" posX="0" posY="0" rowCount="" sqlTabName="hjr_file" sqlType="VARCHAR" stepX="" stepY="" tabIndex="2" table_alias_name="" title="Date" widget="Edit"/>
+      <Edit colName="hjr01" columnCount="" fieldId="1" fieldType="TABLE_COLUMN" gridHeight="1" gridWidth="11" name="hjr_file.hjr01" notNull="true" posX="12" posY="0" rowCount="" sqlTabName="hjr_file" sqlType="VARCHAR" stepX="" stepY="" tabIndex="1" table_alias_name="" title="ProcessID" widget="Edit"/>
+    </Table>
+  </Form>
+  <DiagramLayout>
+    <![CDATA[AAAAAgAAAEwAewA2ADgAZgA0AGYAMwA3AGMALQBlAGIAOAA4AC0ANABjADEAMwAtAGIANgA3ADUALQA1ADYANQBmADgAYgA5ADIANgBmADcAMgB9QBQAAAAAAABARwAAAAAAAAAAAAAAAAAAAQAAAEwAewAzADMAMwBlADkANgA0ADcALQBiADIAOABhAC0ANABkAGMAOQAtAGIAMgBmAGIALQAyAGMAOQA1ADIAYgBkADIANQAwADcAYQB9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAEwAewAzADAAMgBhADAAYgA2AGUALQAzADAAOAA5AC0ANAA5AGQAZAAtADkANgA3ADQALQAyAGUANgA3AGEAZQBiADcAZQA0ADIAMQB9QBQAAAAAAABAOAAAAAAAAAAAAAAAAAAAAQ==]]>
+  </DiagramLayout>
+</ManagedForm>

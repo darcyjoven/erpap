@@ -1,0 +1,64 @@
+SCHEMA FORMONLY
+
+LAYOUT
+  GRID
+    {
+     原來的字串          [original_str                  ]
+     新字串              [new_str                       ]
+     要轉換哪個語言別資料[lang                          ]
+    [view_list]
+    <G group01                           >
+    [gaz                           ]
+    [gae                           ]
+    [gbd                           ]
+    [gat                           ]
+    [gaq                           ]
+    [ze                            ]
+     ------------------------------------ 
+    [zaa                           ]
+    [zab                           ]
+     ------------------------------------ 
+    [gbf                           ]
+    [gbp                           ]
+     ------------------------------------ 
+    [gba                           ]
+    [gbb                           ]
+    }
+  END
+END
+
+ATTRIBUTES
+  GROUP      group01      : group01, TEXT = "Convert Table";
+             original_str = FORMONLY.original_str;
+             new_str      = FORMONLY.new_str;
+  COMBOBOX   lang         = FORMONLY.lang, NOT NULL, REQUIRED,
+                            ITEMS=(("0","Traditional Chinese"),("1","English"),("2","Simplified Chinese"));
+  BUTTON     view_list    : view_list,TEXT="View list";
+  CHECKBOX   gaz          = FORMONLY.gaz, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_zz name (gaz_file)";
+  CHECKBOX   gae          = FORMONLY.gae, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_perlang (gae_file)";
+  CHECKBOX   gbd          = FORMONLY.gbd, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_all_act (gbd_file)";
+  CHECKBOX   gat          = FORMONLY.gat, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_tabname (gat_file)";
+  CHECKBOX   gaq          = FORMONLY.gaq, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_feldname (gaq_file)";
+  CHECKBOX   ze           = FORMONLY.ze, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_ze (ze_file)";
+
+  CHECKBOX   zaa          = FORMONLY.zaa, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_zaa (zaa_file)";
+  CHECKBOX   zab          = FORMONLY.zab, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_zab (zab_file)";
+
+  CHECKBOX   gbf          = FORMONLY.gbf, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_help feature (gbf_file)";
+  CHECKBOX   gbp          = FORMONLY.gbp, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_help purpose (gbp_file)";
+
+  CHECKBOX   gba          = FORMONLY.gba, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_sop (gba_file)";
+  CHECKBOX   gbb          = FORMONLY.gbb, NOT NULL, REQUIRED,
+                            VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="p_sop (gbb_file)";
+END

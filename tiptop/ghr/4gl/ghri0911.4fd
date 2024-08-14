@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm gstVersion="21e00" name="ManagedForm" uid="{6143f566-d423-400f-b4ab-63de695fe201}">
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="undefined" order="" uid="{3d3ce102-9a2d-4e65-8d9b-902f5daa353c}" where="">
+    <RecordField colName="cn2" fieldIdRef="8" name="cn2" sqlTabName="formonly" sqlType="INTEGER" table_alias_name="" uid="{82c330e4-9b53-4fbe-9e86-9e4d1021c8ee}"/>
+    <RecordField colName="hrdw03" fieldIdRef="0" name="hrdw03" sqlTabName="formonly" sqlType="VARCHAR" table_alias_name="" uid="{6b24373b-bde6-4b53-bc04-ddc51982d358}"/>
+    <RecordField colName="" fieldIdRef="9" name="hrat01" sqlTabName="" table_alias_name="" uid="{5e139cf7-067c-4e35-a940-1cada75ffc3a}"/>
+  </Record>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="s_hrdu" order="" uid="{24099c06-92da-41ea-b003-6e9d91e99452}" where="">
+    <RecordField colName="hrdu01" fieldIdRef="1" name="hrdu01" sqlTabName="formonly" sqlType="VARCHAR" table_alias_name="" uid="{48233752-3e98-4288-b056-371e7f591949}"/>
+    <RecordField colName="hrat02" fieldIdRef="2" name="hrat02" sqlTabName="formonly" sqlType="VARCHAR" table_alias_name="" uid="{4fba1388-850b-451d-8f7b-4d57ff1b1e71}"/>
+    <RecordField colName="hrat04" fieldIdRef="3" name="hrat04" sqlTabName="formonly" sqlType="VARCHAR" table_alias_name="" uid="{56384c0f-a1b8-4d6d-afa0-e65cff3e4e98}"/>
+    <RecordField colName="hrat05" fieldIdRef="4" name="hrat05" sqlTabName="formonly" sqlType="VARCHAR" table_alias_name="" uid="{7206d1a5-6f60-4691-8619-da2fed80e3c7}"/>
+    <RecordField colName="hrat25" fieldIdRef="5" name="hrat25" sqlTabName="formonly" sqlType="DATE" table_alias_name="" uid="{a6d33e74-1c73-473e-a42f-257e5219a6ab}"/>
+    <RecordField colName="hrat03" fieldIdRef="6" name="hrat03" sqlTabName="formonly" sqlType="VARCHAR" table_alias_name="" uid="{64302de0-966d-42c7-8754-7d11d06190b1}"/>
+    <RecordField colName="hrat19" fieldIdRef="7" name="hrat19" sqlTabName="formonly" sqlType="VARCHAR" table_alias_name="" uid="{e298cc21-3612-4ae3-92b3-c700675f94f3}"/>
+  </Record>
+  <Form gridHeight="20" gridWidth="91" lstrtext="true" name="ghri0911" text="Form">
+    <VBox gridHeight="20" gridWidth="91" name="vbox1" posX="0" posY="0">
+      <Folder gridHeight="16" gridWidth="91" name="folder1" posX="0" posY="1">
+        <Page lstrtext="true" name="page1" text="Page1">
+          <Grid gridHeight="15" gridWidth="91" name="grid1" posX="0" posY="0">
+            <Group gridHeight="3" gridWidth="90" lstrtext="true" name="group1" posX="1" posY="0" text="Group1">
+              <Label posX="2" posY="1" text="hrdw03"/>
+              <ButtonEdit action="controlp" colName="hrdw03" columnCount="" fieldId="0" gridHeight="1" gridWidth="20" image="zoom" name="hrdw03" notNull="true" posX="9" posY="1" required="true" rowCount="" sqlTabName="formonly" sqlType="VARCHAR" stepX="" stepY="" tabIndex="5" table_alias_name="" widget="ButtonEdit"/>
+              <Label gridHeight="1" gridWidth="10" name="Label1" posX="36" posY="1" text="hrat01"/>
+              <ButtonEdit action="controlp" colName="" columnCount="" fieldId="9" gridHeight="1" gridWidth="17" image="zoom" name="hrat01" notNull="true" posX="48" posY="1" required="true" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="11" table_alias_name="" title="ButtonEdit1" widget="ButtonEdit"/>
+            </Group>
+            <Button gridHeight="1" gridWidth="12" lstrtext="true" name="count" posX="2" posY="3" tabIndex="1" text="count"/>
+            <Group gridHeight="10" gridWidth="90" lstrtext="true" name="group2" posX="1" posY="4" text="Group2">
+              <Table gridHeight="8" gridWidth="87" name="table1" posX="1" posY="1" totalRows="5" unitWidth="characters" width="87">
+                <Edit colName="hrdu01" columnCount="" fieldId="1" gridHeight="1" gridWidth="8" name="hrdu01" noEntry="true" posX="0" posY="0" rowCount="" sqlTabName="formonly" sqlType="VARCHAR" stepX="" stepY="" tabIndex="2" table_alias_name="" title="hrdu01" widget="Edit"/>
+                <Edit colName="hrat02" columnCount="" fieldId="2" gridHeight="1" gridWidth="8" name="hrat02" noEntry="true" posX="8" posY="0" rowCount="" sqlTabName="formonly" sqlType="VARCHAR" stepX="" stepY="" tabIndex="3" table_alias_name="" title="hrat02" widget="Edit"/>
+                <Edit colName="hrat04" columnCount="" fieldId="3" gridHeight="1" gridWidth="8" name="hrat04" noEntry="true" posX="16" posY="0" rowCount="" sqlTabName="formonly" sqlType="VARCHAR" stepX="" stepY="" tabIndex="6" table_alias_name="" title="hrat04" widget="Edit"/>
+                <Edit colName="hrat05" columnCount="" fieldId="4" gridHeight="1" gridWidth="8" name="hrat05" noEntry="true" posX="24" posY="0" rowCount="" sqlTabName="formonly" sqlType="VARCHAR" stepX="" stepY="" tabIndex="7" table_alias_name="" title="hrat05" widget="Edit"/>
+                <DateEdit colName="hrat25" columnCount="" fieldId="5" gridHeight="1" gridWidth="8" name="hrat25" noEntry="true" posX="32" posY="0" rowCount="" sqlTabName="formonly" sqlType="DATE" stepX="" stepY="" tabIndex="8" table_alias_name="" title="hrat25" widget="DateEdit"/>
+                <Edit colName="hrat03" columnCount="" fieldId="6" gridHeight="1" gridWidth="15" name="hrat03" noEntry="true" posX="40" posY="0" rowCount="" sqlTabName="formonly" sqlType="VARCHAR" stepX="" stepY="" tabIndex="9" table_alias_name="" title="hrat03" widget="Edit"/>
+                <Edit colName="hrat19" columnCount="" fieldId="7" gridHeight="1" gridWidth="8" name="hrat19" noEntry="true" posX="55" posY="0" rowCount="" sqlTabName="formonly" sqlType="VARCHAR" stepX="" stepY="" tabIndex="10" table_alias_name="" title="hrat19" widget="Edit"/>
+              </Table>
+            </Group>
+          </Grid>
+        </Page>
+      </Folder>
+      <Grid gridHeight="2" gridWidth="91" name="grid2" posX="0" posY="17">
+        <HLine gridWidth="10" name="HLine1" posX="2" posY="0"/>
+        <Label posX="13" posY="0" text="cn2"/>
+        <Edit colName="cn2" columnCount="" fieldId="8" gridHeight="1" gridWidth="3" name="cn2" noEntry="true" posX="17" posY="0" rowCount="" sqlTabName="formonly" sqlType="INTEGER" stepX="" stepY="" tabIndex="4" table_alias_name="" widget="Edit"/>
+        <HLine gridWidth="12" name="HLine2" posX="21" posY="0"/>
+      </Grid>
+    </VBox>
+  </Form>
+  <DiagramLayout>
+    <![CDATA[AAAAAgAAAEwAewAyADQAMAA5ADkAYwAwADYALQA5ADIAZABhAC0ANAAxAGUAYQAtAGIAMAAwADMALQA2AGUAOQBkADkAMQBlADkAOQA0ADUAMgB9wHhgAAAAAAAAAAAAAAAAAD9gYk3S8an8AQAAAEwAewA1ADYAMwA4ADQAYwAwAGYALQBhADEAYgA4AC0ANABkADYAZAAtAGEAZgBhADAALQBlADYANQBjAGYAZgAzAGUANABlADkAOAB9QBQAAAAAAABAUQAAAAAAAAAAAAAAAAAAAQAAAEwAewA2ADQAMwAwADIAZABlADAALQA5ADYANgBkAC0ANAAyAGMANwAtADgANwA1ADQALQA3AGQAMQAxAGQAMAA2ADEAOQAwAGIAMQB9QBQAAAAAAABAYMAAAAAAAAAAAAAAAAAAAQAAAEwAewA1AGUAMQAzADkAYwBmADcALQAwADYANwBjAC0ANABlADMANQAtAGEAOQA0ADAALQAxAGMAYQBkAGEANwA1AGYAZgBjADMAYQB9QBQAAAAAAABAUQAAAAAAAD9ok3S8an76AQAAAEwAewA3ADIAMAA2AGQAMQBhADUALQA2AGYANgAwAC0ANAA2ADkAMQAtADgANgAxADkALQBkAGEAMgBmAGUAZAA4ADAAZQAzAGMANwB9QBQAAAAAAABAVoAAAAAAAAAAAAAAAAAAAQAAAEwAewA0ADgAMgAzADMANwA1ADIALQAzAGUAOQA4AC0ANAAyADgAOAAtAGIAMAA1ADYALQAzADcAMQBlADcAZgA1ADkAMQA5ADQAOQB9QBQAAAAAAABAOAAAAAAAAAAAAAAAAAAAAQAAAEwAewBlADIAOQA4AGMAYwAyADEALQAzADYAMQAyAC0ANABhAGUAMwAtADkAMgBiADMALQBjADcAMAAwADYANwA1AGYAOQA0AGYAMwB9QBQAAAAAAABAY4AAAAAAAAAAAAAAAAAAAQAAAEwAewAzAGQAMwBjAGUAMQAwADIALQA5AGEAMgBkAC0ANABlADYANQAtADgAZAA5AGIALQA5ADAAMgBmADUAZABhAGEAMwA1ADMAYwB9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAEwAewA4ADIAYwAzADMAMABlADQALQA5AGIANQAzAC0ANABmAGIAZQAtADkAZQA4ADYALQA5AGUANABkADEAMAAyADEAYwA4AGUAZQB9QBQAAAAAAABAOAAAAAAAAAAAAAAAAAAAAQAAAEwAewBhADYAZAAzADMAZQA3ADQALQAxAGMANwAzAC0ANAA3ADMAZQAtAGEANAAyAGYALQAyADUANwBlADUAMgAxADkAYQA2AGEAYgB9QBQAAAAAAABAXAAAAAAAAAAAAAAAAAAAAQAAAEwAewA0AGYAYgBhADEAMwA4ADgALQA4ADUAMABiAC0ANAA1ADEAZAAtADgAZgA3AGIALQA0AGQANQA3AGYAZgAxAGIAMQBlADcAMQB9QBQAAAAAAABARwAAAAAAAAAAAAAAAAAAAQAAAEwAewA2AGIAMgA0ADMANwAzAGIALQBiAGQAZQA2AC0ANABiADUAMwAtAGIAYwAwADQALQBkAGQAYwA1ADEAOQA4ADIAZAAzADUAOAB9QBQAAAAAAABARwAAAAAAAAAAAAAAAAAAAQ==]]>
+  </DiagramLayout>
+</ManagedForm>

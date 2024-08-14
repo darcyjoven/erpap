@@ -1,0 +1,142 @@
+SCHEMA ds
+
+LAYOUT (TEXT="TIPTOP GP Genero License Analizer(TM)")
+  FOLDER
+  PAGE page01 (TEXT="Utility Plot")
+  VBOX
+    GRID
+      {
+      <G group01                                        >
+       Query Date From [start             ][btn01]
+      [type                               ]       [btnex]
+      }
+    END --GRID
+    FOLDER
+    PAGE page11 (TEXT="Runtime Request Counts/10 mins")
+      GRID
+        {
+        [ca01                                                                                          ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        }
+      END --GRID
+    END --PAGE
+    PAGE page12 (TEXT="Compiler Request Counts/10 mins")
+      GRID
+        {
+        [ca02                                                                                          ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        }
+      END --GRID
+    END --PAGE
+    PAGE page13 (TEXT="Occupied/10 mins")
+      GRID
+        {
+        [ca03                                                                                          ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        [                                                                                              ]
+        }
+      END --GRID
+    END --PAGE
+    PAGE page14 (TEXT="ROW Data")
+    TABLE
+      {
+       SN     time                      RT_acccept  Cmp_accept  Occup  Total  Memo
+      [hja01][hja02                   ][hja03     ][hja06     ][hja20][hja21][hja19            ]
+      [hja01][hja02                   ][hja03     ][hja06     ][hja20][hja21][hja19            ]
+      [hja01][hja02                   ][hja03     ][hja06     ][hja20][hja21][hja19            ]
+      [hja01][hja02                   ][hja03     ][hja06     ][hja20][hja21][hja19            ]
+      [hja01][hja02                   ][hja03     ][hja06     ][hja20][hja21][hja19            ]
+      [hja01][hja02                   ][hja03     ][hja06     ][hja20][hja21][hja19            ]
+      [hja01][hja02                   ][hja03     ][hja06     ][hja20][hja21][hja19            ]
+      [hja01][hja02                   ][hja03     ][hja06     ][hja20][hja21][hja19            ]
+      [hja01][hja02                   ][hja03     ][hja06     ][hja20][hja21][hja19            ]
+      }
+    END --TABLE
+    END --PAGE
+    END --FOLDER
+  END --VBOX
+  END --PAGE
+  PAGE page02 (TEXT="System Infomation")
+  GRID
+  {
+  [textb01                                                                     ]
+  [                                                                            ]
+  ------------------------------------------------------------------------------
+  [btn_toolversion][btn_envvirable][btn_showusers]                       [btne1]
+  }
+  END --GRID
+  END --PAGE
+  END --FOLDER
+END --LAYOUT
+
+TABLES hja_file
+
+ATTRIBUTES
+  GROUP      group01 : group01, TEXT="Input";
+  DATEEDIT   start   = FORMONLY.start;
+  RADIOGROUP type    = FORMONLY.type,
+                       ITEMS=(("0","Appointed Date"),("1","Include Yesterday"),
+		              ("5","Include Last 5 Days")) ;
+  BUTTON     btn01   : btn01, TEXT="Query";
+  BUTTON     btnex   : btnex, TEXT="Exit";
+  BUTTON     btne1   : btnex, TEXT="Exit";
+  BUTTON     btn_toolversion : btn02,TEXT="Show Tool Version";
+  BUTTON     btn_envvirable  : btn03,TEXT="Show Environment Variables";
+  BUTTON     btn_showusers   : btn04,TEXT="Show Online Users";
+             hja01   = hja01;
+             hja02   = hja02;
+             hja03   = hja03;
+             hja06   = hja06;
+             hja20   = hja20;
+             hja21   = hja21;
+             hja19   = hja19;
+  TEXTEDIT   textb01 = FORMONLY.textbox01;
+  CANVAS     ca01    : canvas01;
+  CANVAS     ca02    : canvas02;
+  CANVAS     ca03    : canvas03;
+END
+
+INSTRUCTIONS
+   SCREEN RECORD s_hja[10](hja01,hja02,hja03,hja06,hja20,hja21,hja19)
+END

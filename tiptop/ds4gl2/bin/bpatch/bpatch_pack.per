@@ -1,0 +1,66 @@
+LAYOUT
+  VBOX
+    GROUP
+      GRID
+        {
+         Old Version        [old_ver        ]    New Version [new_ver        ]
+         DB & Language      [type_sel                                        ]
+         Program File Path  [progfile_path                                   ]
+        [dummy99]
+        ------------------------------------------------------------------------
+        [dummy98]
+        [img01] [dummy01                         ]
+        [img02] [dummy02                         ]    [alter_schema   ]
+        [img03] [dummy03                         ]
+        [img04] [dummy04                         ]    [data_fill      ]
+        [img05] [dummy05                         ]
+        [img06] [dummy06                         ]
+                [dummy07 ][dummy08                                    ]
+        <G group02                                                             >
+        [download_file                              ]
+        [                                           ]
+        [                                           ]
+        [                                           ] [download]
+        }
+      END
+    END
+  END
+END
+
+ATTRIBUTES
+           old_ver       = FORMONLY.old_ver;
+           new_ver       = FORMONLY.new_ver;
+  COMBOBOX type_sel      = FORMONLY.type_sel, NOT NULL,
+                           ITEMS=(("A","Oracle_Chinese_Big5"),
+#                                 ("B","Oracle_Chinese_GB"),
+                                  ("C","Oracle_Chinese_Unicode"),
+                                  ("D","Oracle_Ch&En_Big5"),
+#                                 ("E","Oracle_Ch&En_GB"),
+                                  ("F","Oracle_Ch&En_Unicode"),
+                                  ("G","Informix_Chinese_Big5"),
+#                                 ("H","Informix_Chinese_GB"),
+                                  ("I","Informix_Ch&En_Big5"),
+#                                 ("J","Informix_Ch&En_GB"),
+                                  ("Z","Select All"));
+           progfile_path = FORMONLY.progfile_path;
+  IMAGE    img01         = FORMONLY.img01, STYLE="imageresult";
+  IMAGE    img02         = FORMONLY.img02, STYLE="imageresult";
+  IMAGE    img03         = FORMONLY.img03, STYLE="imageresult";
+  IMAGE    img04         = FORMONLY.img04, STYLE="imageresult";
+  IMAGE    img05         = FORMONLY.img05, STYLE="imageresult";
+  IMAGE    img06         = FORMONLY.img06, STYLE="imageresult";
+  LABEL    dummy01       : dummy01, TEXT = "Pack All TIPTOP System File", STYLE="process";
+  LABEL    dummy02       : dummy02, TEXT = "Pack All Alter Schema", STYLE="process";
+  LABEL    dummy03       : dummy03, TEXT = "Pack All Standard Data", STYLE="process";
+  LABEL    dummy04       : dummy04, TEXT = "Produce Data Fill Tool", STYLE="process";
+  LABEL    dummy05       : dummy05, TEXT = "Pack All File of Patch", STYLE="process";
+  LABEL    dummy06       : dummy06, TEXT = "Produce Automatic Execute Shell", STYLE="process";
+  LABEL    dummy07       = FORMONLY.dummy07, STYLE="result";
+  LABEL    dummy08       : dummy08, TEXT = ".........Select which directory to download", STYLE="process";
+  LABEL    dummy98       : dummy98, TEXT = "";
+  LABEL    dummy99       : dummy99, TEXT = "";
+  BUTTON   data_fill     : data_fill, TEXT = "Data Fill List";
+  BUTTON   alter_schema  : alter_schema, TEXT = "Alter Schema List";
+  BUTTON   download      : download, TEXT = "Download";
+  TEXTEDIT download_file = FORMONLY.download_file, SCROLLBARS=NONE, STYLE="filelist";
+  GROUP    group02       : group02, TEXT = "File List";

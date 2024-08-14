@@ -1,0 +1,54 @@
+# Modify.........: No:FUN-E50050 14/05/16 By AndyHuang optimize program,add excel output
+DATABASE ds
+
+LAYOUT
+VBox
+Grid
+{
+ RUN_ALL_TIME[ alltime    ]
+}
+END -- Grid
+# ---FUN-E50050 start---
+TABLE
+{
+ RANK		RUN_TIME 	RUN_NUM		AVG_TIME	RUN_LINE	PROG_NAME	SQL_STMT
+[f001		|f002		|f003		|f004		|f005		|f006		|f007]
+[f001		|f002		|f003		|f004		|f005		|f006		|f007]
+[f001		|f002		|f003		|f004		|f005		|f006		|f007]
+[f001		|f002		|f003		|f004		|f005		|f006		|f007]
+[f001		|f002		|f003		|f004		|f005		|f006		|f007]
+[f001		|f002		|f003		|f004		|f005		|f006		|f007]
+}
+# ---FUN-E50050 end---
+END -- Table
+END -- VBox
+END -- Form
+
+TABLES
+type_file
+END
+
+ATTRIBUTES
+f001 = type_file.NUM5;	# FUN-E50050
+f002 = type_file.NUM20_6;
+f003 = type_file.NUM20;
+f004 = type_file.NUM26_10;
+f005 = type_file.NUM10;
+f006 = type_file.CHR50;
+f007 = type_file.BLOB;	# FUN-E50050
+Edit alltime=formonly.alltime type DECIMAL(10,5), tabIndex=1, noEntry;
+END
+
+INSTRUCTIONS
+DELIMITERS "||";
+SCREEN RECORD srec[6] (
+       type_file.NUM5,	# FUN-E50050
+       type_file.NUM20_6,
+       type_file.NUM20,
+       type_file.NUM26_10,
+       type_file.NUM10,
+       type_file.CHR50,
+       type_file.BLOB	# FUN-E50050
+       );
+SCREEN RECORD Undefined(formonly.alltime);
+END

@@ -1,0 +1,51 @@
+SCHEMA ds
+
+LAYOUT( TEXT="Report Viewer")
+  VBOX 
+    FOLDER pc164
+      PAGE page01( TEXT="Content")
+        GRID gr646
+        {
+         [aa0                                                                                                                               ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+         [                                                                                                                                  ]
+
+        }
+        END -- GRID
+      END -- PAGE
+    END -- FOLDER
+    GRID gr647
+    {
+     [a0][a1][aa1  ]/[aa2  ][a2][a3]["                                      "][aa4   ]
+
+    }
+    END -- GRID
+  END -- VBOX
+END
+ATTRIBUTES
+  TEXTEDIT aa0=FORMONLY.content, NOENTRY, SCROLLBARS=BOTH, STRETCH=BOTH, STYLE="fixedFont", TABINDEX=1;
+  BUTTON a0 : first_page, COMMENT="First Page", IMAGE="gobegin";
+  BUTTON a1 : prev_page, COMMENT="Previous Page", IMAGE="prev";
+  EDIT aa1=FORMONLY.curr, TABINDEX=2;
+  EDIT aa2=FORMONLY.total, NOENTRY, TABINDEX=3;
+  BUTTON a2 : next_page, COMMENT="Next Page", IMAGE="next";
+  BUTTON a3 : last_page, COMMENT="Last Page", IMAGE="goend";
+  BUTTON aa4 : cancel, TEXT="Exit";
+END

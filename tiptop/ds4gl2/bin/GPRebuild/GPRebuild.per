@@ -1,0 +1,134 @@
+----------------------------------------------------------------------------------
+-- $Id:  /u3/top/ds4gl2/bin/GPRebuild/GPRebuild.tmp.per created 2010-05-20T16:23:59
+-- File created from /u3/top/ds4gl2/bin/GPRebuild/GPRebuild.4fd by Genero Studio 21403
+-- Copyright (c) 2002-2010  Four J's Development Tools.  All rights reserved.
+----------------------------------------------------------------------------------
+-- WARNING! All changes made in this file will be lost!
+----------------------------------------------------------------------------------
+SCHEMA formonly
+
+
+
+
+LAYOUT(text=%"GPRebuild")
+VBox vb2                                                           
+Folder pc1                                                         
+Page page1(text=%"Basic Setting")                                  
+VBox vb5                                                           
+Grid gr1                                                           
+{                                                                  
+                                                                   
+ <G group01                                                      > 
+   Rebuilding Area     [dummy03                                ]   
+   TIPTOP System Path  [dummy01                                ]   
+   Customization Path  [dummy02                                ]   
+ <                                                               > 
+ <G gb4                                                          > 
+  [du04_s              ] [du04_c       ]     [du04_l        ]      
+  [du04_t      ]         [du04_f        ]                          
+ <                                                               > 
+}                                                                  
+END                                                                
+HBox hb4                                                           
+Table s_disable                                                    
+{                                                                  
+[gao01_d            ]                                              
+[gao01_d            ]                                              
+[gao01_d            ]                                              
+[gao01_d            ]                                              
+}                                                                  
+END -- Table                                                       
+Grid gr4_                                                          
+{                                                                  
+                                                                   
+  [btn_selall      ]                                               
+  [btn_select      ]                                               
+  [btn_disable     ]                                               
+  [btn_disall      ]                                               
+}                                                                  
+END                                                                
+Table s_select                                                     
+{                                                                  
+[gao01_s          ]                                                
+[gao01_s          ]                                                
+[gao01_s          ]                                                
+                                                                   
+}                                                                  
+END -- Table                                                       
+END -- HBox                                                        
+END -- VBox                                                        
+END -- Page                                                        
+Page page2(text=%"Advance Setting")                                
+Grid gr5                                                           
+{                                                                  
+                                                                   
+ [bgjob               ]                                            
+ [remove              ]                                            
+ [sendmail                  ]                                      
+   [sendmail_addr                                            ]     
+  Rebuild Log File[dummy06                                   ]     
+                                                                   
+   [label1    ][processor            ]                             
+                                                                   
+                                                                   
+                                                                   
+                                                                   
+}                                                                  
+END                                                                
+                                                                   
+                                                                   
+END -- Page                                                        
+END -- Folder                                                      
+Grid gr4                                                           
+{                                                                  
+ <G group03                                                       >
+                Start From [dummy07    ] TO [dummy08    ]          
+  Current Step:[curr01                                          ]  
+ [progs01                                                       ]  
+  Current Module: [curr02                                       ]  
+ [progs02                                                       ]  
+ <                                                                >
+}                                                                  
+END                                                                
+END -- VBox                                                        
+END -- Form
+
+
+ATTRIBUTES
+Group group01:group01, text=%"Rebuild Defination", gridChildrenInParent;
+ComboBox dummy03=formonly.dummy03, tabIndex=1, not null, required, color = blue, items=(("T", %"TIPTOP GP Standard Area"),("C", %"TIPTOP GP Customized Area"),("S", %"TIPTOP GP 42x System Only"),("F", %"TIPTOP GP Full Area"));
+Edit dummy01=formonly.dummy01, tabIndex=2, noEntry, not null, required;
+Edit dummy02=formonly.dummy02, tabIndex=3, noEntry, not null, required;
+Group gb4:gb4, text=%"Rebuild Functions";
+CheckBox du04_s=formonly.du04_s, tabIndex=4, text=%"1. Generate DS Schema File", not null, required, valueChecked = 1, valueUnchecked = 0;
+CheckBox du04_c=formonly.du04_c, tabIndex=6, text=%"3. Compile 4GL", not null, required, valueChecked = 1, valueUnchecked = 0;
+CheckBox du04_l=formonly.du04_l, tabIndex=8, text=%"5. Link Programs", not null, required, valueChecked = 1, valueUnchecked = 0;
+CheckBox du04_t=formonly.du04_t, tabIndex=5, text=%"2. Compile Tool", not null, required, valueChecked = 1, valueUnchecked = 0;
+CheckBox du04_f=formonly.du04_f, tabIndex=7, text=%"4. Compile Form", not null, required, valueChecked = 1, valueUnchecked = 0;
+Edit gao01_d=formonly.gao01_d, tabIndex=9, title=%"UNSELECTED";
+Button btn_selall:btn_selall, tabIndex=16, text=%"---Select ALL-->>";
+Button btn_select:btn_select, tabIndex=17, text=%"---Select The Item --->";
+Button btn_disable:btn_disable, tabIndex=18, text=%"<---Disable The Item---";
+Button btn_disall:btn_disall, tabIndex=19, text=%"<<--Disable ALL---";
+Edit gao01_s=formonly.gao01_s, tabIndex=10, title=%"SELECTED";
+CheckBox bgjob=formonly.bgjob, tabIndex=11, text=%"Background Job", valueChecked = "Y", valueUnchecked = "N";
+CheckBox remove=formonly.remove, tabIndex=12, text=%"Clean Before Compiling", valueChecked = "Y", valueUnchecked = "N";
+CheckBox sendmail=formonly.sendmail, tabIndex=13, text=%"Send Report as Attachment in mail", noEntry, valueChecked = "Y", valueUnchecked = "N";
+Edit sendmail_addr=formonly.sendmail_addr, tabIndex=14;
+Edit dummy06=formonly.dummy06, tabIndex=15, not null, required;
+Label label1:Label1, text=%"Processors";
+ComboBox processor=formonly.processor, tabIndex=20, items=(("1", "Single Core"),("2", "Due Core"),("4", "2 Due / Quad Core"));
+Group group03:group03, text=%"Prograssing", gridChildrenInParent;
+Label dummy07=formonly.dummy07, color = blue;
+Label dummy08=formonly.dummy08, color = blue;
+Label curr01=formonly.curr01;
+ProgressBar progs01=formonly.progs01, valueMin=0, valueMax=100;
+Label curr02=formonly.curr02;
+ProgressBar progs02=formonly.progs02, valueMin=0, valueMax=100;
+END -- ATTRIBUTES
+
+INSTRUCTIONS
+SCREEN RECORD s_disable(formonly.gao01_d)
+SCREEN RECORD s_select(formonly.gao01_s)
+END -- INSTRUCTIONS
+

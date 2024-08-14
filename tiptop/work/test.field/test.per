@@ -1,0 +1,40 @@
+DATABASE ds
+SCREEN
+{
+========================= 料件資料維護作業(aimi109) ============
+
+                                                        主分 來
+    料件編號            品名規格                        群碼 源
+    ------------------  ------------------------------  ----  -
+[x][ima01             ][ima02                         ][ma06][d]
+                       [ima021                        ]
+[x][ima01             ][ima02                         ][ma06][d]
+                       [ima021                        ]
+[x][ima01             ][ima02                         ][ma06][d]
+                       [ima021                        ]
+[x][ima01             ][ima02                         ][ma06][d]
+                       [ima021                        ]
+[x][ima01             ][ima02                         ][ma06][d]
+                       [ima021                        ]
+================================================================
+}
+END
+TABLES ima_file
+ATTRIBUTES
+x        = FORMONLY.arrow, NOENTRY, COLOR=YELLOW;
+ima01    = ima01, REVERSE, COLOR=YELLOW,COMMENTS = 
+                  '本欄位為索引欄位, 不可空白或重複! <^Y>輸入料件明細資料';
+ima02    = ima02, COMMENTS = '<^Y> 維護科目額外說明',
+                  COLOR=YELLOW;
+ima021   = ima021, COLOR=YELLOW,noentry;
+ma06     = ima06, COMMENTS = '<^P>查詢 分群碼  <^Y>建立料件分群碼資料',
+                  COLOR=YELLOW;
+d        = ima08, UPSHIFT, COMMENTS =
+           '請輸入「C/T/D/A/M/P/X/K/U/V/R/Z/S」，可按 <^F> 查詢欄位說明',
+                  COLOR=YELLOW;
+
+INSTRUCTIONS
+DELIMITERS '  '
+SCREEN RECORD s_ima[5](ima01,ima02,ima021,ima06,ima08,arrow)
+END
+

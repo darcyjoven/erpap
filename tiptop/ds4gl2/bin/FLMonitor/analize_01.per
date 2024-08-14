@@ -1,0 +1,35 @@
+SCHEMA ds
+
+LAYOUT (TEXT="Logon User Lists")
+  TABLE
+    {
+     Host Name        Client IP and Port    User Id     User Name   Depart. Id  Depart. Name      Job Count
+    [hjc02          ][hjc03               ][hjc04     ][zx02      ][zx03      ][gem02           ][hjc05    ]
+    [hjc02          ][hjc03               ][hjc04     ][zx02      ][zx03      ][gem02           ][hjc05    ]
+    [hjc02          ][hjc03               ][hjc04     ][zx02      ][zx03      ][gem02           ][hjc05    ]
+    [hjc02          ][hjc03               ][hjc04     ][zx02      ][zx03      ][gem02           ][hjc05    ]
+    [hjc02          ][hjc03               ][hjc04     ][zx02      ][zx03      ][gem02           ][hjc05    ]
+    [hjc02          ][hjc03               ][hjc04     ][zx02      ][zx03      ][gem02           ][hjc05    ]
+    [hjc02          ][hjc03               ][hjc04     ][zx02      ][zx03      ][gem02           ][hjc05    ]
+    [hjc02          ][hjc03               ][hjc04     ][zx02      ][zx03      ][gem02           ][hjc05    ]
+    [hjc02          ][hjc03               ][hjc04     ][zx02      ][zx03      ][gem02           ][hjc05    ]
+    [hjc02          ][hjc03               ][hjc04     ][zx02      ][zx03      ][gem02           ][hjc05    ]
+    }
+  END --TABLE
+END --LAYOUT
+
+TABLES hjc_file
+
+ATTRIBUTES
+             hjc02   = hjc02;
+             hjc03   = hjc03;
+             hjc04   = hjc04;
+             zx02    = FORMONLY.zx02;
+             zx03    = FORMONLY.zx03;
+             gem02   = FORMONLY.gem02;
+             hjc05   = hjc05;
+END
+
+INSTRUCTIONS
+   SCREEN RECORD s_hjc[10](hjc02,hjc03,hjc04,zx02,zx03,gem02,hjc05)
+END

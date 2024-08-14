@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm databaseName="" gstVersion="22800" name="Root" uid="{92b219b2-0000-4000-a04e-6bed293728ae}">
+  <AGSettings/>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="Undefined" order="" uid="{58504f4b-0000-4000-8622-681de8a8eff5}" where="">
+    <RecordField colName="" fieldIdRef="1" fieldType="NON_DATABASE" name="ecu01" sqlTabName="" sqlType="VARCHAR" table_alias_name="" uid="{f696825e-0000-4000-82e6-9685f9a10ef4}"/>
+    <RecordField colName="" fieldIdRef="2" fieldType="NON_DATABASE" name="bom_exp" sqlTabName="" table_alias_name="" uid="{5cb01b78-0000-4000-acbe-a330831ec52d}"/>
+    <RecordField colName="" fieldIdRef="3" fieldType="NON_DATABASE" name="g_bgjob" sqlTabName="" table_alias_name="" uid="{188e64f5-0000-4000-abc7-23449e854f49}"/>
+    <RecordField colName="" fieldIdRef="4" fieldType="NON_DATABASE" name="ecu02" sqlTabName="" sqlType="VARCHAR" table_alias_name="" uid="{d665d656-82ed-4395-a310-c8a9ef82de66}"/>
+    <RecordField colName="" fieldIdRef="6" fieldType="NON_DATABASE" name="bom" sqlTabName="" sqlType="CHAR" table_alias_name="" uid="{390a47a0-f40b-4259-b44a-0985c0e9c85c}"/>
+  </Record>
+  <Form gridHeight="8" gridWidth="76" name="aapp102" spacing="normal" text="aapp102">
+    <VBox gridHeight="8" gridWidth="70" name="vb4" posX="1" posY="0">
+      <Grid gridHeight="4" gridWidth="70" lstrcomment="false" name="gr41" posX="0" posY="1">
+        <Group gridHeight="4" gridWidth="68" lstrcomment="false" lstrtext="false" name="group01" posX="1" posY="0">
+          <Label posX="1" posY="1" text="ecu01"/>
+          <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="1" fieldType="NON_DATABASE" gridHeight="1" gridWidth="21" image="zoom" lstrcomment="false" lstrtitle="false" name="ecu01" notNull="true" posX="12" posY="1" required="true" rowCount="" sqlTabName="" sqlType="VARCHAR" stepX="" stepY="" tabIndex="1" table_alias_name="" widget="ButtonEdit"/>
+          <CheckBox aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="6" fieldType="NON_DATABASE" gridHeight="1" gridWidth="19" lstrcomment="false" lstrtext="false" name="bom" notNull="true" posX="40" posY="1" required="true" rowCount="" sqlTabName="" sqlType="CHAR" stepX="" stepY="" tabIndex="3" table_alias_name="" text="bom" valueChecked="Y" valueUnchecked="N" widget="CheckBox"/>
+          <Label posX="1" posY="2" text="ecu02"/>
+          <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="4" fieldType="NON_DATABASE" gridHeight="1" gridWidth="21" lstrcomment="false" lstrtitle="false" name="ecu02" posX="12" posY="2" rowCount="" sqlTabName="" sqlType="VARCHAR" stepX="" stepY="" tabIndex="2" table_alias_name="" widget="Edit"/>
+          <CheckBox aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="2" fieldType="NON_DATABASE" gridHeight="1" gridWidth="19" lstrcomment="false" lstrtext="false" name="bom_exp" notNull="true" posX="40" posY="2" required="true" rowCount="" sqlTabName="" sqlType="CHAR" stepX="" stepY="" tabIndex="4" table_alias_name="" text="bom_exp" valueChecked="Y" valueUnchecked="N" widget="CheckBox"/>
+        </Group>
+      </Grid>
+      <Grid gridHeight="2" gridWidth="70" lstrcomment="false" name="gr42" posX="0" posY="5">
+        <CheckBox aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="3" fieldType="NON_DATABASE" gridHeight="1" gridWidth="60" lstrcomment="false" lstrtext="false" lstrtitle="false" name="g_bgjob" notNull="true" posX="1" posY="0" required="true" rowCount="" sqlTabName="" sqlType="CHAR" stepX="" stepY="" tabIndex="5" table_alias_name="" text="Background Job" valueChecked="Y" valueUnchecked="N" widget="CheckBox"/>
+      </Grid>
+    </VBox>
+  </Form>
+  <DiagramLayout>
+    <![CDATA[AAAAAgAAAEwAewAzADkAMABhADQANwBhADAALQBmADQAMABiAC0ANAAyADUAOQAtAGIANAA0AGEALQAwADkAOAA1AGMAMABlADkAYwA4ADUAYwB9QCQAAAAAAABAX0AAAAAAAAAAAAAAAAAAAQAAAEwAewAxADgAOABlADYANABmADUALQAwADAAMAAwAC0ANAAwADAAMAAtAGEAYgBjADcALQAyADMANAA0ADkAZQA4ADUANABmADQAOQB9QCQAAAAAAABAVEAAAAAAAAAAAAAAAAAAAQAAAEwAewA1AGMAYgAwADEAYgA3ADgALQAwADAAMAAwAC0ANAAwADAAMAAtAGEAYwBiAGUALQBhADMAMwAwADgAMwAxAGUAYwA1ADIAZAB9QCQAAAAAAABATYAAAAAAAAAAAAAAAAAAAQAAAEwAewA1ADgANQAwADQAZgA0AGIALQAwADAAMAAwAC0ANAAwADAAMAAtADgANgAyADIALQA2ADgAMQBkAGUAOABhADgAZQBmAGYANQB9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAEwAewBkADYANgA1AGQANgA1ADYALQA4ADIAZQBkAC0ANAAzADkANQAtAGEAMwAxADAALQBjADgAYQA5AGUAZgA4ADIAZABlADYANgB9QCQAAAAAAABAWcAAAAAAAAAAAAAAAAAAAQAAAEwAewBmADYAOQA2ADgAMgA1AGUALQAwADAAMAAwAC0ANAAwADAAMAAtADgAMgBlADYALQA5ADYAOAA1AGYAOQBhADEAMABlAGYANAB9QCQAAAAAAABAQoAAAAAAAAAAAAAAAAAAAQ==]]>
+  </DiagramLayout>
+</ManagedForm>

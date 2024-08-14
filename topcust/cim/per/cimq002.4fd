@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm gstVersion="22800" name="ManagedForm" uid="{967dfcf9-0000-4000-98f3-c8dd93ef2650}">
+  <AGSettings/>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="undefined" order="" uid="{190eb0d3-0000-4000-b27d-6a6f0e2bbd43}" where="">
+    <RecordField colName="cn2" fieldIdRef="20" name="cn2" sqlTabName="formonly" sqlType="SMALLINT" table_alias_name="" uid="{2a5b7d59-0000-4000-8896-ec22c4b2dd13}"/>
+  </Record>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="s_inb" order="" uid="{b95abe76-0000-4000-a9e8-903f8139e80e}" where="">
+    <RecordField colName="ina00" fieldIdRef="0" name="ina00" sqlTabName="formonly" table_alias_name="" uid="{d31c9260-0000-4000-81a1-142a0402ea94}"/>
+    <RecordField colName="ina01" fieldIdRef="1" name="ina01" sqlTabName="formonly" table_alias_name="" uid="{f5e2715a-0000-4000-9464-02b40df1c0ce}"/>
+    <RecordField colName="ina02" fieldIdRef="2" name="ina02" sqlTabName="formonly" sqlType="DATE" table_alias_name="" uid="{182d097e-0000-4000-8006-bbf2d9a32eb7}"/>
+    <RecordField colName="ina04" fieldIdRef="3" name="ina04" sqlTabName="formonly" table_alias_name="" uid="{cfbe3946-0000-4000-8186-47e79e5e8a02}"/>
+    <RecordField colName="gem02" fieldIdRef="4" name="gem02" sqlTabName="formonly" table_alias_name="" uid="{fa5b0e07-0000-4000-ac20-ab261117f386}"/>
+    <RecordField colName="ecu03" fieldIdRef="5" name="ecu03" sqlTabName="formonly" table_alias_name="" uid="{658dc270-0000-4000-b434-4581e17a71a4}"/>
+    <RecordField colName="ina11" fieldIdRef="6" name="ina11" sqlTabName="formonly" table_alias_name="" uid="{f677bd10-0000-4000-a85b-a32b39e299ac}"/>
+    <RecordField colName="inb03" fieldIdRef="7" name="inb03" sqlTabName="formonly" sqlType="INTEGER" table_alias_name="" uid="{5223a6cd-0000-4000-b350-c3e54152deca}"/>
+    <RecordField colName="inb04" fieldIdRef="8" name="inb04" sqlTabName="formonly" table_alias_name="" uid="{0547416e-0000-4000-9b16-95a39e8b60ec}"/>
+    <RecordField colName="ima02" fieldIdRef="9" name="ima02" sqlTabName="formonly" table_alias_name="" uid="{ac659212-0000-4000-82c1-acb4ede813a8}"/>
+    <RecordField colName="ima021" fieldIdRef="10" name="ima021" sqlTabName="formonly" table_alias_name="" uid="{9bb0bfb6-0000-4000-a8b6-44ec4c8dafa6}"/>
+    <RecordField colName="inb05" fieldIdRef="11" name="inb05" sqlTabName="formonly" table_alias_name="" uid="{072c25b3-0000-4000-a76a-9f49d23e700a}"/>
+    <RecordField colName="inb06" fieldIdRef="12" name="inb06" sqlTabName="formonly" table_alias_name="" uid="{aa7e563e-0000-4000-b69f-799f1275bad7}"/>
+    <RecordField colName="inb07" fieldIdRef="13" name="inb07" sqlTabName="formonly" table_alias_name="" uid="{f12304e7-0000-4000-a633-7cbc9b5b4cdc}"/>
+    <RecordField colName="inb16" fieldIdRef="14" name="inb16" sqlTabName="formonly" sqlType="DECIMAL" table_alias_name="" uid="{1e7d291a-0000-4000-a837-0e137bc4df17}"/>
+    <RecordField colName="inb09" fieldIdRef="15" name="inb09" sqlTabName="formonly" sqlType="DECIMAL" table_alias_name="" uid="{f548d8a0-0000-4000-85f4-2661b742cca3}"/>
+    <RecordField colName="inb15" fieldIdRef="16" name="inb15" sqlTabName="formonly" table_alias_name="" uid="{e06d621f-0000-4000-a4df-bf58d500591b}"/>
+    <RecordField colName="azf03" fieldIdRef="17" name="azf03" sqlTabName="formonly" table_alias_name="" uid="{1a4f3f96-0000-4000-889d-564753f36e83}"/>
+    <RecordField colName="inb13" fieldIdRef="18" name="inb13" sqlTabName="formonly" sqlType="DECIMAL" table_alias_name="" uid="{55221ce2-0000-4000-90fd-6ebe2dab9a32}"/>
+    <RecordField colName="inb14" fieldIdRef="19" name="inb14" sqlTabName="formonly" sqlType="DECIMAL" table_alias_name="" uid="{e2fade3c-0000-4000-b50b-f53a5b746e39}"/>
+  </Record>
+  <Form gridHeight="10" gridWidth="236" lstrtext="true" name="cimq002" text="Form">
+    <VBox gridHeight="10" gridWidth="236" name="vbox1" posX="0" posY="0">
+      <Table gridHeight="6" gridWidth="236" name="table1" posX="0" posY="1" totalRows="5">
+        <ComboBox aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="ina00" columnCount="" fieldId="0" gridHeight="1" gridWidth="8" items="1, 3" name="ina00" posX="0" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="21" table_alias_name="" title="ina00" widget="ComboBox">
+          <Item name="1" text="1"/>
+          <Item name="3" text="3"/>
+        </ComboBox>
+        <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="ina01" columnCount="" fieldId="1" gridHeight="1" gridWidth="11" image="zoom" name="ina01" posX="8" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="1" table_alias_name="" title="ina01" widget="ButtonEdit"/>
+        <DateEdit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="ina02" columnCount="" fieldId="2" gridHeight="1" gridWidth="11" name="ina02" posX="19" posY="0" rowCount="" sqlTabName="formonly" sqlType="DATE" stepX="" stepY="" tabIndex="10" table_alias_name="" title="ina02" widget="DateEdit"/>
+        <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="ina04" columnCount="" fieldId="3" gridHeight="1" gridWidth="12" image="zoom" name="ina04" posX="30" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="3" table_alias_name="" title="ina04" widget="ButtonEdit"/>
+        <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="gem02" columnCount="" fieldId="4" gridHeight="1" gridWidth="11" image="zoom" name="gem02" posX="42" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="2" table_alias_name="" title="gem02" widget="ButtonEdit"/>
+        <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="ecu03" columnCount="" fieldId="5" gridHeight="1" gridWidth="12" image="zoom" name="ecu03" posX="53" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="14" table_alias_name="" title="ina11" widget="ButtonEdit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="ina11" columnCount="" fieldId="6" gridHeight="1" gridWidth="13" name="ina11" posX="65" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="4" table_alias_name="" title="gen02" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="inb03" columnCount="" fieldId="7" gridHeight="1" gridWidth="14" name="inb03" posX="78" posY="0" rowCount="" sqlTabName="formonly" sqlType="INTEGER" stepX="" stepY="" tabIndex="5" table_alias_name="" title="inb03" widget="Edit"/>
+        <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="inb04" columnCount="" fieldId="8" gridHeight="1" gridWidth="11" image="zoom" name="inb04" posX="92" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="6" table_alias_name="" title="inb04" widget="ButtonEdit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="ima02" columnCount="" fieldId="9" gridHeight="1" gridWidth="13" name="ima02" posX="103" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="7" table_alias_name="" title="ima02" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="ima021" columnCount="" fieldId="10" gridHeight="1" gridWidth="13" name="ima021" posX="116" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="11" table_alias_name="" title="ima021" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="inb05" columnCount="" fieldId="11" gridHeight="1" gridWidth="14" name="inb05" posX="129" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="12" table_alias_name="" title="inb05" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="inb06" columnCount="" fieldId="12" gridHeight="1" gridWidth="12" name="inb06" posX="143" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="13" table_alias_name="" title="inb06" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="inb07" columnCount="" fieldId="13" gridHeight="1" gridWidth="12" name="inb07" posX="155" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="8" table_alias_name="" title="inb07" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="inb16" columnCount="" fieldId="14" gridHeight="1" gridWidth="8" name="inb16" posX="167" posY="0" rowCount="" sqlTabName="formonly" sqlType="DECIMAL" stepX="" stepY="" tabIndex="15" table_alias_name="" title="inb16" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="inb09" columnCount="" fieldId="15" gridHeight="1" gridWidth="8" name="inb09" posX="175" posY="0" rowCount="" sqlTabName="formonly" sqlType="DECIMAL" stepX="" stepY="" tabIndex="16" table_alias_name="" title="inb09" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="inb15" columnCount="" fieldId="16" gridHeight="1" gridWidth="8" name="inb15" posX="183" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="17" table_alias_name="" title="inb15" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="azf03" columnCount="" fieldId="17" gridHeight="1" gridWidth="8" name="azf03" posX="191" posY="0" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="18" table_alias_name="" title="azf03" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="inb13" columnCount="" fieldId="18" gridHeight="1" gridWidth="8" name="inb13" posX="199" posY="0" rowCount="" sqlTabName="formonly" sqlType="DECIMAL" stepX="" stepY="" tabIndex="19" table_alias_name="" title="inb13" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="inb14" columnCount="" fieldId="19" gridHeight="1" gridWidth="8" name="inb14" posX="207" posY="0" rowCount="" sqlTabName="formonly" sqlType="DECIMAL" stepX="" stepY="" tabIndex="20" table_alias_name="" title="inb14" widget="Edit"/>
+      </Table>
+      <Grid gridHeight="2" gridWidth="236" name="gr1631" posX="0" posY="7">
+        <Label posX="2" posY="1" text="/"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="cn2" columnCount="" fieldId="20" gridHeight="1" gridWidth="6" name="cn2" noEntry="true" posX="5" posY="1" rowCount="" sqlTabName="formonly" sqlType="SMALLINT" stepX="" stepY="" tabIndex="9" table_alias_name="" widget="Edit"/>
+      </Grid>
+    </VBox>
+  </Form>
+</ManagedForm>

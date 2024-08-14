@@ -1,0 +1,29 @@
+SCHEMA FORMONLY
+
+LAYOUT
+  VBOX
+    GRID
+      {
+      <G group01                                         >
+      [sel                                               ]
+      }
+    END
+    GRID
+      {
+       dBSpace [dbspace   ] [dummy01                     ]
+      [dummy02                                           ]
+      }
+    END
+  END 
+END
+
+ATTRIBUTES
+  GROUP      group01 : group01,TEXT = "Select";
+  RADIOGROUP sel     = FORMONLY.sel,
+                       ITEMS=((1,"Update All"),(3,"Update Data"),
+                              (4,"Update Program"),(5,"Delete Link Trash"),
+                              (6,"r.gf all per"));
+             dbspace = FORMONLY.dbspace,SCROLL;
+  LABEL      dummy01 : dummy01, TEXT = "Default : 'dbs1'";
+  LABEL      dummy02 : dummy02, TEXT = "務必作完資料庫更新且r.s2後才可執行此patch";
+END

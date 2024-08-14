@@ -1,0 +1,33 @@
+SCHEMA formonly
+
+LAYOUT
+  VBOX
+    TABLE
+      {
+       patch  backup  db_name 
+      [b     |a     |azp03       ]
+      [b     |a     |azp03       ]
+      [b     |a     |azp03       ]
+      [b     |a     |azp03       ]
+      [b     |a     |azp03       ]
+      [b     |a     |azp03       ]
+      [b     |a     |azp03       ]
+      [b     |a     |azp03       ]
+      [b     |a     |azp03       ]
+      [b     |a     |azp03       ]
+      }
+    END --TABLE
+  END --VBOX
+END --LAYOUT
+
+
+ATTRIBUTES
+  CHECKBOX   a      = formonly.a,VALUECHECKED="Y",VALUEUNCHECKED="N",NOT NULL;
+  CHECKBOX   b      = formonly.b,VALUECHECKED="Y",VALUEUNCHECKED="N",NOT NULL;
+             azp03  = formonly.azp03,DOWNSHIFT,NOENTRY;
+
+END
+
+INSTRUCTIONS
+   SCREEN RECORD s_check[10](formonly.b,formonly.a,formonly.azp03)
+END

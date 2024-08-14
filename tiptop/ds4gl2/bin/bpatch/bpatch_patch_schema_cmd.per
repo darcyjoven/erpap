@@ -1,0 +1,100 @@
+LAYOUT
+  FOLDER
+    PAGE page01(TEXT="Drop Command",ACTION=dropcmd)
+      TABLE
+        {
+         Check  SQL Command                                              relate
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        [chk_d |cmd_d                                                   |rel_d ]
+        }
+      END
+    END
+    PAGE page02(TEXT="Deflate Size Command",ACTION=defcmd)
+      TABLE
+        {
+         Check  SQL Command                                              relate
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        [chk_s |cmd_s                                                   |rel_s ]
+        }
+      END
+    END
+    PAGE page03(TEXT="Modify Index Command",ACTION=idxcmd)
+      TABLE
+        {
+         Check  SQL Command
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        [chk_i |cmd_i                                                    ]
+        }
+      END
+    END
+  END
+END
+
+ATTRIBUTES
+  CHECKBOX  chk_d = FORMONLY.chk_d, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", DEFAULT="Y";
+            cmd_d = FORMONLY.cmd_d, NOENTRY;
+            rel_d = FORMONLY.rel_d, NOENTRY, HIDDEN;
+  CHECKBOX  chk_s = FORMONLY.chk_s, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", DEFAULT="Y";
+            cmd_s = FORMONLY.cmd_s, NOENTRY;
+            rel_s = FORMONLY.rel_s, NOENTRY, HIDDEN;
+  CHECKBOX  chk_i = FORMONLY.chk_i, NOT NULL, VALUECHECKED="Y", VALUEUNCHECKED="N", DEFAULT="Y";
+            cmd_i = FORMONLY.cmd_i, NOENTRY;
+
+INSTRUCTIONS
+  SCREEN RECORD s_drop[20](chk_d,cmd_d,rel_d)
+  SCREEN RECORD s_def[20](chk_s,cmd_s,rel_s)
+  SCREEN RECORD s_index[20](chk_i,cmd_i)

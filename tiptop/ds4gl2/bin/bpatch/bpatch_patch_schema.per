@@ -1,0 +1,29 @@
+LAYOUT
+  VBOX
+    TABLE
+      {
+       patch   db_name 
+      [chk   |azp03       ]
+      [chk   |azp03       ]
+      [chk   |azp03       ]
+      [chk   |azp03       ]
+      [chk   |azp03       ]
+      [chk   |azp03       ]
+      [chk   |azp03       ]
+      [chk   |azp03       ]
+      [chk   |azp03       ]
+      [chk   |azp03       ]
+      }
+    END --TABLE
+  END --VBOX
+END --LAYOUT
+
+
+ATTRIBUTES
+  CHECKBOX   chk    = FORMONLY.chk, VALUECHECKED="Y", VALUEUNCHECKED="N", NOT NULL;
+             azp03  = FORMONLY.azp03, DOWNSHIFT, NOENTRY;
+END
+
+INSTRUCTIONS
+   SCREEN RECORD s_azp03[10](FORMONLY.chk,FORMONLY.azp03)
+END

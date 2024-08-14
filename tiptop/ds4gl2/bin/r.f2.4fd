@@ -1,0 +1,95 @@
+######
+# Compiler form file
+######
+# Modify.........: No.FUN-BB0098 11/11/18 By Hiko:1.gsform增加附檔名(4fd)的傳遞
+#                                                 2.編譯前要刪除42f
+
+cd ../4fd
+umask 000
+# Change and Cut per if necessary
+#pre42f $1.per $1T.per
+
+# Prompt how to work
+if [ "$1" = "" ] ; then
+   echo "Usage: r.f2 form_name\n"
+   exit 1
+# If has no correspond form file
+elif [ ! -s ${1}.4fd ] ; then
+   echo "\033[7m${1}\033[m error happens, check if:"
+   echo "  1) Do you specify the right form name ?"
+   echo "  2) Do you execute in PER directory ?"
+   echo "  3) File size is zero ?\n"
+   exit 1
+fi
+
+# Delete the previous temporary & error file(if it has)
+if [ -s ${1}T.4fd ] ; then
+   rm -f ${1}T.4fd
+fi
+if [ -s ../42f/${1}.err ] ; then
+   rm -f ../42f/${1}.err
+fi
+#Begin:FUN-BB0098
+if [ -s ../42f/${1}.42f ] ; then
+   rm -f ../42f/${1}.42f
+fi
+#End:FUN-BB0098
+
+FGLRUN=${FGLRUN:=fglrun};export FGLRUN #BUG-4C0168
+
+cp -f ${1}.4fd ${1}T.4fd
+chmod 777 ${1}T.4fd
+
+# Cut unnecessary block & append default TOPMENU 
+#ed - ${1}T.per <<%% 1 2 >/dev/null
+#1
+#g/▼-/.,$ d
+#g/□-/.,$ d
+#w
+#q
+#%%
+
+
+
+#orafrm ${1}T.per /tmp/$$.per && rm -f ${1}T.per && mv /tmp/$$.per ${1}T.per
+
+# Compiler the form file, and to see if has error during compilation
+echo $1
+#fglform -M ${1}T
+#if [ $? -ne 0 ] ; then
+#   fglform ${1}T
+#fi
+\rm -f ${1}T.per
+\rm -f ${1}T.4fd
+if [ -s ${1}T.err ] ; then
+   mv ${1}T.err ../42f/${1}.err
+   pg -p '(Page %d)' +/See/ ../42f/${1}.err
+   exit 1
+fi
+#else
+#   if [ -s ${1}T.42f ] ; then
+#      mv ${1}T.42f ../42f/${1}.42f
+#   else
+#      exit 1
+#   fi
+#fi
+
+#if grep "11401" ${1}.4fd 1>/dev/null
+#then
+#   echo "\033[7m${1}\033[m WARNING: Please Use Newly Genero Studio 2.X FOR GP 5.2 "
+#fi
+
+#TQC-A40129
+#gsform -M -i -dbname ds -keep $1 #FUN-BB0098
+gsform -M -i -dbname ds -keep ${1}.4fd #FUN-BB0098
+if [ $? -ne 0 ] ; then
+   \rm -f ${1}.per
+   \rm -f ${1}.42f
+fi
+
+if [ -s ${1}.42f ] ; then
+
+mv -f ${1}.42f ../42f
+mv -f ${1}.per ../per
+
+fi

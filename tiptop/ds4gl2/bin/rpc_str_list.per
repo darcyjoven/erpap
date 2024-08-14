@@ -1,0 +1,37 @@
+SCHEMA FORMONLY
+
+LAYOUT
+  TABLE
+    {
+     Select  Table         Field       Old Data                                     Where String
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    [sel    |tab_name     |fld_name   |old_data                                    |where_str    ]
+    }
+  END 
+END
+
+ATTRIBUTES
+  CHECKBOX sel = FORMONLY.sel, NOT NULL, REQUIRED,
+                 VALUECHECKED="Y",VALUEUNCHECKED="N",TEXT="";
+           tab_name = formonly.tab_name,SCROLL,NOENTRY;
+           fld_name = formonly.fld_name,SCROLL,NOENTRY;
+  TEXTEDIT old_data = formonly.old_data;
+           where_str = formonly.where_str,SCROLL,NOENTRY;
+END
+
+INSTRUCTIONS
+SCREEN RECORD
+  s_data[15](sel,tab_name,fld_name,old_data,where_str)
+END

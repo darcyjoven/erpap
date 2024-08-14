@@ -1,0 +1,39 @@
+DATABASE FORMONLY
+
+SCREEN
+{
+                          使用者自定目錄(udmenu1)
+
+                  [zz01h     ][zz02h                               ]    [cnt]
+ ----------------------------------------------------------------------------
+                                                                            
+  [x ][zz02                          ]  [x ][zz02                          ]
+  [x ][zz02                          ]  [x ][zz02                          ]
+  [x ][zz02                          ]  [x ][zz02                          ]
+  [x ][zz02                          ]  [x ][zz02                          ]
+  [x ][zz02                          ]  [x ][zz02                          ]
+  [x ][zz02                          ]  [x ][zz02                          ]
+  [x ][zz02                          ]  [x ][zz02                          ]
+  [x ][zz02                          ]  [x ][zz02                          ]
+  [x ][zz02                          ]  [x ][zz02                          ]
+  [x ][zz02                          ]  [x ][zz02                          ]
+                                                                            
+ ----------------------------------------------------------------------------
+               請輸入您的選擇 (<F3>下頁 <F4>上頁 0.結束) : [a ]
+}
+ATTRIBUTES
+zz01h = FORMONLY.zz01h TYPE CHAR, COLOR=YELLOW;
+zz02h = FORMONLY.zz02h TYPE CHAR, COLOR=YELLOW;
+x     = FORMONLY.x TYPE SMALLINT, COLOR=YELLOW;
+zz02  = FORMONLY.zz02 TYPE CHAR, COLOR=YELLOW;
+cnt   = FORMONLY.cnt TYPE SMALLINT, COLOR=YELLOW;
+a     = FORMONLY.l_ans TYPE SMALLINT, COLOR=YELLOW;
+END
+
+INSTRUCTIONS
+DELIMITERS '[]' 
+SCREEN RECORD
+  s_zz[20](x,zz02)
+END
+▼--------------------------------------------------------------------------
+#  Per_version = '5.01.03-01.10.23'   #

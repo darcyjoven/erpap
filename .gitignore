@@ -1,0 +1,12 @@
+*
+!.gitignore
+!**/ 
+!**/*.4gl
+!**/*.4fd
+!**/*.per
+!**/*.sch
+!**/*.inc
+!**/*.global
+wtiptop/
+wtopcust/
+**/42m/

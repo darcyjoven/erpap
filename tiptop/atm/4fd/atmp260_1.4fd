@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm databaseName="ds" gstVersion="22800" name="Root" uid="{ed3e0c1f-0000-4000-b1d3-1d5c9a7f0e7c}">
+  <AGSettings/>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="Undefined" order="" uid="{f231eb72-0000-4000-9df3-3b109e6e3716}" where="">
+    <RecordField colName="bmb01" fieldIdRef="4" fieldType="NON_DATABASE" name="sfb01" sqlTabName="bmb_file" sqlType="VARCHAR" table_alias_name="" uid="{56f8cfd0-713c-4340-82fd-025d44040262}"/>
+    <RecordField colName="bmb01" fieldIdRef="5" fieldType="NON_DATABASE" name="sfb81" sqlTabName="bmb_file" sqlType="DATE" table_alias_name="" uid="{70005eed-ecad-4870-ae9e-240ca2e7f431}"/>
+    <RecordField colName="bmb01" fieldIdRef="1" fieldType="NON_DATABASE" name="sfb05" sqlTabName="bmb_file" sqlType="VARCHAR" table_alias_name="" uid="{0d161f66-0000-4000-ba01-86be939b703a}"/>
+    <RecordField colName="bmb01" fieldIdRef="3" fieldType="NON_DATABASE" name="sfb06" sqlTabName="bmb_file" sqlType="VARCHAR" table_alias_name="" uid="{a5475bfd-2bcc-4176-b8d4-4d6c33c8ef57}"/>
+    <RecordField colName="bmb01" fieldIdRef="2" fieldType="NON_DATABASE" name="sfb071" sqlTabName="bmb_file" sqlType="DATE" table_alias_name="" uid="{b29492c1-0bcd-44ec-8236-680d23af47f3}"/>
+    <RecordField colName="bmb01" fieldIdRef="6" fieldType="NON_DATABASE" name="sfb08" sqlTabName="bmb_file" sqlType="DATETIME" table_alias_name="" uid="{d5e6bdfd-7585-485a-ac81-533244d66a8a}"/>
+    <RecordField colName="bmb01" fieldIdRef="7" fieldType="NON_DATABASE" name="sfbud07" sqlTabName="bmb_file" sqlType="DECIMAL" table_alias_name="" uid="{1bcb26a4-20d7-49af-bfe0-85e2fc8853ab}"/>
+    <RecordField colName="" fieldIdRef="8" name="sgm03" sqlTabName="" sqlType="VARCHAR" table_alias_name="" uid="{42ac8a03-8682-4736-9c33-1e16815c13dc}"/>
+  </Record>
+  <Form gridHeight="11" gridWidth="100" name="atmp260_1" spacing="normal" text="aimq841_4">
+    <VBox gridHeight="10" gridWidth="99" name="VBox1" posX="0" posY="0">
+      <Grid gridHeight="8" gridWidth="99" lstrcomment="false" name="Grid1" posX="0" posY="1">
+        <Group gridHeight="7" gridWidth="98" lstrcomment="false" lstrtext="false" name="group01" posX="1" posY="0" text="QBE">
+          <Label posX="2" posY="1" text="Prod"/>
+          <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="bmb01" columnCount="" fieldId="4" fieldType="NON_DATABASE" gridHeight="1" gridWidth="20" image="zoom" lstrcomment="false" lstrtitle="false" name="sfb01" notNull="true" posX="17" posY="1" required="true" rowCount="" sqlTabName="bmb_file" sqlType="VARCHAR" stepX="" stepY="" tabIndex="4" table_alias_name="" widget="ButtonEdit"/>
+          <Label posX="39" posY="1" text="Prod"/>
+          <DateEdit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="bmb01" columnCount="" fieldId="5" fieldType="NON_DATABASE" gridHeight="1" gridWidth="12" lstrcomment="false" lstrtitle="false" name="sfb81" notNull="true" posX="50" posY="1" required="true" rowCount="" sqlTabName="bmb_file" sqlType="DATE" stepX="" stepY="" tabIndex="5" table_alias_name="" widget="DateEdit"/>
+          <Label posX="2" posY="3" text="Prod"/>
+          <ButtonEdit action="controlp" aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="bmb01" columnCount="" fieldId="1" fieldType="NON_DATABASE" gridHeight="1" gridWidth="20" image="zoom" lstrcomment="false" lstrtitle="false" name="sfb05" notNull="true" posX="17" posY="3" required="true" rowCount="" sqlTabName="bmb_file" sqlType="VARCHAR" stepX="" stepY="" tabIndex="1" table_alias_name="" widget="ButtonEdit"/>
+          <Label posX="39" posY="3" text="Prod"/>
+          <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="bmb01" columnCount="" fieldId="3" fieldType="NON_DATABASE" gridHeight="1" gridWidth="9" lstrcomment="false" lstrtitle="false" name="sfb06" notNull="true" posX="50" posY="3" required="true" rowCount="" sqlTabName="bmb_file" sqlType="VARCHAR" stepX="" stepY="" tabIndex="2" table_alias_name="" widget="Edit"/>
+          <Label posX="2" posY="4" text="Prod"/>
+          <DateEdit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="bmb01" columnCount="" fieldId="2" fieldType="NON_DATABASE" gridHeight="1" gridWidth="20" lstrcomment="false" lstrtitle="false" name="sfb071" notNull="true" posX="17" posY="4" required="true" rowCount="" sqlTabName="bmb_file" sqlType="DATE" stepX="" stepY="" tabIndex="6" table_alias_name="" widget="DateEdit"/>
+          <Label posX="39" posY="4" text="Prod"/>
+          <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="8" gridHeight="1" gridWidth="18" name="sgm03" notNull="true" posX="50" posY="4" required="true" rowCount="" sqlTabName="" sqlType="VARCHAR" stepX="" stepY="" tabIndex="3" table_alias_name="" title="Edit1" widget="Edit"/>
+          <Label posX="2" posY="5" text="Prod"/>
+          <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="bmb01" columnCount="" fieldId="6" fieldType="NON_DATABASE" gridHeight="1" gridWidth="20" lstrcomment="false" lstrtitle="false" name="sfb08" noEntry="true" notNull="false" posX="17" posY="5" required="false" rowCount="" sqlTabName="bmb_file" sqlType="DATETIME" stepX="" stepY="" tabIndex="7" table_alias_name="" widget="Edit"/>
+          <Label posX="39" posY="5" text="Prod"/>
+          <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="bmb01" columnCount="" fieldId="7" fieldType="NON_DATABASE" gridHeight="1" gridWidth="18" lstrcomment="false" lstrtitle="false" name="sfbud07" noEntry="true" notNull="false" posX="50" posY="5" required="false" rowCount="" sqlTabName="bmb_file" sqlType="DECIMAL" stepX="" stepY="" tabIndex="8" table_alias_name="" widget="Edit"/>
+        </Group>
+      </Grid>
+    </VBox>
+  </Form>
+  <DiagramLayout>
+    <![CDATA[AAAAAgAAAEwAewBmADIAMwAxAGUAYgA3ADIALQAwADAAMAAwAC0ANAAwADAAMAAtADkAZABmADMALQAzAGIAMQAwADkAZQA2AGUAMwA3ADEANgB9AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAEwAewBiADIAOQA0ADkAMgBjADEALQAwAGIAYwBkAC0ANAA0AGUAYwAtADgAMgAzADYALQA2ADgAMABkADIAMwBhAGYANAA3AGYAMwB9QCQAAAAAAABAX0AAAAAAAAAAAAAAAAAAAQAAAEwAewBkADUAZQA2AGIAZABmAGQALQA3ADUAOAA1AC0ANAA4ADUAYQAtAGEAYwA4ADEALQA1ADMAMwAyADQANABkADYANgBhADgAYQB9QCQAAAAAAABAYmAAAAAAAAAAAAAAAAAAAQAAAEwAewA1ADYAZgA4AGMAZgBkADAALQA3ADEAMwBjAC0ANAAzADQAMAAtADgAMgBmAGQALQAwADIANQBkADQANAAwADQAMAAyADYAMgB9QCQAAAAAAABAQoAAAAAAAAAAAAAAAAAAAQAAAEwAewBhADUANAA3ADUAYgBmAGQALQAyAGIAYwBjAC0ANAAxADcANgAtAGIAOABkADQALQA0AGQANgBjADMAMwBjADgAZQBmADUANwB9QCQAAAAAAABAWcAAAAAAAAAAAAAAAAAAAQAAAEwAewAxAGIAYwBiADIANgBhADQALQAyADAAZAA3AC0ANAA5AGEAZgAtAGIAZgBlADAALQA4ADUAZQAyAGYAYwA4ADgANQAzAGEAYgB9QCQAAAAAAABAZSAAAAAAAAAAAAAAAAAAAQAAAEwAewA0ADIAYQBjADgAYQAwADMALQA4ADYAOAAyAC0ANAA3ADMANgAtADkAYwAzADMALQAxAGUAMQA2ADgAMQA1AGMAMQAzAGQAYwB9QCQAAAAAAABAZ+AAAAAAAAAAAAAAAAAAAQAAAEwAewA3ADAAMAAwADUAZQBlAGQALQBlAGMAYQBkAC0ANAA4ADcAMAAtAGEAZQA5AGUALQAyADQAMABjAGEAMgBlADcAZgA0ADMAMQB9QCQAAAAAAABATYAAAAAAAAAAAAAAAAAAAQAAAEwAewAwAGQAMQA2ADEAZgA2ADYALQAwADAAMAAwAC0ANAAwADAAMAAtAGIAYQAwADEALQA4ADYAYgBlADkAMwA5AGIANwAwADMAYQB9QCQAAAAAAABAVEAAAAAAAAAAAAAAAAAAAQ==]]>
+  </DiagramLayout>
+</ManagedForm>

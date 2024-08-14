@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Form CHECKSUM="-1" browserStatus="true" database_name="formonly" fourSTFile="" gstVersion="11401" height="35" lstrtext="false" lstrtoallcomment="false" lstrtoallitem="false" lstrtoalltext="false" lstrtoalltitle="false" name="compare_program" posX="0" posY="0" spacing="normal" text="compare_program" width="92">
+  <VBox hidden="--------" name="vb14" posX="1" posY="0">
+    <Group browserStatus="true" flag_text_changed="TRUE" fontPitch="default" gridChildrenInParent="--------" height="7" hidden="--------" lstrcomment="false" lstrtext="false" name="gb1" posX="1" posY="0" text="Compare Path" width="89">
+      <Grid fontPitch="default" height="5" hidden="--------" lstrcomment="false" name="gr1" posX="1" posY="1" width="54">
+        <Text height="1" name="text1" posX="1" posY="1" text="Current Path" width="12"/>
+        <Label color="black" colorCondition="black" flag_text_changed="TRUE" fontPitch="default" height="1" hidden="--------" justify="none" lstrcomment="false" lstrtext="false" name="lb1" posX="1" posY="3" sizePolicy="initial" text="* Suggest using &quot;toptest&quot; area" width="51"/>
+        <FormField colName="cur_path" fieldtype="FORM_ONLY" name="cur_path" sqlTabName="formonly">
+          <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="cur_path" noEntry="--------" notNull="--------" posX="15" posY="1" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="1" verify="--------" width="37"/>
+        </FormField>
+        <Text height="1" name="text2" posX="1" posY="2" text="Standard Path" width="13"/>
+        <FormField colName="std_path" fieldtype="FORM_ONLY" name="std_path" sqlTabName="formonly">
+          <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="std_path" noEntry="--------" notNull="--------" posX="15" posY="2" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="2" verify="--------" width="37"/>
+        </FormField>
+        <Button action="accept" flag_text_changed="TRUE" fontPitch="default" height="1" hidden="--------" imagetype="Image as URL" lstrcomment="false" lstrtext="false" name="bt1" posX="10" posY="4" sizePolicy="initial" text="Accept" width="9"/>
+        <Button action="cancel" flag_text_changed="TRUE" fontPitch="default" height="1" hidden="--------" imagetype="Image as URL" lstrcomment="false" lstrtext="false" name="bt1_1" posX="43" posY="4" sizePolicy="initial" text="Cancel" width="9"/>
+        <Button action="output" flag_text_changed="TRUE" fontPitch="default" height="1" hidden="--------" imagetype="Image as URL" lstrcomment="false" lstrtext="false" name="bt3" posX="21" posY="4" sizePolicy="initial" text="Output" width="9"/>
+        <Button action="restart" flag_text_changed="TRUE" fontPitch="default" height="1" hidden="--------" imagetype="Image as URL" lstrcomment="false" lstrtext="false" name="bt4" posX="32" posY="4" sizePolicy="initial" text="Restart" width="9"/>
+      </Grid>
+    </Group>
+    <Group flag_text_changed="TRUE" fontPitch="default" gridChildrenInParent="--------" height="5" hidden="--------" lstrcomment="false" lstrtext="false" name="gb2" posX="1" posY="7" text="" width="89">
+      <Grid fontPitch="default" height="3" hidden="--------" lstrcomment="false" name="gr5" posX="1" posY="1" width="87">
+        <Text height="1" name="text3" posX="1" posY="0" text="Total Program of Current Area" width="29"/>
+        <FormField colName="cur_cnt" fieldtype="FORM_ONLY" name="cur_cnt" sqlTabName="formonly">
+          <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="cur_cnt" noEntry="--------" notNull="--------" posX="32" posY="0" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="18" verify="--------" width="10"/>
+        </FormField>
+        <FormField colName="std_cnt" fieldtype="FORM_ONLY" name="std_cnt" sqlTabName="formonly">
+          <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield1" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="std_cnt" noEntry="--------" notNull="--------" posX="32" posY="1" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="19" verify="--------" width="10"/>
+        </FormField>
+        <Text height="1" name="text4" posX="1" posY="1" text="Total Program of Standard Area" width="30"/>
+        <Text height="1" name="text25" posX="46" posY="0" text="Total Form of Current Area" width="26"/>
+        <FormField colName="cur_cnt_f" fieldtype="FORM_ONLY" name="cur_cnt_f" sqlTabName="formonly">
+          <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="cur_cnt_f" noEntry="--------" notNull="--------" posX="75" posY="0" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="20" verify="--------" width="10"/>
+        </FormField>
+        <Text height="1" name="text26" posX="46" posY="1" text="Total Form of Standard Area" width="27"/>
+        <FormField colName="std_cnt_f" fieldtype="FORM_ONLY" name="std_cnt_f" sqlTabName="formonly">
+          <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield1" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="std_cnt_f" noEntry="--------" notNull="--------" posX="75" posY="1" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="21" verify="--------" width="10"/>
+        </FormField>
+        <Text height="1" name="text15" posX="43" posY="0" text="" width="2"/>
+        <Text height="1" name="text16" posX="43" posY="1" text="" width="2"/>
+      </Grid>
+    </Group>
+    <PageControl browserStatus="true" fontPitch="default" height="22" hidden="--------" lstrcomment="false" name="pc1" posX="1" posY="12" width="89">
+      <Page action="compare" browserStatus="false" flag_text_changed="FALSE" name="Page1" text="Compare Result">
+        <PageControl browserStatus="true" fontPitch="default" height="20" hidden="--------" lstrcomment="false" name="pc7" posX="1" posY="0" width="84">
+          <Page action="cmp_prog" browserStatus="true" flag_text_changed="FALSE" name="Page24" text="Program">
+            <VBox height="18" hidden="--------" name="vb28" posX="1" posY="0" style="" tag="" width="83">
+              <Grid fontPitch="default" height="1" hidden="--------" hrecindex="-1" lstrcomment="false" name="gr19" posX="1" posY="0" width="82">
+                <Label color="black" colorCondition="black" flag_text_changed="TRUE" fontPitch="default" height="1" hidden="--------" justify="none" lstrcomment="false" lstrtext="false" name="lb2" posX="1" posY="0" sizePolicy="initial" text="* Different version will print, if the same will just print different quantity." width="44"/>
+              </Grid>
+              <Table fontPitch="default" height="16" hidden="--------" hrecindex="-1" name="tb1" posX="1" posY="1" tabName="s_compare" totalRows="14" unhidableColumns="--------" unitHeight="-------- CHARACTERS" unitWidth="-------- CHARACTERS" unmovableColumns="--------" unsizableColumns="--------" unsortableColumns="--------" wantFixedPageSize="--------" width="82">
+                <TableColumn colName="cmp_pgpath" flag_text_changed="TRUE" keyName="Col47" lstrtext="false" name="cmp_pgpath" sqlDBName="formonly" sqlTabName="formonly" tabIndex="37" text="Program Path" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="20">
+                  <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="20"/>
+                </TableColumn>
+                <TableColumn colName="cur_ver" flag_text_changed="TRUE" keyName="Col48" lstrtext="false" name="cur_ver" sqlDBName="formonly" sqlTabName="formonly" tabIndex="38" text="Current Version" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="16">
+                  <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="16"/>
+                </TableColumn>
+                <TableColumn colName="std_ver" flag_text_changed="TRUE" keyName="Col49" lstrtext="false" name="std_ver" sqlDBName="formonly" sqlTabName="formonly" tabIndex="39" text="Standard Version" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="16">
+                  <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="16"/>
+                </TableColumn>
+                <TableColumn colName="diff_qty" flag_text_changed="TRUE" keyName="Col50" lstrtext="false" name="diff_qty" sqlDBName="formonly" sqlTabName="formonly" tabIndex="40" text="Different Quantity" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="14">
+                  <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="14"/>
+                </TableColumn>
+                <TableColumn colName="cmp_dif_rate" flag_text_changed="TRUE" keyName="Col51" lstrtext="false" name="cmp_dif_rate" sqlTabName="formonly" tabIndex="41" text="Rate (%)" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="10">
+                  <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------"/>
+                </TableColumn>
+              </Table>
+              <Grid fontPitch="default" height="1" hidden="--------" hrecindex="-1" lstrcomment="false" name="gr6" posX="1" posY="17" width="82">
+                <FormField colName="cmp_cnt" fieldtype="FORM_ONLY" hrecindex="-1" name="cmp_cnt" sqlTabName="formonly">
+                  <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="cmp_cnt" noEntry="--------" notNull="--------" posX="21" posY="0" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="36" verify="--------" width="10"/>
+                </FormField>
+                <Text height="1" hrecindex="-1" name="text31" posX="1" posY="0" text="Different Quantity" width="18"/>
+              </Grid>
+            </VBox>
+          </Page>
+          <Page action="cmp_form" flag_text_changed="FALSE" name="Page25" text="Form">
+            <VBox height="17" hidden="--------" name="vb30" posX="1" posY="1" style="" tag="" width="52">
+              <Table fontPitch="default" height="16" hidden="--------" name="tb24" posX="1" posY="1" tabName="s_compare_f" totalRows="14" unhidableColumns="--------" unitHeight="-------- CHARACTERS" unitWidth="-------- CHARACTERS" unmovableColumns="--------" unsizableColumns="--------" unsortableColumns="--------" wantFixedPageSize="--------" width="51">
+                <TableColumn colName="cmp_fmpath" flag_text_changed="TRUE" lstrtext="false" name="cmp_fmpath" sqlTabName="formonly" tabIndex="42" text="Form Path" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="24">
+                  <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="24"/>
+                </TableColumn>
+                <TableColumn colName="diff_qty_f" flag_text_changed="TRUE" lstrtext="false" name="diff_qty_f" sqlTabName="formonly" tabIndex="43" text="Different Quantity" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="14">
+                  <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="14"/>
+                </TableColumn>
+                <TableColumn colName="cmp_dif_rate_f" flag_text_changed="TRUE" lstrtext="false" name="cmp_dif_rate_f" sqlTabName="formonly" tabIndex="44" text="Rate (%)" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="8">
+                  <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------"/>
+                </TableColumn>
+              </Table>
+              <Grid browserStatus="false" fontPitch="default" height="1" hidden="--------" lstrcomment="false" name="gr50" posX="1" posY="17" width="51">
+                <Text height="1" name="text37" posX="1" posY="0" text="Different Quantity" width="18"/>
+                <FormField colName="cmp_cnt_f" fieldtype="FORM_ONLY" name="cmp_cnt_f" sqlTabName="formonly">
+                  <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield3" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="cmp_cnt_f" noEntry="--------" notNull="--------" posX="21" posY="0" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="54" verify="--------" width="10"/>
+                </FormField>
+              </Grid>
+            </VBox>
+          </Page>
+        </PageControl>
+      </Page>
+      <Page action="current" flag_text_changed="FALSE" name="Page2" text="Surplus of Current">
+        <VBox height="20" hidden="--------" name="vb38" posX="1" posY="0" style="" tag="" width="84">
+          <Grid fontPitch="default" height="1" hidden="--------" lstrcomment="false" name="gr3" posX="1" posY="0" scroll="false" width="83">
+            <Label color="black" colorCondition="black" flag_text_changed="TRUE" fontPitch="default" height="1" hidden="--------" justify="none" lstrcomment="false" lstrtext="false" name="lb3" posX="1" posY="0" sizePolicy="initial" text="* Just current area exist, check whether those file is customerize." width="50"/>
+          </Grid>
+          <PageControl browserStatus="true" fontPitch="default" height="19" hidden="--------" lstrcomment="false" name="pc10" posX="1" posY="1" width="83">
+            <Page action="curr_prog" flag_text_changed="FALSE" name="Page30" text="Program">
+              <VBox height="17" hidden="--------" name="vb34" posX="1" posY="0" style="" tag="" width="54">
+                <Table fontPitch="default" height="16" hidden="--------" name="tb2" posX="1" posY="0" tabName="s_current" totalRows="14" unhidableColumns="--------" unitHeight="-------- CHARACTERS" unitWidth="-------- CHARACTERS" unmovableColumns="--------" unsizableColumns="--------" unsortableColumns="--------" wantFixedPageSize="--------" width="53">
+                  <TableColumn colName="cur_pgpath" flag_text_changed="TRUE" lstrtext="false" name="cur_pgpath" sqlDBName="formonly" sqlTabName="formonly" tabIndex="55" text="Program Path" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="50">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="50"/>
+                  </TableColumn>
+                </Table>
+                <Grid fontPitch="default" height="1" hidden="--------" lstrcomment="false" name="gr6_1" posX="1" posY="16" width="53">
+                  <Text height="1" name="text5_1" posX="1" posY="0" text="Different Quantity" width="18"/>
+                  <FormField colName="dif_cur_cnt" fieldtype="FORM_ONLY" name="dif_cur_cnt" sqlTabName="formonly">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="dif_cur_cnt" noEntry="--------" notNull="--------" posX="21" posY="0" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="56" verify="--------" width="10"/>
+                  </FormField>
+                </Grid>
+              </VBox>
+            </Page>
+            <Page action="curr_form" flag_text_changed="FALSE" name="Page31" text="Form">
+              <VBox height="17" hidden="--------" name="vb35" posX="1" posY="0" style="" tag="" width="54">
+                <Table fontPitch="default" height="16" hidden="--------" name="tb28" posX="1" posY="0" tabName="s_current_f" totalRows="14" unhidableColumns="--------" unitHeight="-------- CHARACTERS" unitWidth="-------- CHARACTERS" unmovableColumns="--------" unsizableColumns="--------" unsortableColumns="--------" wantFixedPageSize="--------" width="53">
+                  <TableColumn colName="cur_fmpath" flag_text_changed="TRUE" lstrtext="false" name="cur_fmpath" sqlTabName="formonly" tabIndex="57" text="Form Path" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="51">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="51"/>
+                  </TableColumn>
+                </Table>
+                <Grid browserStatus="false" fontPitch="default" height="1" hidden="--------" lstrcomment="false" name="gr54" posX="1" posY="16" width="53">
+                  <Text height="1" name="text40" posX="1" posY="0" text="Different Quantity" width="18"/>
+                  <FormField colName="dif_cur_cnt_f" fieldtype="FORM_ONLY" name="dif_cur_cnt_f" sqlTabName="formonly">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield4" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="dif_cur_cnt_f" noEntry="--------" notNull="--------" posX="21" posY="0" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="58" verify="--------" width="10"/>
+                  </FormField>
+                </Grid>
+              </VBox>
+            </Page>
+          </PageControl>
+        </VBox>
+      </Page>
+      <Page action="standard" flag_text_changed="TRUE" name="page3" text="Surplus of Standard">
+        <VBox height="20" hidden="--------" name="vb44" posX="1" posY="0" style="" tag="" width="56">
+          <Grid fontPitch="default" height="1" hidden="--------" lstrcomment="false" name="gr4" posX="1" posY="0" scroll="false" width="55">
+            <Label color="black" colorCondition="black" flag_text_changed="TRUE" fontPitch="default" height="1" hidden="--------" justify="none" lstrcomment="false" lstrtext="false" name="lb4" posX="1" posY="0" sizePolicy="initial" text="* Just standard area exist, check whether have deleted file in current area." width="49"/>
+          </Grid>
+          <PageControl fontPitch="default" height="19" hidden="--------" lstrcomment="false" name="pc11" posX="1" posY="1" width="55">
+            <Page action="std_prog" flag_text_changed="FALSE" name="Page32" text="Program">
+              <VBox height="17" hidden="--------" name="vb42" posX="0" posY="0" style="" tag="" width="54">
+                <Table fontPitch="default" height="16" hidden="--------" name="tb4" posX="0" posY="0" tabName="s_standard" totalRows="14" unhidableColumns="--------" unitHeight="-------- CHARACTERS" unitWidth="-------- CHARACTERS" unmovableColumns="--------" unsizableColumns="--------" unsortableColumns="--------" wantFixedPageSize="--------" width="53">
+                  <TableColumn colName="std_pgpath" flag_text_changed="TRUE" lstrtext="false" name="std_pgpath" sqlDBName="formonly" sqlTabName="formonly" tabIndex="59" text="Program Path" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="50">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="50"/>
+                  </TableColumn>
+                </Table>
+                <Grid fontPitch="default" height="1" hidden="--------" lstrcomment="false" name="gr6_2" posX="0" posY="16" scroll="false" width="53">
+                  <Text height="1" name="text5_2" posX="1" posY="0" text="Different Quantity" width="18"/>
+                  <FormField colName="dif_std_cnt" fieldtype="FORM_ONLY" name="dif_std_cnt" sqlTabName="formonly">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="dif_std_cnt" noEntry="--------" notNull="--------" posX="21" posY="0" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="60" verify="--------" width="10"/>
+                  </FormField>
+                </Grid>
+              </VBox>
+            </Page>
+            <Page action="std_form" flag_text_changed="FALSE" name="Page33" text="Form">
+              <VBox height="17" hidden="--------" name="vb43" posX="0" posY="0" style="" tag="" width="54">
+                <Table fontPitch="default" height="16" hidden="--------" name="tb4_1" posX="0" posY="0" tabName="s_standard_f" totalRows="14" unhidableColumns="--------" unitHeight="-------- CHARACTERS" unitWidth="-------- CHARACTERS" unmovableColumns="--------" unsizableColumns="--------" unsortableColumns="--------" wantFixedPageSize="--------" width="53">
+                  <TableColumn colName="std_fmpath" flag_text_changed="TRUE" lstrtext="false" name="std_fmpath" sqlDBName="formonly" sqlTabName="formonly" tabIndex="61" text="Form Path" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="50">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="50"/>
+                  </TableColumn>
+                </Table>
+                <Grid fontPitch="default" height="1" hidden="--------" lstrcomment="false" name="gr6_4" posX="0" posY="16" scroll="false" width="53">
+                  <Text height="1" name="text5_4" posX="1" posY="0" text="Different Quantity" width="18"/>
+                  <FormField colName="dif_std_cnt_f" fieldtype="FORM_ONLY" name="dif_std_cnt_f" sqlTabName="formonly">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="dif_std_cnt_f" noEntry="--------" notNull="--------" posX="21" posY="0" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="62" verify="--------" width="10"/>
+                  </FormField>
+                </Grid>
+              </VBox>
+            </Page>
+          </PageControl>
+        </VBox>
+      </Page>
+      <Page action="custom" flag_text_changed="FALSE" name="Page4" text="Cust. Prog. of Current">
+        <VBox height="20" hidden="--------" name="vb47" posX="0" posY="0" style="" tag="" width="76">
+          <Grid fontPitch="default" height="1" hidden="--------" lstrcomment="false" name="gr10" posX="0" posY="0" width="75">
+            <Label color="black" colorCondition="black" flag_text_changed="TRUE" fontPitch="default" height="1" hidden="--------" justify="none" lstrcomment="false" lstrtext="false" name="lb5" posX="1" posY="0" sizePolicy="initial" text="* Compare Package with Customization at Current Area" width="50"/>
+          </Grid>
+          <PageControl fontPitch="default" height="19" hidden="--------" lstrcomment="false" name="pc12" posX="0" posY="1" width="75">
+            <Page action="cust_prog" flag_text_changed="FALSE" name="Page34" text="Program">
+              <VBox height="17" hidden="--------" name="vb45" posX="0" posY="0" style="" tag="" width="72">
+                <Table fontPitch="default" height="16" hidden="--------" name="tb4_" posX="0" posY="0" tabName="s_custom" totalRows="14" unhidableColumns="--------" unitHeight="-------- CHARACTERS" unitWidth="-------- CHARACTERS" unmovableColumns="--------" unsizableColumns="--------" unsortableColumns="--------" wantFixedPageSize="--------" width="71">
+                  <TableColumn colName="cust_path" flag_text_changed="TRUE" lstrtext="false" name="cust_path" sqlDBName="formonly" sqlTabName="formonly" tabIndex="63" text="Customize Program Path" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="22">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="22"/>
+                  </TableColumn>
+                  <TableColumn colName="curr_path" flag_text_changed="TRUE" lstrtext="false" name="curr_path" sqlDBName="formonly" sqlTabName="formonly" tabIndex="64" text="Correspond Guess" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="22">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="22"/>
+                  </TableColumn>
+                  <TableColumn colName="cust_difqty" flag_text_changed="TRUE" lstrtext="false" name="cust_difqty" sqlDBName="formonly" sqlTabName="formonly" tabIndex="65" text="Different Quantity" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="12">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="12"/>
+                  </TableColumn>
+                  <TableColumn colName="cust_dif_rate" flag_text_changed="TRUE" lstrtext="false" name="cust_dif_rate" sqlTabName="formonly" tabIndex="66" text="Rate (%)" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="10">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------"/>
+                  </TableColumn>
+                </Table>
+                <Grid fontPitch="default" height="1" hidden="--------" lstrcomment="false" name="gr6_3" posX="0" posY="16" scroll="false" width="71">
+                  <Text height="1" name="text5_3" posX="1" posY="0" text="Customize Quantity" width="18"/>
+                  <FormField colName="cust_cnt" fieldtype="FORM_ONLY" name="cust_cnt" sqlTabName="formonly">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="cust_cnt" noEntry="--------" notNull="--------" posX="21" posY="0" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="67" verify="--------" width="10"/>
+                  </FormField>
+                </Grid>
+              </VBox>
+            </Page>
+            <Page action="cust_form" flag_text_changed="FALSE" name="Page35" text="Form">
+              <VBox height="17" hidden="--------" name="vb46" posX="1" posY="0" style="" tag="" width="72">
+                <Table fontPitch="default" height="16" hidden="--------" name="tb4__1" posX="1" posY="0" tabName="s_custom_f" totalRows="14" unhidableColumns="--------" unitHeight="-------- CHARACTERS" unitWidth="-------- CHARACTERS" unmovableColumns="--------" unsizableColumns="--------" unsortableColumns="--------" wantFixedPageSize="--------" width="71">
+                  <TableColumn colName="cust_path_f" flag_text_changed="TRUE" lstrtext="false" name="cust_path_f" sqlDBName="formonly" sqlTabName="formonly" tabIndex="68" text="Customize Form Path" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="22">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="22"/>
+                  </TableColumn>
+                  <TableColumn colName="curr_path_f" flag_text_changed="TRUE" lstrtext="false" name="curr_path_f" sqlDBName="formonly" sqlTabName="formonly" tabIndex="69" text="Correspond Guess" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="22">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="22"/>
+                  </TableColumn>
+                  <TableColumn colName="cust_difqty_f" flag_text_changed="TRUE" lstrtext="false" name="cust_difqty_f" sqlDBName="formonly" sqlTabName="formonly" tabIndex="70" text="Different Quantity" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="12">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------" width="12"/>
+                  </TableColumn>
+                  <TableColumn colName="cust_dif_rate_f" flag_text_changed="TRUE" lstrtext="false" name="cust_dif_rate_f" sqlTabName="formonly" tabIndex="71" text="Rate (%)" unhidable="--------" unmovable="--------" unsizable="--------" unsortable="--------" width="10">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" hidden="--------" invisible="--------" justify="none" lstrcomment="false" noEntry="--------" notNull="--------" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" verify="--------"/>
+                  </TableColumn>
+                </Table>
+                <Grid fontPitch="default" height="1" hidden="--------" lstrcomment="false" name="gr6_5" posX="1" posY="16" scroll="false" width="71">
+                  <Text height="1" name="text5_5" posX="1" posY="0" text="Customize Quantity" width="18"/>
+                  <FormField colName="cust_cnt_f" fieldtype="FORM_ONLY" name="cust_cnt" sqlTabName="formonly">
+                    <Edit autoNext="--------" case="NONE" century="R" color="black" colorCondition="black" data_type="--------" fontPitch="default" formfieldname="formfield0" height="1" hidden="--------" invisible="--------" justify="none" lstrcomment="false" name="cust_cnt_1" noEntry="--------" notNull="--------" posX="21" posY="0" required="--------" reverse="--------" scroll="--------" sizePolicy="initial" tabIndex="72" verify="--------" width="10"/>
+                  </FormField>
+                </Grid>
+              </VBox>
+            </Page>
+          </PageControl>
+        </VBox>
+      </Page>
+    </PageControl>
+  </VBox>
+  <RecordView SRType="default" fromTable="true" name="s_compare" tableKey="tb1">
+    <Link colKey="Col1" colName="formonly.cmp_pgpath" fromTable="true"/>
+    <Link colKey="Col2" colName="formonly.cur_ver" fromTable="true"/>
+    <Link colKey="Col3" colName="formonly.std_ver" fromTable="true"/>
+    <Link colKey="Col4" colName="formonly.diff_qty" fromTable="true"/>
+    <Link colKey="Col5" colName="formonly.cmp_dif_rate" fromTable="true"/>
+  </RecordView>
+  <RecordView SRType="default" fromTable="true" name="s_compare_f" tableKey="tb2">
+    <Link colKey="Col6" colName="formonly.cmp_fmpath" fromTable="true"/>
+    <Link colKey="Col7" colName="formonly.diff_qty_f" fromTable="true"/>
+    <Link colKey="Col8" colName="formonly.cmp_dif_rate_f" fromTable="true"/>
+  </RecordView>
+  <RecordView SRType="default" fromTable="true" name="s_current" tableKey="tb3">
+    <Link colKey="Col9" colName="formonly.cur_pgpath" fromTable="true"/>
+  </RecordView>
+  <RecordView SRType="default" fromTable="true" name="s_current_f" tableKey="tb4">
+    <Link colKey="Col10" colName="formonly.cur_fmpath" fromTable="true"/>
+  </RecordView>
+  <RecordView SRType="default" fromTable="true" name="s_standard" tableKey="tb5">
+    <Link colKey="Col11" colName="formonly.std_pgpath" fromTable="true"/>
+  </RecordView>
+  <RecordView SRType="default" fromTable="true" name="s_standard_f" tableKey="tb6">
+    <Link colKey="Col12" colName="formonly.std_fmpath" fromTable="true"/>
+  </RecordView>
+  <RecordView SRType="default" fromTable="true" name="s_custom" tableKey="tb7">
+    <Link colKey="Col13" colName="formonly.cust_path" fromTable="true"/>
+    <Link colKey="Col14" colName="formonly.curr_path" fromTable="true"/>
+    <Link colKey="Col15" colName="formonly.cust_difqty" fromTable="true"/>
+    <Link colKey="Col16" colName="formonly.cust_dif_rate" fromTable="true"/>
+  </RecordView>
+  <RecordView SRType="default" fromTable="true" name="s_custom_f" tableKey="tb8">
+    <Link colKey="Col17" colName="formonly.cust_path_f" fromTable="true"/>
+    <Link colKey="Col18" colName="formonly.curr_path_f" fromTable="true"/>
+    <Link colKey="Col19" colName="formonly.cust_difqty_f" fromTable="true"/>
+    <Link colKey="Col20" colName="formonly.cust_dif_rate_f" fromTable="true"/>
+  </RecordView>
+</Form>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm gstVersion="21e00" name="Root" uid="{499bb2f1-0870-4b7a-aff9-92f1867e9bce}">
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="s_disable" order="" uid="{1b0ddb61-1be1-42b3-98e7-26d6d534ad6e}" where="">
+    <RecordField colName="" fieldIdRef="8" fieldType="NON_DATABASE" name="gao01_d" sqlTabName="" table_alias_name="" uid="{113005a0-7729-4c56-8fb6-70f7b1362569}"/>
+  </Record>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="s_select" order="" uid="{513c3d4d-a663-4926-8c82-970544465e8c}" where="">
+    <RecordField colName="" fieldIdRef="9" fieldType="NON_DATABASE" name="gao01_s" sqlTabName="" table_alias_name="" uid="{e9fe0a4a-a19d-4708-95c8-273c237f3de9}"/>
+  </Record>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="Undefined" order="" uid="{0a46d094-8af1-49fb-bbd9-1299cf8e18fa}" where="">
+    <RecordField colName="" fieldIdRef="0" fieldType="NON_DATABASE" name="dummy03" sqlTabName="" table_alias_name="" uid="{7cea8c99-a23b-4688-aea2-0e35db11ca02}"/>
+    <RecordField colName="" fieldIdRef="1" fieldType="NON_DATABASE" name="dummy01" sqlTabName="" table_alias_name="" uid="{df02d5ad-f8a6-4f27-9349-e1dda6a288d9}"/>
+    <RecordField colName="" fieldIdRef="2" fieldType="NON_DATABASE" name="dummy02" sqlTabName="" table_alias_name="" uid="{f1d38ba2-ef1b-41d8-b7f1-f238c510192b}"/>
+    <RecordField colName="" fieldIdRef="4" fieldType="NON_DATABASE" name="du04_c" sqlTabName="" table_alias_name="" uid="{8ad8bfcd-ffc8-4ba0-9ba2-850df46c629e}"/>
+    <RecordField colName="" fieldIdRef="5" fieldType="NON_DATABASE" name="du04_l" sqlTabName="" table_alias_name="" uid="{7c86a3fe-5261-4be3-846a-61ec4d20fa60}"/>
+    <RecordField colName="" fieldIdRef="7" fieldType="NON_DATABASE" name="du04_f" sqlTabName="" table_alias_name="" uid="{de13cf31-bba7-4438-a5ac-f526076c6747}"/>
+    <RecordField colName="" fieldIdRef="21" name="processor" sqlTabName="" table_alias_name="" uid="{cc7e0392-d3f0-4ff1-bf45-2f0f3c0d200a}"/>
+    <RecordField colName="" fieldIdRef="15" fieldType="NON_DATABASE" name="dummy07" sqlTabName="" table_alias_name="" uid="{538d65b5-638a-4725-bace-a92528ff1359}"/>
+    <RecordField colName="" fieldIdRef="16" fieldType="NON_DATABASE" name="dummy08" sqlTabName="" table_alias_name="" uid="{dd8c0bee-ee61-4022-84f4-542ef168862e}"/>
+    <RecordField colName="" fieldIdRef="17" fieldType="NON_DATABASE" name="curr01" sqlTabName="" table_alias_name="" uid="{d1a5b40c-b6ce-4350-8ef7-5c6779c2e467}"/>
+    <RecordField colName="" fieldIdRef="18" fieldType="NON_DATABASE" name="progs01" sqlTabName="" table_alias_name="" uid="{92b52e19-58a1-4b1e-9e77-572a8bb61da5}"/>
+    <RecordField colName="" fieldIdRef="19" fieldType="NON_DATABASE" name="curr02" sqlTabName="" table_alias_name="" uid="{ed5e2732-5dde-47d0-b3e0-b469ea01ab85}"/>
+    <RecordField colName="" fieldIdRef="20" fieldType="NON_DATABASE" name="progs02" sqlTabName="" table_alias_name="" uid="{c6ba9faa-3afa-48fa-a32f-2ab40a65603d}"/>
+    <RecordField colName="" fieldIdRef="3" name="du04_t" sqlTabName="" table_alias_name="" uid="{bc27c081-3e4e-4b8e-9667-1b6e8a393593}"/>
+  </Record>
+  <Form gridHeight="28" gridWidth="67" name="GPRebuild" text="GPRebuild">
+    <ActionDefaultList name="ActionDefaultList1">
+      <ActionDefault name="do_action" text="Build!"/>
+      <ActionDefault name="output" text="View Log"/>
+      <ActionDefault name="exit" text="Exit"/>
+      <ActionDefault name="accept" text="View"/>
+      <ActionDefault name="cancel" text="Exit"/>
+      <ActionDefault name="remove_data" text="Remove The Record"/>
+    </ActionDefaultList>
+    <VBox gridHeight="28" gridWidth="67" name="vb2" posX="0" posY="0">
+      <Folder gridHeight="19" gridWidth="67" name="pc1" posX="0" posY="1">
+        <Page name="page1" text="Basic Setting">
+          <VBox gridHeight="17" gridWidth="67" name="vb5" posX="0" posY="0">
+            <Grid gridHeight="10" gridWidth="67" name="gr1" posX="0" posY="1">
+              <Group gridChildrenInParent="true" gridHeight="5" gridWidth="65" name="group01" posX="1" posY="1" text="Rebuild Defination">
+                <Label gridHeight="1" gridWidth="14" name="Label3" posX="2" posY="1" text="Rebuilding Area"/>
+                <ComboBox colName="" color="blue" columnCount="" fieldId="0" fieldType="NON_DATABASE" gridHeight="1" gridWidth="39" items="TIPTOP GP Standard Area, TIPTOP GP Customized Area, TIPTOP GP 42x System Only, TIPTOP GP Full Area" name="dummy03" notNull="true" posX="23" posY="1" required="true" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="1" table_alias_name="" widget="ComboBox">
+                  <Item name="T" text="TIPTOP GP Standard Area"/>
+                  <Item name="C" text="TIPTOP GP Customized Area"/>
+                  <Item name="S" text="TIPTOP GP 42x System Only"/>
+                  <Item name="F" text="TIPTOP GP Full Area"/>
+                </ComboBox>
+                <Label gridHeight="1" gridWidth="17" name="Label4" posX="2" posY="2" text="TIPTOP System Path"/>
+                <Edit colName="" columnCount="" fieldId="1" fieldType="NON_DATABASE" gridHeight="1" gridWidth="39" name="dummy01" noEntry="true" notNull="true" posX="23" posY="2" required="true" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="2" table_alias_name="" widget="Edit"/>
+                <Label gridHeight="1" gridWidth="17" name="Label5" posX="2" posY="3" text="Customization Path"/>
+                <Edit colName="" columnCount="" fieldId="2" fieldType="NON_DATABASE" gridHeight="1" gridWidth="39" name="dummy02" noEntry="true" notNull="true" posX="23" posY="3" required="true" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="3" table_alias_name="" widget="Edit"/>
+              </Group>
+              <Group gridHeight="3" gridWidth="65" name="gb4" posX="1" posY="6" text="Rebuild Functions">
+                <CheckBox colName="" columnCount="" fieldId="4" fieldType="NON_DATABASE" gridHeight="1" gridWidth="13" name="du04_c" notNull="true" posX="2" posY="1" required="true" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="4" table_alias_name="" text="Compile 4GL" widget="CheckBox"/>
+                <CheckBox colName="" columnCount="" fieldId="5" fieldType="NON_DATABASE" gridHeight="1" gridWidth="14" name="du04_l" notNull="true" posX="25" posY="1" required="true" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="6" table_alias_name="" text="Link Programs" widget="CheckBox"/>
+                <CheckBox colName="" columnCount="" fieldId="7" fieldType="NON_DATABASE" gridHeight="1" gridWidth="14" name="du04_f" notNull="true" posX="44" posY="1" required="true" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="5" table_alias_name="" text="Compile Form" widget="CheckBox"/>
+              </Group>
+            </Grid>
+            <HBox gridHeight="5" gridWidth="67" name="hb4" posX="0" posY="11">
+              <Table gridHeight="5" gridWidth="21" name="s_disable" posX="2" posY="0" totalRows="4">
+                <Edit colName="" columnCount="" fieldId="8" fieldType="NON_DATABASE" gridHeight="1" gridWidth="19" name="gao01_d" posX="0" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="7" table_alias_name="" title="UNSELECTED" widget="Edit"/>
+              </Table>
+              <Grid gridHeight="5" gridWidth="21" name="gr4_" posX="23" posY="0">
+                <Button gridHeight="1" gridWidth="16" name="btn_selall" posX="3" posY="1" tabIndex="10" text="---Select ALL--&gt;&gt;"/>
+                <Button gridHeight="1" gridWidth="16" name="btn_select" posX="3" posY="2" tabIndex="11" text="---Select The Item ---&gt;"/>
+                <Button gridHeight="1" gridWidth="16" name="btn_disable" posX="3" posY="3" tabIndex="12" text="&lt;---Disable The Item---"/>
+                <Button gridHeight="1" gridWidth="16" name="btn_disall" posX="3" posY="4" tabIndex="13" text="&lt;&lt;--Disable ALL---"/>
+              </Grid>
+              <Table gridHeight="5" gridWidth="21" name="s_select" posX="44" posY="0" totalRows="3">
+                <Edit colName="" columnCount="" fieldId="9" fieldType="NON_DATABASE" gridHeight="1" gridWidth="17" name="gao01_s" posX="0" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="8" table_alias_name="" title="SELECTED" widget="Edit"/>
+              </Table>
+            </HBox>
+          </VBox>
+        </Page>
+        <Page name="page2" text="Advance Setting">
+          <Grid gridHeight="12" gridWidth="62" name="gr5" posX="0" posY="0">
+            <CheckBox colName="" columnCount="" fieldId="3" gridHeight="1" gridWidth="15" name="du04_t" notNull="true" posX="1" posY="1" required="true" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="15" table_alias_name="" text="Complier Tool" title="CheckBox1" widget="CheckBox"/>
+            <Label gridHeight="1" gridWidth="12" name="Label1" posX="1" posY="2" text="Processors"/>
+            <ComboBox colName="" columnCount="" fieldId="21" gridHeight="1" gridWidth="21" items="1 CPU, 2 CPUs, 4 CPUs, 8 CPUs, 16 CPUs" name="processor" notNull="true" posX="14" posY="2" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="14" table_alias_name="" title="formonly.ComboBox1" widget="ComboBox">
+              <Item name="1" text="1 CPU"/>
+              <Item name="2" text="2 CPUs"/>
+              <Item name="4" text="4 CPUs"/>
+              <Item name="8" text="8 CPUs"/>
+              <Item name="16" text="16 CPUs"/>
+            </ComboBox>
+          </Grid>
+        </Page>
+      </Folder>
+      <Grid gridHeight="7" gridWidth="67" name="gr4" posX="0" posY="20">
+        <Group gridChildrenInParent="true" gridHeight="7" gridWidth="66" name="group03" posX="1" posY="0" text="Prograssing">
+          <Label gridHeight="1" gridWidth="10" name="Label6" posX="15" posY="1" text="Start From"/>
+          <FFLabel colName="" color="blue" columnCount="" fieldId="15" fieldType="NON_DATABASE" gridHeight="1" gridWidth="11" name="dummy07" posX="27" posY="1" rowCount="" sqlTabName="" stepX="" stepY="" table_alias_name="" widget="FFLabel"/>
+          <Label gridHeight="1" gridWidth="3" name="Label7" posX="40" posY="1" text="TO"/>
+          <FFLabel colName="" color="blue" columnCount="" fieldId="16" fieldType="NON_DATABASE" gridHeight="1" gridWidth="11" name="dummy08" posX="44" posY="1" rowCount="" sqlTabName="" stepX="" stepY="" table_alias_name="" widget="FFLabel"/>
+          <Label gridHeight="1" gridWidth="12" name="Label8" posX="1" posY="2" text="Current Step:"/>
+          <FFLabel colName="" columnCount="" fieldId="17" fieldType="NON_DATABASE" gridHeight="1" gridWidth="48" name="curr01" posX="15" posY="2" rowCount="" sqlTabName="" stepX="" stepY="" table_alias_name="" widget="FFLabel"/>
+          <ProgressBar colName="" columnCount="" fieldId="18" fieldType="NON_DATABASE" gridHeight="1" gridWidth="62" name="progs01" posX="1" posY="3" rowCount="" sqlTabName="" stepX="" stepY="" table_alias_name="" widget="ProgressBar"/>
+          <Label gridHeight="1" gridWidth="15" name="Label9" posX="1" posY="4" text="Current Module:"/>
+          <FFLabel colName="" columnCount="" fieldId="19" fieldType="NON_DATABASE" gridHeight="1" gridWidth="45" name="curr02" posX="18" posY="4" rowCount="" sqlTabName="" stepX="" stepY="" table_alias_name="" widget="FFLabel"/>
+          <ProgressBar colName="" columnCount="" fieldId="20" fieldType="NON_DATABASE" gridHeight="1" gridWidth="62" name="progs02" posX="1" posY="5" rowCount="" sqlTabName="" stepX="" stepY="" table_alias_name="" widget="ProgressBar"/>
+        </Group>
+      </Grid>
+    </VBox>
+  </Form>
+  <DiagramLayout>
+    <![CDATA[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]]>
+  </DiagramLayout>
+</ManagedForm>

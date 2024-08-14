@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm gstVersion="22800" name="ManagedForm" uid="{141f1f33-407c-4d27-bccb-e62592e4f3f0}">
+  <AGSettings/>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="s_para" order="" uid="{315f1267-c683-4467-8c28-626b3aa0723d}" where="">
+    <RecordField colName="" fieldIdRef="1" name="name" sqlTabName="" table_alias_name="" uid="{65bcf165-d2b4-471d-8001-c1fb972f9f87}"/>
+    <RecordField colName="" fieldIdRef="3" name="type" sqlTabName="" table_alias_name="" uid="{64e3d1f0-4f8f-4901-9d1a-ff304b8ac423}"/>
+  </Record>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="s_include" order="" uid="{c6843a60-0974-4794-b839-707226127594}" where=""/>
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="Undefined" order="" uid="{18b57b62-ee0f-4a0f-ab7f-6be0636d40e4}" where="">
+    <RecordField colName="" fieldIdRef="4" name="hrdk15" sqlTabName="" sqlType="VARCHAR" table_alias_name="" uid="{f6512694-67a8-477b-97b8-d5f663227be2}"/>
+    <RecordField colName="" fieldIdRef="5" name="keyword" sqlTabName="" sqlType="VARCHAR" table_alias_name="" uid="{3503b46d-59eb-4c09-90f9-94f33fbd3108}"/>
+    <RecordField colName="" fieldIdRef="2" name="description" sqlTabName="" sqlType="VARCHAR" table_alias_name="" uid="{b2b64e34-35d2-4e24-8055-1ab991eb21a9}"/>
+  </Record>
+  <Form gridHeight="40" gridWidth="175" name="Canvas" text="Form">
+    <Grid gridHeight="34" gridWidth="157" name="Grid1" posX="7" posY="6">
+      <TextEdit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="4" gridHeight="13" gridWidth="66" name="hrdk15" posX="5" posY="3" rowCount="" sqlTabName="" sqlType="VARCHAR" stepX="" stepY="" tabIndex="31" table_alias_name="" title="TextEdit1" widget="TextEdit"/>
+      <Label gridHeight="1" gridWidth="14" name="Label1" posX="75" posY="3" text="关键字首字母"/>
+      <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="5" gridHeight="1" gridWidth="36" name="keyword" noEntry="true" posX="75" posY="4" rowCount="" sqlTabName="" sqlType="VARCHAR" stepX="" stepY="" tabIndex="33" table_alias_name="" title="Edit1" widget="Edit"/>
+      <Group gridHeight="17" gridWidth="41" name="Group2" posX="113" posY="4" text="说明">
+        <TextEdit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="2" gridHeight="15" gridWidth="36" name="description" noEntry="true" posX="2" posY="1" rowCount="" sqlTabName="" sqlType="VARCHAR" stepX="" stepY="" tabIndex="34" table_alias_name="" title="TextEdit1" widget="TextEdit"/>
+      </Group>
+      <HLine gridWidth="37" name="HLine1" posX="74" posY="5"/>
+      <Table gridHeight="19" gridWidth="36" name="param_table" posX="75" posY="6" totalRows="5">
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="1" gridHeight="1" gridWidth="20" name="name" posX="0" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="28" table_alias_name="" title="Parameters" widget="Edit"/>
+        <Edit aggregateColName="" aggregateName="" aggregateTableAliasName="" aggregateTableName="" colName="" columnCount="" fieldId="3" gridHeight="1" gridWidth="13" name="type" posX="20" posY="0" rowCount="" sqlTabName="" stepX="" stepY="" tabIndex="29" table_alias_name="" title="Type" widget="Edit"/>
+      </Table>
+      <Group gridHeight="8" gridWidth="13" name="CONTROL_IF" posX="5" posY="17" text="IF-ELSE语句">
+        <Button gridHeight="1" gridWidth="8" name="b_IF" posX="3" posY="1" tabIndex="1" text="如果"/>
+        <Button gridHeight="1" gridWidth="8" name="b_THEN" posX="3" posY="2" tabIndex="2" text="那么"/>
+        <Button gridHeight="1" gridWidth="8" name="b_RESULT" posX="3" posY="3" tabIndex="32" text="结果"/>
+        <Button gridHeight="1" gridWidth="8" name="b_ELSE" posX="3" posY="4" tabIndex="3" text="否则"/>
+        <Button gridHeight="1" gridWidth="8" name="b_END" posX="3" posY="5" tabIndex="4" text="结束"/>
+      </Group>
+      <Button gridHeight="1" gridWidth="10" name="b_equal" posX="21" posY="17" tabIndex="29" text="="/>
+      <Button gridHeight="1" gridWidth="10" name="b_DEL" posX="35" posY="17" tabIndex="7" text="DEL"/>
+      <Button gridHeight="1" gridWidth="4" name="b_n7" posX="48" posY="17" tabIndex="14" text="7"/>
+      <Button gridHeight="1" gridWidth="4" name="b_n8" posX="53" posY="17" tabIndex="15" text="8"/>
+      <Button gridHeight="1" gridWidth="4" name="b_n9" posX="58" posY="17" tabIndex="19" text="9"/>
+      <Button gridHeight="1" gridWidth="6" name="b_plus" posX="64" posY="17" tabIndex="24" text="+"/>
+      <Button gridHeight="1" gridWidth="10" name="b_equals" posX="21" posY="18" tabIndex="5" text="=="/>
+      <Button gridHeight="1" gridWidth="10" name="b_BACKSPACE" posX="35" posY="18" tabIndex="6" text="Backspace"/>
+      <Button gridHeight="1" gridWidth="4" name="b_n4" posX="48" posY="18" tabIndex="16" text="4"/>
+      <Button gridHeight="1" gridWidth="4" name="b_n5" posX="53" posY="18" tabIndex="18" text="5"/>
+      <Button gridHeight="1" gridWidth="4" name="b_n6" posX="58" posY="18" tabIndex="23" text="6"/>
+      <Button gridHeight="1" gridWidth="6" name="b_minus" posX="64" posY="18" tabIndex="25" text="-"/>
+      <Button gridHeight="1" gridWidth="10" name="b_more" posX="21" posY="19" tabIndex="35" text="&gt;"/>
+      <Button gridHeight="1" gridWidth="10" name="l_bracket" posX="35" posY="19" tabIndex="40" text="("/>
+      <Button gridHeight="1" gridWidth="4" name="b_n1" posX="48" posY="19" tabIndex="17" text="1"/>
+      <Button gridHeight="1" gridWidth="4" name="b_n2" posX="53" posY="19" tabIndex="21" text="2"/>
+      <Button gridHeight="1" gridWidth="4" name="b_n3" posX="58" posY="19" tabIndex="22" text="3"/>
+      <Button gridHeight="1" gridWidth="6" name="b_multiply" posX="64" posY="19" tabIndex="26" text="*"/>
+      <Button gridHeight="1" gridWidth="10" name="b_less" posX="21" posY="20" tabIndex="36" text="&lt;"/>
+      <Button gridHeight="1" gridWidth="10" name="r_bracket" posX="35" posY="20" tabIndex="41" text=")"/>
+      <Button gridHeight="1" gridWidth="4" name="b_n0" posX="53" posY="20" tabIndex="20" text="0"/>
+      <Button gridHeight="1" gridWidth="6" name="b_dividedby" posX="64" posY="20" tabIndex="27" text="/"/>
+      <Button gridHeight="1" gridWidth="10" name="s_quotes" posX="21" posY="21" tabIndex="37" text="&apos;"/>
+      <Button gridHeight="1" gridWidth="10" name="d_quotes" posX="21" posY="22" tabIndex="38" text="&quot;"/>
+      <Button gridHeight="1" gridWidth="10" name="b_SPACE" posX="48" posY="22" tabIndex="8" text="空格"/>
+      <Button gridHeight="1" gridWidth="10" name="b_WRAP" posX="60" posY="22" tabIndex="9" text="Enter"/>
+      <Button gridHeight="1" gridWidth="10" name="b_semicolon" posX="21" posY="23" tabIndex="39" text=";"/>
+      <Button gridHeight="1" gridWidth="10" name="b_comma" posX="21" posY="24" tabIndex="42" text=","/>
+      <Group gridHeight="4" gridWidth="26" name="Group1" posX="5" posY="26" text="函数">
+        <Button gridHeight="1" gridWidth="10" name="fun_num" posX="1" posY="1" tabIndex="43" text="数值函数"/>
+        <Button gridHeight="1" gridWidth="10" name="fun_date" posX="14" posY="1" tabIndex="44" text="日期函数"/>
+      </Group>
+      <Button gridHeight="1" gridWidth="8" name="b_UP" posX="50" posY="26" tabIndex="10" text="Up"/>
+      <Button gridHeight="1" gridWidth="10" name="b_LEFT" posX="38" posY="27" tabIndex="12" text="Left"/>
+      <Button gridHeight="1" gridWidth="8" name="b_DOWN" posX="50" posY="27" tabIndex="11" text="Down"/>
+      <Button gridHeight="1" gridWidth="10" name="b_RIGHT" posX="60" posY="27" tabIndex="13" text="Right"/>
+    </Grid>
+  </Form>
+  <DiagramLayout>
+    <![CDATA[AAAAAgAAAEwAewAzADEANQBmADEAMgA2ADcALQBjADYAOAAzAC0ANAA0ADYANwAtADgAYwAyADgALQA2ADIANgBiADMAYQBhADAANwAyADMAZAB9wHpwAAAAAABAUgAAAAAAAD+keuFHrhR/AQAAAEwAewBjADYAOAA0ADMAYQA2ADAALQAwADkANwA0AC0ANAA3ADkANAAtAGIAOAAzADkALQA3ADAANwAyADIANgAxADIANwA1ADkANAB9QDQAAAAAAABANAAAAAAAAAAAAAAAAAAAAQAAAEwAewAzADUAMAAzAGIANAA2AGQALQA1ADkAZQBiAC0ANABjADAAOQAtADkAMABmADkALQA5ADQAZgAzADMAZgBiAGQAMwAxADAAOAB9QCQAAAAAAABATYAAAAAAAAAAAAAAAAAAAQAAAEwAewA2ADQAZQAzAGQAMQBmADAALQA0AGYAOABmAC0ANAA5ADAAMQAtADkAZAAxAGEALQBmAGYAMwAwADQAYgA4AGEAYwA0ADIAMwB9QCQAAAAAAABATYAAAAAAAAAAAAAAAAAAAQAAAEwAewAxADgAYgA1ADcAYgA2ADIALQBlAGUAMABmAC0ANABhADAAZgAtAGEAYgA3AGYALQA2AGIAZQAwADYAMwA2AGQANAAwAGUANAB9QDQAAAAAAABANAAAAAAAAAAAAAAAAAAAAQAAAEwAewBiADIAYgA2ADQAZQAzADQALQAzADUAZAAyAC0ANABlADIANAAtADgAMAA1ADUALQAxAGEAYgA5ADkAMQBlAGIAMgAxAGEAOQB9QCQAAAAAAABAVEAAAAAAAAAAAAAAAAAAAQAAAEwAewA2ADUAYgBjAGYAMQA2ADUALQBkADIAYgA0AC0ANAA3ADEAZAAtADgAMAAwADEALQBjADEAZgBiADkANwAyAGYAOQBmADgANwB9QCQAAAAAAABAQoAAAAAAAAAAAAAAAAAAAQAAAEwAewBmADYANQAxADIANgA5ADQALQA2ADcAYQA4AC0ANAA3ADcAYgAtADkANwBiADgALQBkADUAZgA2ADYAMwAyADIANwBiAGUAMgB9QCQAAAAAAABAQoAAAAAAAAAAAAAAAAAAAQ==]]>
+  </DiagramLayout>
+</ManagedForm>

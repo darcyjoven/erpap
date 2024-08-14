@@ -1,0 +1,40 @@
+SCHEMA FORMONLY
+
+LAYOUT
+  VBOX
+    GRID
+      {
+      [accept    ][cancel    ]
+      }
+    END
+    GROUP group01 (TEXT="Testing BugNo.")
+      TABLE
+        {
+         Status      BugNo.      Testing Employee
+        [status     |bugno      |testemp         ]
+        [status     |bugno      |testemp         ]
+        [status     |bugno      |testemp         ]
+        [status     |bugno      |testemp         ]
+        [status     |bugno      |testemp         ]
+        [status     |bugno      |testemp         ]
+        [status     |bugno      |testemp         ]
+        [status     |bugno      |testemp         ]
+        [status     |bugno      |testemp         ]
+        [status     |bugno      |testemp         ]
+        }
+      END
+    END
+  END
+END
+
+ATTRIBUTES
+  BUTTON   accept  : accept,TEXT="Continue";
+  BUTTON   cancel  : cancel,TEXT="Cancel";
+           status  = FORMONLY.status,NOENTRY;
+           bugno   = FORMONLY.bugno,NOENTRY;
+           testemp = FORMONLY.testemp,NOENTRY;
+END
+
+INSTRUCTIONS
+  SCREEN RECORD s_bug[10](status,bugno,testemp)
+END

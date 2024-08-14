@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedForm gstVersion="21e00" name="ManagedForm" uid="{6143f566-d423-400f-b4ab-63de695fe201}">
+  <Record additionalTables="" joinLeft="" joinOperator="" joinRight="" name="undefined" order="" uid="{3d3ce102-9a2d-4e65-8d9b-902f5daa353c}" where="">
+    <RecordField colName="b_date" fieldIdRef="0" name="b_date" sqlTabName="formonly" sqlType="DATE" table_alias_name="" uid="{82c330e4-9b53-4fbe-9e86-9e4d1021c8ee}"/>
+    <RecordField colName="e_date" fieldIdRef="1" name="e_date" sqlTabName="formonly" sqlType="DATE" table_alias_name="" uid="{6b24373b-bde6-4b53-bc04-ddc51982d358}"/>
+    <RecordField colName="type" fieldIdRef="4" name="type" sqlTabName="formonly" sqlType="VARCHAR" table_alias_name="" uid="{48233752-3e98-4288-b056-371e7f591949}"/>
+    <RecordField colName="l_str" fieldIdRef="5" name="l_str" sqlTabName="formonly" sqlType="VARCHAR" table_alias_name="" uid="{56384c0f-a1b8-4d6d-afa0-e65cff3e4e98}"/>
+    <RecordField colName="hrat03" fieldIdRef="2" name="hrat03" sqlTabName="formonly" table_alias_name="" uid="{a6d33e74-1c73-473e-a42f-257e5219a6ab}"/>
+    <RecordField colName="hrat03_name" fieldIdRef="3" name="hrat03_name" sqlTabName="formonly" table_alias_name="" uid="{e298cc21-3612-4ae3-92b3-c700675f94f3}"/>
+  </Record>
+  <Form gridHeight="8" gridWidth="45" lstrtext="true" name="ghri056_2" text="Form">
+    <VBox gridHeight="8" gridWidth="45" name="vbox3" posX="0" posY="0">
+      <Folder gridHeight="6" gridWidth="45" name="folder1" posX="0" posY="1">
+        <Page lstrtext="true" name="page1" text="Page1">
+          <Grid gridHeight="5" gridWidth="45" name="grid3" posX="0" posY="0">
+            <Label posX="2" posY="1" text="b_date"/>
+            <DateEdit colName="b_date" columnCount="" fieldId="0" gridHeight="1" gridWidth="14" name="b_date" notNull="true" posX="9" posY="1" required="true" rowCount="" sqlTabName="formonly" sqlType="DATE" stepX="" stepY="" tabIndex="1" table_alias_name="" widget="DateEdit"/>
+            <Label posX="24" posY="1" text="e_date"/>
+            <DateEdit colName="e_date" columnCount="" fieldId="1" gridHeight="1" gridWidth="12" name="e_date" notNull="true" posX="32" posY="1" required="true" rowCount="" sqlTabName="formonly" sqlType="DATE" stepX="" stepY="" tabIndex="2" table_alias_name="" widget="DateEdit"/>
+            <Label posX="2" posY="2" text="hrat03"/>
+            <ButtonEdit action="controlp" colName="hrat03" columnCount="" fieldId="2" gridHeight="1" gridWidth="14" image="zoom" name="hrat03" posX="9" posY="2" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="5" table_alias_name="" widget="ButtonEdit"/>
+            <Edit colName="hrat03_name" columnCount="" fieldId="3" gridHeight="1" gridWidth="20" name="hrat03_name" posX="24" posY="2" rowCount="" sqlTabName="formonly" stepX="" stepY="" tabIndex="6" table_alias_name="" widget="Edit"/>
+            <Label posX="2" posY="3" text="type"/>
+            <ComboBox colName="type" columnCount="" fieldId="4" gridHeight="1" gridWidth="14" items="" name="type" notNull="true" posX="9" posY="3" required="true" rowCount="" sqlTabName="formonly" sqlType="VARCHAR" stepX="" stepY="" tabIndex="3" table_alias_name="" widget="ComboBox">
+              <Item lstrtext="true" name="1" text="1"/>
+              <Item lstrtext="true" name="2" text="2"/>
+            </ComboBox>
+            <Label posX="24" posY="3" text="l_str"/>
+            <ButtonEdit action="controlp" colName="l_str" columnCount="" fieldId="5" gridHeight="1" gridWidth="12" image="zoom" name="l_str" posX="32" posY="3" rowCount="" sqlTabName="formonly" sqlType="VARCHAR" stepX="" stepY="" tabIndex="4" table_alias_name="" widget="ButtonEdit"/>
+          </Grid>
+        </Page>
+      </Folder>
+    </VBox>
+  </Form>
+</ManagedForm>
