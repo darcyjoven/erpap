@@ -55,6 +55,7 @@ DEFINE
             nmi06   LIKE nmi_file.nmi06,
             nmi08   LIKE nmi_file.nmi08,
             nmi09   LIKE nmi_file.nmi09,
+            remark  like type_file.chr1000, #darcy:2024/08/22 add
             nmi10   LIKE nmi_file.nmi10,
             nmi11   LIKE nmi_file.nmi11
        END RECORD,
@@ -401,18 +402,22 @@ END FUNCTION
 FUNCTION q202_b_fill()                         #BODY FILL UP
    DEFINE l_t1        LIKE nmh_file.nmh01      #No.FUN-680107 VARCHAR(3)
    DEFINE l_nmydmy3   LIKE nmy_file.nmydmy3
+   #darcy:2024/08/22 add s---
+   define   l_npo04     like npo_file.npo04,
+            l_npo05     like npo_file.npo05
+   #darcy:2024/08/22 add e---
  
 #96-06-26 Modify By Lynn
     IF NOT cl_null(g_argv1) THEN
        LET g_sql =
-           "SELECT nmi03,nmi02,nmi05,nmi06,nmi08,nmi09,nmi10,nmi11",
+           "SELECT nmi03,nmi02,nmi05,nmi06,nmi08,nmi09,'',nmi10,nmi11", #darcy:2024/08/22 add ''
            " FROM  nmi_file",
            " WHERE nmi01 = '",g_nmh.nmh01,"'" ,
            #" ORDER BY 2,1"     #No.TQC-9A0155 mark
            " ORDER BY nmi03"    #No.TQC-9A0155 mod
     ELSE
        LET g_sql =
-           "SELECT nmi03,nmi02,nmi05,nmi06,nmi08,nmi09,nmi10,nmi11",
+           "SELECT nmi03,nmi02,nmi05,nmi06,nmi08,nmi09,'',nmi10,nmi11", #darcy:2024/08/22 add ''
            " FROM  nmi_file",
            " WHERE nmi01 = '",g_nmh.nmh01,"'" ,
            " AND ",g_wc2 CLIPPED,
@@ -430,7 +435,7 @@ FUNCTION q202_b_fill()                         #BODY FILL UP
             CALL cl_err('foreach:',SQLCA.sqlcode,1)
             EXIT FOREACH
         END IF
-	IF g_nmi[g_cnt].nmi05 = '0' AND g_nmi[g_cnt].nmi06 = '1' THEN
+	      IF g_nmi[g_cnt].nmi05 = '0' AND g_nmi[g_cnt].nmi06 = '1' THEN
            LET l_t1=g_nmh.nmh01
            SELECT nmydmy3 INTO l_nmydmy3 FROM nmy_file WHERE nmyslip = l_t1
            IF cl_null(l_nmydmy3) THEN LET l_nmydmy3='N' END IF
@@ -439,6 +444,16 @@ FUNCTION q202_b_fill()                         #BODY FILL UP
      	      LET g_nmi[g_cnt].nmi11 = g_nmh.nmh34
            END IF
         END IF
+         #darcy:2024/08/22 add s---
+         # 转付,需要标记转付金额明细
+         if g_nmi[g_cnt].nmi06 = '5' then
+            select sum(npo04),sum(npo05) into l_npo04,l_npo05 from npo_file,npn_file
+             where npo01 = npn01 and npn01 = g_nmi[g_cnt].nmi10 and npo03 = g_nmh.nmh01
+            if not cl_null(l_npo04) and not cl_null(l_npo05) then
+               let g_nmi[g_cnt].remark = sfmt("转付,原币金额:%1,本币金额:%2",l_npo04 using '<<<<<<<<<<<<<<.##',l_npo05 using '<<<<<<<<<<<<<<.##')
+            end if
+         end if
+         #darcy:2024/08/22 add e---
         LET g_cnt = g_cnt + 1
         IF g_cnt > g_max_rec THEN
            CALL cl_err( '', 9035, 0 )

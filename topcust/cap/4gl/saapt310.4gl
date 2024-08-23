@@ -6447,19 +6447,28 @@ DEFINE l_n2      LIKE aeh_file.aeh11     #add by liyjf170330
                    WHERE aph03 = 'D'
                      AND aph04 = g_aph[l_ac].aph04
              #       AND aph01!= g_apf.apf01
-                     AND aph01 = apf01 AND apf41 != 'X'   #MOD-9C0147 add
+                     AND aph01 = apf01 AND apf41 != 'X'   #MOD-9C0147 add 
+                     and apf03 = g_apf.apf03 #darcy:2024/08/23 add 需要增加供应商条件
                   IF cl_null(l_sum_aph05f) THEN LET l_sum_aph05f= 0 END IF
                   IF cl_null(l_sum_aph05)  THEN LET l_sum_aph05 = 0 END IF
                   IF cl_null(g_aph_t.aph05f) THEN LET g_aph_t.aph05f = 0 END IF
                   
                   LET l_sum_aph05f = l_sum_aph05f - g_aph_t.aph05f
                 
+                #darcy:2024/08/23 mod s---
+                #使用anmt250转付金额进行判断剩余可以转付金额
                  #SELECT nmh17 INTO l_nmh17    #No.TQC-C30121   Mark
-                  SELECT nmh02 INTO l_nmh02    #NO.TQC-C30121   Add
-                    FROM nmh_file
-                   WHERE nmh01 = g_aph[l_ac].aph04
-                     AND nmh24='5'
-                     AND nmh38='Y'
+                #   SELECT nmh02 INTO l_nmh02    #NO.TQC-C30121   Add
+                #     FROM nmh_file
+                #    WHERE nmh01 = g_aph[l_ac].aph04
+                #      AND nmh24='5'
+                #      AND nmh38='Y'
+                # 可以转付金额
+                select sum(npo04) into l_nmh02 from npo_file,npn_file
+                 where npn03 = '5' and npn14 = g_apf.apf03 and npnconf = 'Y'
+                   and npo03 = g_aph[l_ac].aph04 and npo01 = npn01
+                #darcy:2024/08/23 mod e---
+
                   IF cl_null(l_nmh02) THEN LET l_nmh02 = 0 END IF   #No.TQC-C30121   Add
                  #IF cl_null(l_nmh17) THEN LET l_nmh17 = 0 END IF   #No.TQC-C30121   Mark
                   
@@ -7106,12 +7115,18 @@ DEFINE l_n2      LIKE aeh_file.aeh11     #add by liyjf170330
 #No.FUN-A40003 --end
 #No.FUN-B40011 --begin
                        IF g_aph[l_ac].aph03 ='D' THEN
-                          CALL cl_init_qry_var()
-                          LET g_qryparam.form = "q_nmh6"
-                          LET g_qryparam.arg1 = g_apf.apf03  
-                          LET g_qryparam.where = " nmh05 >='",g_apf.apf02,"'" #TQC-C50108 add
-                          CALL cl_create_qry() RETURNING g_aph[l_ac].aph04
-                          NEXT FIELD aph04
+                           #darcy:2024/08/23 mod s---
+                           # 修改开窗逻辑
+                        #   CALL cl_init_qry_var()
+                        #   LET g_qryparam.form = "q_nmh6"
+                        #   LET g_qryparam.arg1 = g_apf.apf03  
+                        #   LET g_qryparam.where = " nmh05 >='",g_apf.apf02,"'" #TQC-C50108 add
+                        #   CALL cl_create_qry() RETURNING g_aph[l_ac].aph04
+                        #   NEXT FIELD aph04
+                           call cq_nmh("i",true,g_apf.apf02,g_apf.apf03)
+                              returning g_aph[l_ac].aph04
+                           next field aph04
+                           #darcy:2024/08/23 mod e---
                        ELSE
 #No.FUN-B40011 --end
                           #FUN-C90122--add--str--
@@ -12522,11 +12537,23 @@ FUNCTION t310_aph04()
       OPEN nmh_c2
       FETCH nmh_c2 INTO l_nmh.*,l_nmydmy3
       IF STATUS THEN CALL cl_err('sel nmh',STATUS,1) LET g_errno=STATUS RETURN '','','','','' END IF
-      
-      IF l_nmh.nmh24 !='5' THEN
-         LET g_errno = 'axr-115'
-         CLOSE nmh_c2
-      END IF
+    
+    #darcy:2024/08/23 mod s---
+    # 管控调整为没有转付记录才报错
+    #   IF l_nmh.nmh24 !='5' THEN
+    #      LET g_errno = 'axr-115'
+    #      CLOSE nmh_c2
+    #   END IF
+    if l_nmh.nmh24 !='5' then
+        select count(*) into g_cnt from npn_file,npo_file
+        where npo01 = npn01 and npnconf = 'Y' and npn03 = '5'
+        and npn14 = g_apf.apf03 and npo03 = g_aph[l_ac].aph04
+        if g_cnt = 0 then
+            let g_errno = 'axr-115'
+            close nmh_c2
+        end if
+    end if
+    #darcy:2024/08/23 mod e---
 
       IF l_nmh.nmh38 = 'N' THEN
          LET g_errno='axr-194' 
@@ -12536,9 +12563,18 @@ FUNCTION t310_aph04()
       END IF
       
       #---> TQC-C30293 add
-      IF l_nmh.nmh22!=g_apf.apf03 THEN
-         LET g_errno='aap-040'
-      END IF
+    #darcy:2024/08/23 mod s---
+    # 管控修改为，判断是否存在anmt250
+    #   IF l_nmh.nmh22!=g_apf.apf03 THEN
+    #      LET g_errno='aap-040'
+    #   END IF
+    select count(*) into g_cnt from npn_file,npo_file
+     where npo01 = npn01 and npnconf = 'Y' and npn03 = '5'
+       and npn14 = g_apf.apf03 and npo03 = g_aph[l_ac].aph04
+    if g_cnt = 0 then
+        let g_errno='aap-040'
+    end if
+    #darcy:2024/08/23 mod e---
       #---> TQC-C30293 add--end
       #TQC-C50108--add--str
       IF l_nmh.nmh05 < g_apf.apf02 THEN
@@ -12553,13 +12589,19 @@ FUNCTION t310_aph04()
        WHERE aph03 = 'D'
          AND aph04 = g_aph[l_ac].aph04
          AND aph01 = apf01 AND apf41 != 'X'   #MOD-9C0147 add
+         and apf03 = g_apf.apf03  #darcy:2024/08/23 增加供应商条件
       IF cl_null(tot1) THEN LET tot1 = 0 END IF
      #SELECT nmh17 INTO l_nmh17    #No.TQC-C30121   Mark
-      SELECT nmh02 INTO l_nmh02    #No.TQC-C30121   Add
-        FROM nmh_file
-       WHERE nmh01 = g_aph[l_ac].aph04
-         AND nmh24='5'
-         AND nmh38='Y'
+    #darcy:2024/08/23 mod s---
+    #   SELECT nmh02 INTO l_nmh02    #No.TQC-C30121   Add
+    #     FROM nmh_file
+    #    WHERE nmh01 = g_aph[l_ac].aph04
+    #      AND nmh24='5'
+    #      AND nmh38='Y'
+    select sum(npo04) into l_nmh02 from npo_file,npn_file
+     where npn03 = '5' and npn14 = g_apf.apf03 and npnconf = 'Y'
+       and npo03 = g_aph[l_ac].aph04 and npo01 = npn01 
+    #darcy:2024/08/23 mod e---
       IF cl_null(l_nmh02) THEN LET l_nmh02 = 0 END IF    #No.TQC-C30121   Add
      #IF cl_null(l_nmh17) THEN LET l_nmh17 = 0 END IF    #No.TQC-C30121   Mark
                        

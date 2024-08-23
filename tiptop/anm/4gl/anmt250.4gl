@@ -1595,6 +1595,11 @@ DEFINE
     l_allow_delete  LIKE type_file.num5,    #可刪除否  #No.FUN-680107 SMALLINT
     l_nmh03         LIKE nmh_file.nmh03,
     l_nmh24         LIKE nmh_file.nmh24     #FUN-C80083
+	#darcy:2024/08/22 add s---
+	define 	l_nmh32	like nmh_file.nmh32,
+		 	l_nmh42	like nmh_file.nmh42
+	define 	l_npn01 like npn_file.npn01
+	#darcy:2024/08/22 add e---
  
     LET g_action_choice = ""
     SELECT * INTO g_npn.* FROM npn_file WHERE npn01 = g_npn.npn01
@@ -1675,6 +1680,10 @@ DEFINE
               END IF
                CALL cl_show_fld_cont()     #FUN-550037(smin)
            END IF
+			#darcy:2024/08/22 add s---
+			call anmt250_set_entry_b(p_cmd)
+			call anmt250_no_set_entry_b(p_cmd)
+			#darcy:2024/08/22 add e---
  
         BEFORE INSERT
            LET l_ac = ARR_CURR()
@@ -1734,18 +1743,33 @@ DEFINE
  
         AFTER FIELD npo03
            IF cl_null(g_npo[l_ac].npo03) THEN NEXT FIELD npo03 END IF
-              #FUN-C80083--ADD---STR
-              IF g_npn.npn03='4' THEN
-                 SELECT nmh24 INTO l_nmh24 FROM nmh_file
-                  WHERE nmh01=g_npo[l_ac].npo03
-                 IF g_aza.aza26 = '2' THEN
-                    IF l_nmh24 <> 2 THEN
-                       CALL cl_err('','anm-347',0)
-                       NEXT FIELD npo03
-                    END IF
-                 END IF
-              END IF
+			#FUN-C80083--ADD---STR
+			IF g_npn.npn03='4' THEN
+				SELECT nmh24 INTO l_nmh24 FROM nmh_file
+				WHERE nmh01=g_npo[l_ac].npo03
+				IF g_aza.aza26 = '2' THEN
+				IF l_nmh24 <> 2 THEN
+					CALL cl_err('','anm-347',0)
+					NEXT FIELD npo03
+				END IF
+				END IF
+			END IF
            #FUN-C80083--add--end
+		   	#darcy:2024/08/22 add s---
+			# 转付的时候,不能存在未审核资料
+			# 增加票贴和转付逻辑一致
+			if g_npn.npn03 matches '[45]' then
+				select count(*) into g_cnt from npn_file,npo_file
+				where npn01 = npo01 and npnconf = 'N' and npo03 = g_npo[l_ac].npo03
+				  and npn01 != g_npn.npn01
+				if g_cnt > 0 then
+					select unique npn01 into l_npn01 from npn_file,npo_file
+					where npn01 = npo01 and npnconf = 'N' and npo03 = g_npo[l_ac].npo03
+					call cl_err(l_npn01,"cnm-002",1)
+					next field npo03
+				end if
+			end if
+		   	#darcy:2024/08/22 add e---
            CALL t250_nmh(g_npo[l_ac].npo03)
            IF NOT cl_null(g_errno) THEN
               CALL cl_err(g_npo[l_ac].npo03,g_errno,0)
@@ -1764,7 +1788,7 @@ DEFINE
             WHERE npn01 = npo01 AND npo03 = g_npo[l_ac].npo03
               AND npn03 = g_npn.npn03
               AND npn01 <> g_npn.npn01
-              AND npnconf <> 'X'
+              AND npnconf = 'N' #darcy:2024/08/22 mod <>'X' -> ='N'
            IF g_cnt > 0 THEN
               CALL cl_err(g_npo[l_ac].npo03,'anm-220',0)
               LET g_npo[l_ac].npo03 = g_npo_t.npo03
@@ -1776,7 +1800,33 @@ DEFINE
            DISPLAY BY NAME g_npo[l_ac].npo06
            DISPLAY BY NAME g_npo[l_ac].npodiff
            DISPLAY BY NAME g_npo[l_ac].npo03
- 
+
+		#darcy:2024/08/22 add s---
+		after field npo04
+			# 修改原币之后
+
+			# 检查是否超过未转付金额
+			select nmh02 into l_nmh32 from nmh_file where nmh01 = g_npo[l_ac].npo03
+			select sum(npo04) into l_nmh42 from npo_file,npn_file
+			 where npo01 = npn01 and npnconf = 'Y' and npo03 = g_npo[l_ac].npo03
+			if cl_null(l_nmh32) then let l_nmh32 = 0 end if
+			if cl_null(l_nmh42) then let l_nmh42 = 0 end if
+			if l_nmh32 - l_nmh42   < g_npo[l_ac].npo04 then
+				call cl_err_msg("","cnm-001",sfmt("%1|%2",g_npo[l_ac].npo04,l_nmh32 - l_nmh42 ),1)
+				next field npo04
+			end if
+
+			let g_npo[l_ac].npo05=g_npo[l_ac].npo04 * g_npn.npn05
+			call cl_digcut(g_npo[l_ac].npo05,g_azi04) returning g_npo[l_ac].npo05
+
+			LET g_npo[l_ac].npo06=g_npo[l_ac].npo04 * g_npn.npn05
+			call cl_digcut(g_npo[l_ac].npo06,g_azi04) returning g_npo[l_ac].npo06
+
+			let g_npo[l_ac].npodiff=g_npo[l_ac].npo06 - g_npo[l_ac].npo05
+			display by name g_npo[l_ac].npo06
+			display by name g_npo[l_ac].npodiff
+			display by name g_npo[l_ac].npo03
+		#darcy:2024/08/22 add e---
  
         AFTER FIELD npo05,npo06
            SELECT nmh03 INTO l_nmh03 FROM nmh_file WHERE nmh01=g_npo[l_ac].npo03
@@ -2144,11 +2194,11 @@ FUNCTION t250_nmh(p_nmh01)
       WHEN g_npo[l_ac].nmh05 < g_npn.npn02 AND g_npn.npn03 MATCHES '[5]'     #MOD-C80059 add
          LET g_errno = 'anm-664'
       #TQC-C50107--add--end
-       WHEN g_npn.npn03 matches '[135]' AND l_nmh24 <> 1   #MOD-580071 #FUN-C80083 del--4
+       WHEN g_npn.npn03 matches '[13]' AND l_nmh24 <> 1   #MOD-580071 #FUN-C80083 del--4 #darcy:2024/08/22 mv 5
          LET g_errno = 'anm-142'
 
        #FUN-C80083--ADD--STR
-       WHEN g_npn.npn03 matches '[4]' AND l_nmh24 <> 2 AND g_aza.aza26='2' 
+       WHEN g_npn.npn03 matches '[4]' AND  l_nmh24 <> 2 AND g_aza.aza26='2' 
          LET g_errno = 'anm-183'
        #FUN-C80083--ADD--END
 
@@ -2177,6 +2227,23 @@ FUNCTION t250_nmh(p_nmh01)
       WHEN g_npn.npn03 = '9' AND l_nmh24 = '5' AND l_nmh22 = g_npn.npn14 AND l_nmh42 <= 0
          LET g_errno = 'anm-319'
       #FUN-C70129--add--end
+	  #darcy:2024/08/22 add s---
+	  when g_npn.npn03 == '5' or g_npn.npn03 == '4'
+	  	# 1.转付的时候，要计算转付后的金额
+		# 暂时不考虑外币情况
+		# 2.票贴和转付逻辑一致,因为票贴可能是转付后才票贴
+		select sum(npo04) into l_nmh42 from npo_file,npn_file
+		 where npo01=npn01 and npnconf = 'Y' and npo03 = p_nmh01
+		if cl_null(l_nmh42) then let l_nmh42 = 0 end if
+		if g_npo[l_ac].npo04 - l_nmh42 <= 0 then
+			let g_errno = 'cnm-003'
+		else
+			let g_npo[l_ac].npo04 = g_npo[l_ac].npo04 - l_nmh42
+			let g_npo[l_ac].npo05 = g_npo[l_ac].npo04 * g_npn.npn05
+			call cl_digcut(g_npo[l_ac].npo05,g_azi04) returning g_npo[l_ac].npo05
+		end if
+
+	  #darcy:2024/08/22 add e---
       OTHERWISE
          LET g_errno = SQLCA.SQLCODE USING '-------'
    END CASE
@@ -2895,6 +2962,11 @@ FUNCTION t250_r()
              LET mi_no_ask = TRUE
              CALL t250_fetch('/')
           END IF
+		  	#darcy:2024/08/22 add s---
+		  	CLOSE t250_cs
+			CLOSE t250_count
+			COMMIT WORK
+		  	#darcy:2024/08/22 add e---
        ELSE
           ROLLBACK WORK
           LET g_npn.* = g_npn_t.*
@@ -3099,6 +3171,11 @@ FUNCTION t250_firm1()
       RETURN 
    END IF
 #FUN-B50090 add begin-------------------------
+	#darcy:2024/08/22 add s---
+	if not sanmt200_chk_amt(g_npn.npn01) then
+		return
+	end if
+	#darcy:2024/08/22 add e---
 #重新抓取關帳日期
    LET g_sql ="SELECT nmz10 FROM nmz_file ",
               " WHERE nmz00 = '0'"
@@ -3246,9 +3323,19 @@ DEFINE l_nma21    LIKE nma_file.nma21
       END IF
       IF g_npn.npn03 MATCHES '[235]' THEN         #NO.FUN-B40003 Delete 2 #TQC-B70197 add 2 #FUN-C80083 del--4
          IF g_nmh.nmh24 <> '1' THEN
-            CALL s_errmsg('npo03',m_npo.npo03,m_npo.npo03,'anm-228',1)
-            LET g_success='N'
-            CONTINUE FOREACH 
+		 	#darcy:2024/08/22 mod s---
+			if g_npn.npn03 != '5' then  
+				CALL s_errmsg('npo03',m_npo.npo03,m_npo.npo03,'anm-228',1)
+				LET g_success='N'
+				CONTINUE FOREACH 
+			else
+				if g_nmh.nmh24 not matches '[15]' then
+					CALL s_errmsg('npo03',m_npo.npo03,m_npo.npo03,'anm-228',1)
+					LET g_success='N'
+					CONTINUE FOREACH 
+				end if
+			end if
+		 	#darcy:2024/08/22 mod e---
          END IF
       END IF
 
@@ -3514,6 +3601,12 @@ FUNCTION t250_z1()
          LET g_success='N'
          CONTINUE FOREACH 
       END IF
+	  #darcy:2024/08/22 add s---
+	  if not sanmt200_undo_chk(m_npo.npo03,g_npn.npn01) then
+	  	let g_success='N'
+		continue foreach 
+	  end if
+	  #darcy:2024/08/22 add e---
       IF g_npn.npn03<>l_nmh24 THEN
          CALL cl_err(m_npo.npo02,'anm-228',1)
          CALL s_errmsg('npo03',m_npo.npo03,m_npo.npo03,'anm-653',1)
@@ -3911,13 +4004,14 @@ DEFINE l_n        LIKE type_file.num5
      FROM nmi_file                                   #MOD-C70032 add
     WHERE nmi01=g_nmh.nmh01
    IF cl_null(g_nmi.nmi03) THEN LET g_nmi.nmi03=0 END IF
-   LET g_nmi.nmi03=g_nmi.nmi03 + 1
+   LET g_nmi.nmi03 = (g_nmi.nmi03 + 1) using '<<<<<' #darcy:2024/08/22 mod
    LET g_nmi.nmi04 = g_user
    LET g_nmi.nmi05 = g_nmh.nmh24
    LET g_nmi.nmi06 = g_npn.npn03
    LET g_nmi.nmi07 = g_nmh.nmh11
    LET g_nmi.nmi08 = g_nmh.nmh28
    LET g_nmi.nmi09 = g_npn.npn05
+   let g_nmi.nmi10 = g_npn.npn01 #darcy:2024/08/22 add
  
    LET g_nmi.nmilegal = g_legal 
  
@@ -5499,3 +5593,21 @@ DEFINE l_apa00   LIKE apa_file.apa00
     RETURN l_net
 END FUNCTION
 #FUN-C70129--add--end
+
+#darcy:2024/08/22 add s---
+function anmt250_set_entry_b(p_cmd)
+	define p_cmd      like type_file.chr1
+	if g_npn.npn03 == '5' then
+		# 转付的时候，允许修改原币和本币
+		call cl_set_comp_entry("npo04",true)
+		call cl_set_comp_required("npo04",true)
+	end if
+end function
+function anmt250_no_set_entry_b(p_cmd)
+   	define p_cmd      like type_file.chr1
+	if g_npn.npn03 != '5' then
+		# 不是转付的时候，不允许修改原币和本币
+		call cl_set_comp_entry("npo04",false)
+	end if
+end function
+#darcy:2024/08/22 add e---

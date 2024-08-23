@@ -3359,13 +3359,33 @@ END FUNCTION
 #NO.FUN-B40003--start--
 FUNCTION t200_collection_discount()
    DEFINE l_sql      LIKE type_file.chr1000
+   #darcy:2024/08/22 add s---
+   define l_npo04 		like npo_file.npo04
+   #darcy:2024/08/22 add e---
    LET g_nmh_t.* = g_nmh.*
    
    SELECT * INTO g_nmh.* FROM nmh_file WHERE nmh01 = g_nmh.nmh01
   
-   IF g_nmh.nmh38 = 'N' THEN  CALL cl_err(g_nmh.nmh01,'anm-960',1) RETURN END IF
-   IF g_nmh.nmh38 = 'X' THEN  CALL cl_err('','9024',1) RETURN END IF
-   IF g_nmh.nmh24 != '1' THEN  CALL cl_err(g_nmh.nmh01,'anm-347',1) RETURN END IF
+	IF g_nmh.nmh38 = 'N' THEN  CALL cl_err(g_nmh.nmh01,'anm-960',1) RETURN END IF
+	IF g_nmh.nmh38 = 'X' THEN  CALL cl_err('','9024',1) RETURN END IF
+	IF g_nmh.nmh24 != '1' THEN  
+		#darcy:2024/08/22 mod s---
+		# 如果转付还有余额的情况,也可以做托收
+		
+		if g_nmh.nmh24 != '5' then
+			CALL cl_err(g_nmh.nmh01,'anm-347',1) 
+			RETURN
+		else
+			select sum(npo04) into l_npo04 from npo_file,npn_file
+			where npn01 = npo01 and npnconf = 'Y' and npo03 = g_nmh.nmh01
+			if cl_null(l_npo04) then let l_npo04 = 0 end if
+			if g_nmh.nmh02 - l_npo04 <= 0 then
+                CALL cl_err(g_nmh.nmh01,'anm-347',1) 
+			    RETURN
+            end if
+		end if
+		#darcy:2024/08/22 mod e---
+	END IF
    
    BEGIN WORK
    OPEN t200_cl USING g_nmh.nmh01
@@ -3517,7 +3537,14 @@ FUNCTION t200_undo_collection_discount()
    LET g_nmh.nmh19 = NULL
    LET g_nmh.nmh20 = NULL
    LET g_nmh.nmh21 = NULL
-   LET g_nmh.nmh24 = '1'
+   #darcy:2024/08/22 mod s---
+   # 还原后的状态应该取自nmi05
+    select nmi05 into g_nmh.nmh24 from nmi_file
+     where nmi01 = g_nmh.nmh01 and nmi06 = '2'
+    if cl_null(g_nmh.nmh24) then
+        LET g_nmh.nmh24 = '1' #TODO ,这里状态要根据nmi写
+    end if
+   #darcy:2024/08/22 mod e---
    LET g_success='Y'
 
    UPDATE nmh_file SET nmh19 = g_nmh.nmh19,
@@ -3551,7 +3578,7 @@ FUNCTION t200_ins_nmi()
    SELECT MAX(nmi03) INTO g_nmi.nmi03 FROM nmi_file
     WHERE nmi01=g_nmh.nmh01
    IF cl_null(g_nmi.nmi03) THEN LET g_nmi.nmi03=0 END IF
-   LET g_nmi.nmi03=g_nmi.nmi03 + 1
+   LET g_nmi.nmi03 = (g_nmi.nmi03 + 1) using '<<<<<' #darcy:2024/08/22 add using
    LET g_nmi.nmi04 = g_user
    LET g_nmi.nmi05 = g_nmi05 
    LET g_nmi.nmi06 = '2'
