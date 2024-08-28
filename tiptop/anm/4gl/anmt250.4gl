@@ -2041,8 +2041,9 @@ DEFINE
                        CALL cl_init_qry_var()
                        LET g_qryparam.form = "q_nmh"
                        LET g_qryparam.default1 = g_npo[l_ac].npo03
-                       LET g_qryparam.where = " nmh24 = 1 AND nmh03 ='",g_npn.npn04,"'",
-                                              " AND nmh05 >='",g_npn.npn02,"'"
+                       LET g_qryparam.where = " nmh24 in ('1','5') and nmh42 < nmh32  AND nmh03 ='",g_npn.npn04,"'", #darcy:2024/08/23 add 
+                                              " AND nmh05 >='",g_npn.npn02,"'",
+                                              " and nmh02 > nvl((select sum(npo04) from npo_file,npn_file where npn01 = npo01 and npnconf !='X' and npo03 = nmh01 ),0)" #darcy:2024/08/27 add
                        CALL cl_create_qry() RETURNING g_npo[l_ac].npo03
                     #------------------------------MOD-C80059---------------------------(E)
                  END CASE
@@ -3571,6 +3572,10 @@ FUNCTION t250_z1()
    DEFINE l_cnt       LIKE type_file.num5    #No.FUN-680107 SMALLINT
    DEFINE l_nme24     LIKE nme_file.nme24    #No.FUN-730032
    DEFINE l_nmh42     LIKE nmh_file.nmh42    #No.FUN-B40011
+   #darcy:2024/08/27 add s---
+   define l_aph05f   like aph_file.aph05f
+   define l_npo04    like npo_file.npo04
+   #darcy:2024/08/27 add e---
  
    DECLARE t250_dcs2 CURSOR  WITH HOLD FOR
         SELECT npo_file.*, nmh24
@@ -3731,17 +3736,42 @@ FUNCTION t250_z1()
       END IF
 #--begin-- FUN-B40011
       IF g_npn.npn03 = '5' THEN
-         LET g_sql="SELECT nmh42 FROM nmh_file",
-                   " WHERE nmh01 = '",m_npo.npo03,"'"
-         PREPARE nmh42_p2 FROM g_sql
-         DECLARE nmh42_cs2 CURSOR FOR nmh42_p2
-         FOREACH nmh42_cs2 INTO l_nmh42
-            IF l_nmh42>0 THEN
-              CALL cl_err(m_npo.npo03,'anm-404',1)
-              LET g_success='N'
-              RETURN
-            END IF
-         END FOREACH
+         #darcy:2024/08/27 add s---
+         # 如果此笔金额小于aapt330未冲金额，不允许取消审核
+         # 1. 获取aapt330 中未作废的冲销金额
+         select sum(aph05f) into l_aph05f from aph_file,apf_file
+          where apf03 = g_npn.npn14 and apf01 = aph01
+            and aph03 = 'D' and aph04 = m_npo.npo03
+            and apf41 <> 'X'
+         if cl_null(l_aph05f) then let l_aph05f = 0 end if
+
+         # 2. 本币金额汇总
+         select sum(npo04) into l_npo04 from npo_file,npn_file
+          where npo03 = m_npo.npo03 and npo01 = npn01 
+            and npnconf <> 'X' and npn14 = g_npn.npn14
+         if cl_null(l_npo04) then let l_npo04 = 0 end if
+
+         # 本笔已经被冲，不允许取消审核
+         if l_npo04 - l_aph05f > m_npo.npo04 then
+            call cl_err(m_npo.npo03,'anm-404',1)
+            let g_success='N'
+            return
+         end if
+
+         #darcy:2024/08/27 add e---
+         #darcy:2024/08/27 mark s---
+         # LET g_sql="SELECT nmh42 FROM nmh_file",
+         #           " WHERE nmh01 = '",m_npo.npo03,"'"
+         # PREPARE nmh42_p2 FROM g_sql
+         # DECLARE nmh42_cs2 CURSOR FOR nmh42_p2
+         # FOREACH nmh42_cs2 INTO l_nmh42
+         #    IF l_nmh42>0 THEN
+         #      CALL cl_err(m_npo.npo03,'anm-404',1)
+         #      LET g_success='N'
+         #      RETURN
+         #    END IF
+         # END FOREACH
+         #darcy:2024/08/27 mark e---
       END IF
 #--end-- FUN-B40011
 
@@ -3788,7 +3818,7 @@ FUNCTION t250_z1()
      #FUN-CA0083--mark--end
       IF g_npn.npn03<>'1' THEN
          DELETE FROM nmi_file WHERE nmi01 = m_npo.npo03 AND nmi06=g_npn.npn03
-                         AND nmi05=m_npo.npo07
+                         AND nmi05=m_npo.npo07 and ( nmi10 = g_npn.npn01 or nmi10 is null) #darcy:2024/08/27 add nmi10
          IF SQLCA.sqlcode THEN
             CALL s_errmsg('nmi01',m_npo.npo03,'del nmi',STATUS,1)
             LET g_success='N'
