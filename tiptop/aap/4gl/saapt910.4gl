@@ -2266,8 +2266,9 @@ DEFINE l_tt,l_t     LIKE type_file.chr1000
                          #当前月份第一天 
                          SELECT COUNT(*) INTO g_cnt FROM rvv_file,rvu_file
                           WHERE rvv01=g_aqc[l_ac2].aqc02 and rvv01 = rvu01 
-                            AND (YEAR(rvu03) = YEAR(g_aqa.aqainpd) AND MONTH(rvu03) < MONTH(g_aqa.aqainpd)
-                            OR YEAR(rvu03) < YEAR(g_aqa.aqainpd)
+                            AND (
+                              (YEAR(rvu03) = YEAR(g_aqa.aqainpd) AND MONTH(rvu03) < MONTH(g_aqa.aqainpd))
+                              OR (YEAR(rvu03) < YEAR(g_aqa.aqainpd))
                             )
                          if g_cnt > 0 then
                          # 跨月不允许录入
