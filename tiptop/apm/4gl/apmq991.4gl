@@ -50,6 +50,10 @@ GLOBALS "../../config/top.global"
                 rvv31       LIKE rvv_file.rvv31,
                 rvv031      LIKE rvv_file.rvv031,
                 ima021      LIKE ima_file.ima021,
+                #darcy:2024/08/30 add s---
+                imaud33    like ima_file.imaud33,
+                imaud34    like ima_file.imaud34,
+                #darcy:2024/08/30 add e---
                 pmm43       LIKE pmm_file.pmm43,
                 rvv86       LIKE rvv_file.rvv86,
                 rvv87       LIKE rvv_file.rvv87,
@@ -112,6 +116,10 @@ GLOBALS "../../config/top.global"
                 rvv31       LIKE rvv_file.rvv31,
                 rvv031      LIKE rvv_file.rvv031,
                 ima021      LIKE ima_file.ima021,
+                #darcy:2024/08/30 add s---
+                imaud33    like ima_file.imaud33,
+                imaud34    like ima_file.imaud34,
+                #darcy:2024/08/30 add e---
                 pmm43       LIKE pmm_file.pmm43,
                 rvv86       LIKE rvv_file.rvv86,
                 rvv87       LIKE rvv_file.rvv87,
@@ -878,6 +886,8 @@ FUNCTION q991_table()
                 rvv31       LIKE rvv_file.rvv31,
                 rvv031      LIKE rvv_file.rvv031,
                 ima021      LIKE ima_file.ima021,
+                imaud33     LIKE ima_file.imaud33,
+                imaud34     LIKE ima_file.imaud34,
                 pmm43       LIKE pmm_file.pmm43,
                 rvv86       LIKE rvv_file.rvv86,
                 rvv87       LIKE rvv_file.rvv87,
@@ -949,7 +959,8 @@ DEFINE l_wc       STRING
    END IF
  
    LET l_sql1= "SELECT DISTINCT rvu04,rvu05,pmc04,pmc081,rvu03,rvu01,",
-               "       rvv02,'',rvv31,rvv031,ima021,'' pmm43,rvv86,rvv87,", #darcy:2023/06/26 add '' before rvv31
+               "       rvv02,'',rvv31,rvv031,ima021,imaud33,imaud34,'' pmm43,rvv86,rvv87,", #darcy:2023/06/26 add '' before rvv31 
+               #darcy:2024/08/30 add imaud33,imaud34
                "       '' rvv38_1,'' rvv39_1,'' rvv39_t_1,'' rvv39t_1,",
                "       '' pmm22,'' pmm42,rvv36,rvv37,pmm02,rvv38,rvv38t,rvv39,rvv39t-rvv39 rvv39_t_2,rvv39t,'' rvv39t_2,",  #add pmm02 by guanyao160907
                #darcy:2022/07/08 上面增加了rvv37
@@ -1358,7 +1369,7 @@ DEFINE l_sql    STRING
 
    LET l_sql = "INSERT INTO ",g_cr_db_str CLIPPED,l_table CLIPPED,
                " SELECT z.* FROM (SELECT DISTINCT rvu04,rvu05,pmc04,",
-               "                  pmc081,rvu03,rvu01,rvv02,rvv31,rvv031,ima021,",
+               "                  pmc081,rvu03,rvu01,rvv02,rvv31,rvv031,ima021,imaud33,imaud34,", #darcy:2024/08/30 add imaud33,imaud34,
                "                  rvv86,rvv87,pmm22,pmm42,rvv38,rvv39,",
                "                  rvv39_t_2,rvv39t,0 rvv87_rvv23,0 rvv39_apb10 ",               
                "                  FROM apmq991_tmp ) z"
@@ -1537,6 +1548,10 @@ function apmq991_fastexcel_crt_table()
               "       rvv31      rvv31,",
               "       rvv031     rvv031,",
               "       ima021     ima021,",
+              #darcy:2024/08/30 add s---
+              "       imaud33 imaud33,",
+              "       imaud34 imaud34,",
+              #darcy:2024/08/30 add e---
               "       pmm43      pmm43,",
               "       rvv86      rvv86,",
               "       rvv87      rvv87,",

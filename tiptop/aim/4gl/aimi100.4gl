@@ -603,6 +603,7 @@ DEFINE   l_n                     LIKE type_file.num5
                                 ,imaud32 #darcy:2023/07/15 add
                                 ,imaud25,imaud26  #darcy:2022/12/05 add
                                 ,imaud27,imaud28 #darcy:2023/11/06 add
+                                ,imaud33,imaud34 #darcy:2024/08/30 add
          BEFORE CONSTRUCT
             CALL cl_qbe_init()
 #No.FUN-A50011 ------begin------
@@ -3453,6 +3454,7 @@ FUNCTION i100_show()
                    ,g_ima.imaud32 #darcy:2023/07/15 add
                    ,g_ima.imaud25,g_ima.imaud26 #darcy:2022/12/05 add
                    ,g_ima.imaud27,g_ima.imaud28  #darcy:2023/11/06
+                   ,g_ima.imaud33,g_ima.imaud34 #darcy:2024/08/30
 #No.FUN-A50011 -----begin-----
 #No.FUN-A50011 -----end-----
    #darcy:2022/11/18 add s---
