@@ -209,7 +209,7 @@ function cq_nmh_qry_prep_result_set()
         if cl_null(l_sum_aph05f) then let l_sum_aph05f = 0 end if
         if cl_null(l_sum_aph05) then let l_sum_aph05 = 0 end if
         # 扣除已冲部分金额
-        if l_sum_aph05f > lr_qry.npo04 then
+        if l_sum_aph05f >= lr_qry.npo04 then
             continue foreach
         else
             let lr_qry.aph05f = lr_qry.npo04 - l_sum_aph05f

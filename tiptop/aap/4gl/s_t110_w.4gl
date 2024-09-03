@@ -1067,10 +1067,19 @@ DEFINE l_aph04_o LIKE aph_file.aph04
          LET g_errno = '9024' 
       END IF
       
+      #darcy:2024/09/03 mod s---
       #---> TQC-C30293 add
-      IF l_nmh.nmh22!=g_apa.apa06 THEN
+      # 用anmt250冲账记录判断供应商编号
+      # IF l_nmh.nmh22!=g_apa.apa06 THEN
+      #    LET g_errno='aap-040'
+      # END IF
+      select count(*) into g_cnt from npn_file,npo_file
+       where npo01 = npn01 and npnconf = 'Y' and npn03 = '5'
+         and npn14 = g_apa.apa06 and npo03 = g_aph[l_ac].aph04
+      if g_cnt = 0 then
          LET g_errno='aap-040'
-      END IF
+      end if
+      #darcy:2024/09/03 mod e---
       #---> TQC-C30293 add--end
       #TQC-C50108--add--str
       IF l_nmh.nmh05 < g_apa.apa02 THEN
@@ -1080,16 +1089,29 @@ DEFINE l_aph04_o LIKE aph_file.aph04
 
       LET tot1 = 0
       
+      #darcy:2024/09/03 mod s---
+      # SELECT SUM(aph05f) INTO tot1
+      #   FROM aph_file
+      #  WHERE aph03 = 'D'
+      #    AND aph04 = g_aph[l_ac].aph04
+      
       SELECT SUM(aph05f) INTO tot1
-        FROM aph_file
+        FROM aph_file,apf_file
        WHERE aph03 = 'D'
-         AND aph04 = g_aph[l_ac].aph04
+         AND aph04 = g_aph[l_ac].aph04 
+         AND aph01 = apf01 AND apf41 != 'X'
+         and apf03 = g_apa.apa06
+
       IF cl_null(tot1) THEN LET tot1 = 0 END IF
-      SELECT nmh02 INTO l_nmh02    #No.TQC-C30121   Add
-        FROM nmh_file
-       WHERE nmh01 = g_aph[l_ac].aph04
-         AND nmh24='5'
-         AND nmh38='Y'
+      # SELECT nmh02 INTO l_nmh02    #No.TQC-C30121   Add
+      #   FROM nmh_file
+      #  WHERE nmh01 = g_aph[l_ac].aph04
+      #    AND nmh24='5'
+      #    AND nmh38='Y'
+      select sum(npo04) into l_nmh02 from npo_file,npn_file
+       where npn03 = '5' and npn14 = g_apa.apa06 and npnconf = 'Y'
+         and npo03 = g_aph[l_ac].aph04 and npo01 = npn01
+      #darcy:2024/09/03 mod e---
       IF cl_null(l_nmh02) THEN LET l_nmh02 = 0 END IF    #No.TQC-C30121   Add
 
                        
@@ -1400,17 +1422,23 @@ DEFINE l_aph04_o LIKE aph_file.aph04
                    WHERE aph03 = 'D'
                      AND aph04 = g_aph[l_ac].aph04
                      AND aph01 = apf01 AND apf41 != 'X'   #MOD-9C0147 add
+                     and apf03 = g_apa.apa06 #darcy:2024/09/03 add
                   IF cl_null(l_sum_aph05f) THEN LET l_sum_aph05f= 0 END IF
                   IF cl_null(l_sum_aph05)  THEN LET l_sum_aph05 = 0 END IF
                   IF cl_null(g_aph_t.aph05f) THEN LET g_aph_t.aph05f = 0 END IF
 
                   LET l_sum_aph05f = l_sum_aph05f - g_aph_t.aph05f
 
-                  SELECT nmh02 INTO l_nmh02    #NO.TQC-C30121   Add
-                    FROM nmh_file
-                   WHERE nmh01 = g_aph[l_ac].aph04
-                     AND nmh24='5'
-                     AND nmh38='Y'
+                  #darcy:2024/09/03 add s---
+                  # SELECT nmh02 INTO l_nmh02    #NO.TQC-C30121   Add
+                  #   FROM nmh_file
+                  #  WHERE nmh01 = g_aph[l_ac].aph04
+                  #    AND nmh24='5'
+                  #    AND nmh38='Y'
+                  select sum(npo04) into l_nmh02 from npo_file,npn_file
+                   where npn03 = '5' and npn14 = g_apa.apa06 and npnconf = 'Y'
+                     and npo03 = g_aph[l_ac].aph04 and npo01 = npn01
+                  #darcy:2024/09/03 add e---
                   IF cl_null(l_nmh02) THEN LET l_nmh02 = 0 END IF   #No.TQC-C30121   Add
 
                   IF l_sum_aph05f+g_aph[l_ac].aph05f > l_nmh02 THEN #No.TQC-C30121   Add
@@ -1739,11 +1767,16 @@ DEFINE l_aph04_o LIKE aph_file.aph04
                     #150615wudj-str
                     CASE 
                     WHEN   g_aph[l_ac].aph03 = 'D' 
-                        CALL cl_init_qry_var()
-                        LET g_qryparam.form = "q_nmh6"
-                        LET g_qryparam.arg1 = g_apa.apa06  
-                        LET g_qryparam.where = " nmh05 >='",g_apa.apa02,"'" 
-                        CALL cl_create_qry() RETURNING g_aph[l_ac].aph04
+                     #darcy:2024/09/03 mod s---
+                        # CALL cl_init_qry_var()
+                        # LET g_qryparam.form = "q_nmh6"
+                        # LET g_qryparam.arg1 = g_apa.apa06  
+                        # LET g_qryparam.where = " nmh05 >='",g_apa.apa02,"'" 
+                        # CALL cl_create_qry() RETURNING g_aph[l_ac].aph04
+                        call cq_nmh("i",true,g_apa.apa02,g_apa.apa06)
+                              returning g_aph[l_ac].aph04
+                        next field aph04
+                     #darcy:2024/09/03 mod e---
                     WHEN  g_aph[l_ac].aph03 ='F' 
                               CALL cl_init_qry_var()
                               LET g_qryparam.form = "q_nmd4"
