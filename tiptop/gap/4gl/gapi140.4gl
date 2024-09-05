@@ -228,6 +228,10 @@ DEFINE
                  ima01      LIKE ima_file.ima01,         #料件編號
                  ima02      LIKE ima_file.ima02,         #品名
                  ima021     LIKE ima_file.ima021,
+                 #darcy:2024/09/05 add s---
+                 imaud33   like ima_file.imaud33,
+                 imaud34   like ima_file.imaud34,
+                 #darcy:2024/09/05 add e---
                  rvv09      LIKE rvv_file.rvv09,         #收貨日期
                  rvw10      LIKE rvw_file.rvw10,         #數量
                  rvw17      LIKE rvw_file.rvw17,         #原幣未稅單價
@@ -247,6 +251,10 @@ DEFINE
                  ima01      LIKE ima_file.ima01,
                  ima02      LIKE ima_file.ima02,
                  ima021     LIKE ima_file.ima021,
+                 #darcy:2024/09/05 add s---
+                 imaud33   like ima_file.imaud33,
+                 imaud34   like ima_file.imaud34,
+                 #darcy:2024/09/05 add e---
                  rvv09      LIKE rvv_file.rvv09,         #收貨日期
                  rvw10      LIKE rvw_file.rvw10,
                  rvw17      LIKE rvw_file.rvw17,
@@ -3160,7 +3168,8 @@ DEFINE l_rvv36     LIKE rvv_file.rvv36
       SELECT rvv36 INTO g_rvw[g_cnt].rvv36 FROM rvv_file WHERE rvv01 = g_rvw[g_cnt].rvw08 AND rvv02 = g_rvw[g_cnt].rvw09
       DISPLAY BY NAME g_rvw[g_cnt].rvv36
 
-      SELECT ima021 INTO g_rvw[g_cnt].ima021 FROM ima_file WHERE ima01 =g_rvw[g_cnt].ima01
+      SELECT ima021,imaud33,imaud34 INTO g_rvw[g_cnt].ima021,g_rvw[g_cnt].imaud33,g_rvw[g_cnt].imaud34 FROM ima_file WHERE ima01 =g_rvw[g_cnt].ima01
+      #darcy:2024/09/05 add imaud33,imaud34
       #str----end by huanglf160822
     
        DISPLAY BY NAME g_rvw[g_cnt].rvw17

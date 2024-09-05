@@ -2187,6 +2187,12 @@ FUNCTION t540_menu()
             EXIT WHILE
          WHEN "controlg"
             CALL cl_cmdask()
+         #darcy:2024/09/02 add s---
+         when "change_pmn35"
+            if cl_chk_act_auth() then
+               call sapmt540_change_pmn35(g_pmm.pmm01,g_pmn[l_ac].pmn02)
+            end if
+         #darcy:2024/09/02 add e---
        #@WHEN "供應商資料"
          WHEN "vender"
             #FUN-C30017 add---end---
@@ -4641,7 +4647,8 @@ FUNCTION t540_b_fill(p_wc2,p_wc3)          #FUN-B90103--add p_wc3 用於服飾�
  
    LET l_sql ="SELECT pmn02,pmn24,pmn25,pmn18,pmn32,pmn65,pmn41,pmnud02,pmn42,pmn16,'',pmn72,pmn04,",       #NO.FUN-960130   #add pmnud02 by guanyao160511 #add pmn18 by guanyao160804
               "       '','','','','','','','','','','','','','','','','','','','','',",#No.TQC-650108
-              "       pmn041,ima021,'','',pmn07,pmn73,pmn74,pmn75,pmn76,pmn77,pmn20,pmn83,pmn84,pmn85,", #NO.FUN-960130
+              "       pmn041,ima021,imaud33,imaud34,'','',pmn07,pmn73,pmn74,pmn75,pmn76,pmn77,pmn20,pmn83,pmn84,pmn85,", #NO.FUN-960130
+              # darcy:2024/09/05 add imaud33,imaud34
               "       pmn80,pmn81,pmn82,pmn86,pmn87,'',pmn68,pmn69,pmn31,",            #NO.FUN-950026 add ''
               "       pmn31t,pmn88,pmn88t,pmn89,pmn64,pmn63,pmn33,pmn34,pmn35,pmn919,pmn122,",   #No.FUN-940083   #CHI-9C0023 add pmn35 #FUN-A80150 pmn919#FUN-D10112add pmn88 pmn88t
               "       pmn96,pmn97,pmn67,pmn98,pmn40,pmn401,      ",   #FUN-810045 add  #No.FUN-830161
@@ -4980,7 +4987,11 @@ ELSE
          EXIT DISPLAY
 
      #tianry add end 
-
+      #darcy:2024/09/02 add s---
+      on action change_pmn35
+         let g_action_choice = "change_pmn35"
+         exit display
+      #darcy:2024/09/02 add e---
       ON ACTION accept
          LET g_action_choice="detail"
          LET l_ac = ARR_CURR()
@@ -7192,7 +7203,8 @@ ELSE      #FUN-C20006--add
                            END IF
                         END IF
                         LET g_pmn_o.*=g_pmn2.*
-                        SELECT ima021 INTO g_pmn[l_ac].ima021 FROM ima_file
+                        SELECT ima021,imaud34,imaud34 INTO g_pmn[l_ac].ima021,g_pmn[l_ac].imaud34,g_pmn[l_ac].imaud34 FROM ima_file
+                        #darcy:2024/09/05 add imaud33,imaud34
                          WHERE ima01=g_pmn[l_ac].pmn04
                         CALL t540_set_pmn930(g_pmn[l_ac].pmn930) RETURNING g_pmn[l_ac].gem02a #FUN-670051
                         #----如工單號碼不為空白,則單身資料自動產生,且只可維護單價資料
@@ -7797,20 +7809,20 @@ ELSE      #FUN-C20006--add
                # 请购单别能产生的采购单别
                # FRA->PSF/PRS
                # PRA->PRB 
-               #case 
-               #   when g_pmm.pmm01[1,3] == "PRB" and g_pmn[l_ac].pmn24[1,3] != "PRA"
-               #      call cl_err(g_pmn[l_ac].pmn24,'cpm-081',1)
-               #      next field pmn24
-               #   when (g_pmm.pmm01[1,3] == "PSF" and g_pmm.pmm01[1,3] == "PRS") and g_pmn[l_ac].pmn24[1,3] != "FRA"
-               #      call cl_err(g_pmn[l_ac].pmn24,'cpm-080',1)
-               #      next field pmn24
-               #   when g_pmn[l_ac].pmn24[1,3] == "PRA" and g_pmm.pmm01[1,3] != "PRB"
-               #      call cl_err(g_pmn[l_ac].pmn24,'cpm-079',1)
-               #      next field pmn24
-               #   when g_pmn[l_ac].pmn24[1,3] == "FRA" and (g_pmm.pmm01[1,3] != "PSF" and g_pmm.pmm01[1,3] != "PRS")
-               #      call cl_err(g_pmn[l_ac].pmn24,'cpm-078',1)
-               #      next field pmn24
-               #end case 
+               case 
+                  when g_pmm.pmm01[1,3] == "PRB" and g_pmn[l_ac].pmn24[1,3] != "PRA"
+                     call cl_err(g_pmn[l_ac].pmn24,'cpm-081',1)
+                     next field pmn24
+                  when (g_pmm.pmm01[1,3] == "PSF" and g_pmm.pmm01[1,3] == "PRS") and g_pmn[l_ac].pmn24[1,3] != "FRA"
+                     call cl_err(g_pmn[l_ac].pmn24,'cpm-080',1)
+                     next field pmn24
+                  when g_pmn[l_ac].pmn24[1,3] == "PRA" and g_pmm.pmm01[1,3] != "PRB"
+                     call cl_err(g_pmn[l_ac].pmn24,'cpm-079',1)
+                     next field pmn24
+                  when g_pmn[l_ac].pmn24[1,3] == "FRA" and (g_pmm.pmm01[1,3] != "PSF" and g_pmm.pmm01[1,3] != "PRS")
+                     call cl_err(g_pmn[l_ac].pmn24,'cpm-078',1)
+                     next field pmn24
+               end case 
                #darcy:2024/08/07 add e---
 #TQC-BC0027  begin #分單別對是否存在此單號進行判斷
               IF g_pmm.pmm909 = '5' THEN
@@ -9850,7 +9862,8 @@ ELSE      #FUN-C20006--add
 #根據BLANKET PO单号项次帶出料號單位等基本資料
                      IF cl_null(g_pmn[l_ac].pmn04) THEN 
                         LET g_pmn[l_ac].pmn04 = g_pon.pon04
-                        SELECT ima02,ima021 INTO g_pmn[l_ac].pmn041,g_pmn[l_ac].ima021 FROM ima_file
+                        SELECT ima02,ima021,imaud33,imaud34 INTO g_pmn[l_ac].pmn041,g_pmn[l_ac].ima021,g_pmn[l_ac].imaud33,g_pmn[l_ac].imaud34 FROM ima_file
+                        #darcy:2024/09/05 add imaud33,imaud34
                          WHERE ima01=g_pmn[l_ac].pmn04
                      END IF 
                      IF cl_null(g_pmn[l_ac].pmn07) THEN 
@@ -13089,7 +13102,8 @@ FUNCTION t540_pmn25(p_cmd)
    LET g_pmn2.pmn04 = l_pml04
    CALL t540_pmn04(p_cmd,' ')  #MOD-640491
  
-   SELECT ima021 INTO g_pmn[l_ac].ima021
+   SELECT ima021,imaud33,imaud34 INTO g_pmn[l_ac].ima021,g_pmn[l_ac].imaud33,g_pmn[l_ac].imaud34
+   #darcy:2024/09/05 add imaud33,imaud34
     FROM ima_file
     WHERE ima01=g_pmn[l_ac].pmn04
  
@@ -20405,3 +20419,89 @@ END FUNCTION
 
 #tianry add end 
 
+
+
+#darcy:2024/09/02 add s---
+function sapmt540_change_pmn35(p_pmm01,p_pmn02)
+   define p_pmm01 like pmm_file.pmm01
+   define p_pmn02 like pmn_file.pmn02
+   define l_pmn35 like pmn_file.pmn35
+   define l_pmn16 like pmn_file.pmn16
+
+   message ""
+
+   if cl_null(p_pmm01) then
+      return
+   end if
+   if cl_null(p_pmn02) then
+      return
+   end if
+   select pmn16 into l_pmn16 from pmn_file where pmn01 = p_pmm01 and pmn02 = p_pmn02
+   if sqlca.sqlcode or cl_null(l_pmn16) then
+      call cl_err("单身无此笔资料","!",1)
+      return
+   end if 
+   if l_pmn16 matches '[678S]' then
+      call cl_err("此笔资料已结案，不允许修改","!",1)
+      return
+   end if
+
+   while true
+      open window t540_n_w at 8,8 with form "apm/42f/apmt541_n"
+          attribute (style = g_win_style clipped)
+ 
+      call cl_ui_locale("apmt541_n")
+ 
+ 
+      select pmn35 into l_pmn35 from pmn_file
+      where pmn01 = p_pmm01 and pmn02 = p_pmn02
+ 
+      input l_pmn35 from pmn35 attributes(without defaults=true)
+ 
+         on action controlr
+            call cl_show_req_fields()
+   
+         on action controlg
+            call cl_cmdask() 
+ 
+         after input
+            if int_flag then exit input end if
+
+         on idle g_idle_seconds
+            call cl_on_idle()
+            continue input
+ 
+         on action about
+            call cl_about()
+   
+         on action help
+            call cl_show_help()
+      end input 
+
+      if int_flag then
+         close window t540_n_w
+         message "取消修改"
+         exit while
+      else
+         if cl_null(l_pmn35) then
+            call cl_err('日期不可为空',"!",1)
+            continue while
+         else
+            update pmn_file set pmn35 = l_pmn35
+             where pmn01 = p_pmm01 and pmn02 = p_pmn02
+            if sqlca.sqlcode then
+               call cl_err("upd pmn_file",sqlca.sqlcode,1)
+               continue while
+            else
+               close window t540_n_w
+               message "更新到库日成功"
+               exit while
+            end if
+         end if
+      end if
+   end while
+
+   call t540_b_fill(g_wc2,g_wc3)
+   
+end function
+#darcy:2024/09/02 add e---

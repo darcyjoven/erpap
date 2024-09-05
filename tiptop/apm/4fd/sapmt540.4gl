@@ -2304,6 +2304,12 @@ FUNCTION t540_menu()
                   END IF
                 END IF --NO.MOD-4A0334  --end
             END IF
+         #darcy:2024/09/02 add s---
+         when "change_pmn35"
+            if cl_chk_act_auth() then
+               call sapmt540_change_pmn35(g_pmm.pmm01,g_pmn[l_ac].pmn02)
+            end if
+         #darcy:2024/09/02 add e---
        #@WHEN "採購發出"
          WHEN "release_po"
             IF cl_chk_act_auth() THEN
@@ -4798,6 +4804,7 @@ ELSE
       ON ACTION aps_related_data
          LET g_action_choice = 'aps_related_data'
          EXIT DISPLAY
+      
  #FUN-A60035 ---MARK BEGIN
  ##FUN-A50054 --Begin
  #&ifdef SLK
@@ -19498,3 +19505,49 @@ FUNCTION t540_barcode_out()
    CALL cl_cmdrun_wait(l_cmd)
 END FUNCTION
 #DEV-D30045--add--end
+
+#darcy:2024/09/02 add s---
+function sapmt540_change_pmn35(p_pmm01,p_pmn02)
+   define p_pmm01 like pmm_file.pmm01
+   define p_pmn02 like pmn_file.pmn02
+   define l_pmn35 like pmn_file.pmn35
+
+   if cl_null(p_pmm01) then
+      return
+   end if
+   if cl_null(p_pmn02) then
+      return
+   end if
+   select pmn16 into l_pmn16 from pmn_file where pmn01 = p_pmm01 and pmn02 = p_pmn02
+   if sqlca.sqlcode or cl_null(l_pmn16) then
+      call cl_err("单身无此笔资料","!",1)
+      return
+   end if 
+   if l_pmn16 matches '[678S]' then
+      call cl_err("此笔资料已结案，不允许修改","!",1)
+      return
+   end if
+
+   while true
+      prompt "请输入新的到库日期" for l_pmn35
+
+      if int_flag then
+         display "取消修改"
+         exit while
+      else
+         if cl_null(l_pmn35) then
+            call cl_err('日期不可为空',"!",1)
+            continue while
+         else
+            update pmn_file set pmn35 = l_pmn35
+             where pmn01 = p_pmm01 and pmn02 = p_pmn02
+            if sqlca.sqlcode then
+               call cl_err("upd pmn_file",sqlca.sqlcode,1)
+               return
+            end if
+         end if
+      end if
+   end while
+   
+end function
+#darcy:2024/09/02 add e---

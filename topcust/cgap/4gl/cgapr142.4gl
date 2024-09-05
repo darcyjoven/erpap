@@ -351,6 +351,10 @@ FUNCTION cgapr142()
          ,l_apb29 LIKE apb_file.apb29
          ,l_apa00_1 LIKE type_file.chr1
   #--add by lifang 200601 end#
+  #darcy:2024/09/05 add s---
+  define l_imaud33   like ima_file.imaud33
+  define l_imaud34   like ima_file.imaud34
+  #darcy:2024/09/05 add e---
 
    LOCATE l_img_blob IN MEMORY             
  
@@ -404,7 +408,13 @@ LET l_sql=#"select rvv06,pmc17,rvw18,'','',rvw02,rvw01,pmc081,pmc24,pmc52,rvw11,
      FOREACH cgapr142_curs1 INTO sr.*
                                 ,l_apa00,l_apb29   #add by lifang 200601
      IF STATUS THEN CALL cl_err('foreach:',STATUS,1) EXIT FOREACH END IF
-    
+      #darcy:2024/09/05 add s---
+      let l_imaud33 = ''
+      let l_imaud34 = ''
+      select imaud33,imaud34 into l_imaud33,l_imaud34 from ima_file where ima01 = sr.ima01
+      if not cl_null(l_imaud33) then let sr.ima021 = sfmt("%1 申请类型：%2",sr.ima021,l_imaud33) end if
+      if not cl_null(l_imaud34) then let sr.ima021 = sfmt("%1 用途：%2",sr.ima021,l_imaud34) end if
+      #darcy:2024/09/05 add e---
      IF l_rvw01_t IS NULL THEN 
        LET sr.num1 = l_num
        LET l_num = l_num + 1 

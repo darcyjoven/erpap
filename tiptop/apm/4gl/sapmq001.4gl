@@ -43,6 +43,10 @@ GLOBALS "../../../tiptop/config/top.global"
                 pml04     LIKE pml_file.pml04,
                 pml041    LIKE pml_file.pml041,
                 ima021    LIKE ima_file.ima021,
+                #darcy:2024/09/04 add s---
+                imaud33    like ima_file.imaud33,
+                imaud34    like ima_file.imaud34,
+                #darcy:2024/09/04 add e---
                 pml07     LIKE pml_file.pml07,
                 pml20     LIKE pml_file.pml20,
                 pml86     LIKE pml_file.pml86,
@@ -94,6 +98,10 @@ GLOBALS "../../../tiptop/config/top.global"
                 pml04_1   LIKE pml_file.pml04,  #料号
                 pml041_1  LIKE pml_file.pml041,
                 ima021_1  LIKE ima_file.ima021,
+                #darcy:2024/09/04 add s---
+               #  imaud33    like ima_file.imaud33,
+               #  imaud34    like ima_file.imaud34,
+                #darcy:2024/09/04 add e---
                 pml12_1   LIKE pml_file.pml12,  #项目编号
                 pja02_1   LIKE pja_file.pja02,
                 pml121_1  LIKE pml_file.pml121, #WBS
@@ -785,7 +793,8 @@ DEFINE l_wc1   STRING
    END IF    
    
    LET g_sql = "SELECT speed,state,pmk01,pmk02,pmk04,pmk12,gen02,pmk13,gem02,pmk09, ", 
-                      "pmc03,pmk18,pml02,pml04,pml041,ima021,pml07,pml20,pml86,pml87, ",     
+                      "pmc03,pmk18,pml02,pml04,pml041,ima021,imaud33,imaud34,pml07,pml20,pml86,pml87, ",     
+                      #darcy:2024/09/05 add imaud33,imaud34
                       "pml21,pmn31,pmn31t,pmn88,pmn88t,pmn50,pmn55,pmn50a,pmn53,pmnud07,rvv39, ",  #str---add by huanglf160806   
                       "rvv39t,rvv17,apb09,apb24,pmm21,pmm43,gec07,pmm22,pmm42,pmm99, ",
                       "pml35,pml34,pml33,pml41,pml16,pml24,pml25,pml12,pja02,pml121,pjb03,pml06 ", #darcy:2023/11/27 pml06
@@ -3167,6 +3176,8 @@ FUNCTION q001_table()
              "   pml04     LIKE pml_file.pml04, ",
              "   pml041    LIKE pml_file.pml041, ",
              "   ima021    LIKE ima_file.ima021, ",
+             "   imaud33   LIKE ima_file.imaud33, ",
+             "   imaud34   LIKE ima_file.imaud34, ",
              "   pml07     LIKE pml_file.pml07, ",
              "   pml20     LIKE pml_file.pml20, ",
              "   pml86     LIKE pml_file.pml86, ",
@@ -3227,6 +3238,8 @@ FUNCTION q001_table()
              "   pml04     LIKE pml_file.pml04, ",
              "   pml041    LIKE pml_file.pml041, ",
              "   ima021    LIKE ima_file.ima021, ",
+             "   imaud33   LIKE ima_file.imaud33, ",
+             "   imaud34   LIKE ima_file.imaud34, ",
              "   pml07     LIKE pml_file.pml07, ",
              "   pml20     LIKE pml_file.pml20, ",
              "   pml86     LIKE pml_file.pml86, ",
@@ -3317,7 +3330,8 @@ FUNCTION q001()
          #rvv39t,rvv17,apb09,apb24,pmm21,pmm43,gec07,pmm22,pmm42,pmm99,
          #pml35,pml34,pml33,pml41,pml16,pml24,pml25,pml12,pml121  #str--add by huanglf160806
          LET l_sql ="SELECT '' speed,'' state,pmm01 pmk01,pmm02 pmk02,pmm04 pmk04,trim(nvl(pmm12,'')) pmk12,gen02,trim(nvl(pmm13,'')) pmk13,gem02,trim(nvl(pmm09,'')) pmk09,", 
-                          " pmc03,pmm18 pmk18,pmn02 pml02,pmn04 pml04,pmn041 pml041,ima021,pmn07 pml07,nvl(pmn20,0) pml20,pmn86 pml86,0 pml87,",
+                          " pmc03,pmm18 pmk18,pmn02 pml02,pmn04 pml04,pmn041 pml041,ima021,imaud33,imaud34,pmn07 pml07,nvl(pmn20,0) pml20,pmn86 pml86,0 pml87,",
+                          # darcy:2024/09/05 add imaud33,imaud34 
                           " nvl(pmn87,0) pml21,nvl(pmn31,0) pmn31,pmn31t,nvl(pmn88,0) pmn88,nvl(pmn88t,0) pmn88t,nvl(pmn50,0) pmn50,nvl(pmn55,0) pmn55,nvl(pmn20-(pmn50-pmn55-pmn58),0) pmn50a,nvl(pmn53-pmn58,0) pmn53,pmnud07,0 rvv39,", #mod pmn53->pmn53-pmn58 by liy210615  #谢宇彬要求退货换货未收货入库的要去掉
                           " 0 rvv39t,0 rvv17,0 apb09,0 apb24,pmm21,pmm43,gec07,pmm22,pmm42,pmm99,",
                           " pmn35 pml35,pmn34 pml34,pmn33 pml33,'' pml41,pmn16 pml16,pmn24 pml24,pmn25 pml25,trim(nvl(pmn122,'')) pml12,pja02,trim(nvl(pmn96,'')) pml121,pjb03,pml06 ", #darcy:2023/11/27 add pml06  #TQC-CC0141
@@ -3367,7 +3381,8 @@ FUNCTION q001()
 
                           
          LET l_sql ="SELECT '' speed,'' state,rva01 pmk01,rva10 pmk02,rva06 pmk04,trim(nvl(pmm12,'')) pmk12,gen02,'' pmk13,'' gem02,trim(nvl(rva05,'')) pmk09,", 
-                          " pmc03,rvaconf pmk18,rvb02 pml02,rvb05 pml04,rvb051 pml041,ima021,rvb90 pml07,nvl(rvb07,0) pml20,rvb86 pml86,0 pml87,",
+                          " pmc03,rvaconf pmk18,rvb02 pml02,rvb05 pml04,rvb051 pml041,ima021,imaud33,imaud34,rvb90 pml07,nvl(rvb07,0) pml20,rvb86 pml86,0 pml87,",
+                          #darcy:2024/09/05 add
                           " nvl(pmn87,0) pml21,nvl(rvb10,0) pmn31,pmn31t,nvl(rvb88,0) pmn88,nvl(rvb88t,0) pmn88t,nvl(pmn50,0) pmn50,nvl(rvb29,0) pmn55,nvl(rvb07-rvb30,0) pmn50a,nvl(rvb30,0) pmn53, pmnud07,0 rvv39,",
                           " 0 rvv39t,0 rvv17,0 apb09,0 apb24,pmm21,pmm43,gec07,pmm22,pmm42,rva99 pmm99,",
                           " pmn35 pml35,pmn34 pml34,pmn33 pml33,'' pml41,rvb18 pml16,rvb04 pml24,rvb03 pml25,'' pml12,'' pja02,'' pml121,'' pjb03,'' pml06  ", #darcy:2023/11/27 add
@@ -3408,7 +3423,8 @@ FUNCTION q001()
          #pml35,pml34,pml33,pml41,pml16,pml24,pml25,pml12,pml121
          IF cl_null(l_wc) THEN LET l_wc =' 1=1' END IF 
          LET l_sql ="SELECT '' speed,'' state,pmk01,pmk02,pmk04,trim(nvl(pmk12,'')) pmk12,gen02,trim(nvl(pmk13,'')) pmk13,gem02,trim(nvl(pmk09,'')) pmk09,", 
-                          " pmc03,pmk18,pml02,pml04,pml041,ima021,pml07,nvl(pml20,0) pml20,pml86,nvl(pml87,0) pml87,",
+                          " pmc03,pmk18,pml02,pml04,pml041,ima021,imaud33,imaud34,pml07,nvl(pml20,0) pml20,pml86,nvl(pml87,0) pml87,",
+                          #darcy:2024/09/05 add
                           " nvl(pml21,0) pml21,nvl(pmn31,0) pmn31,nvl(pmn31t,0) pmn31t,nvl(pmn88,0) pmn88,nvl(pmn88t,0) pmn88t,nvl(pmn50,0) pmn50,nvl(pmn55,0) pmn55,nvl(pmn20-(pmn50-pmn55-pmn58),0) pmn50a,nvl(pmn53,0) pmn53,pmnud07,0 rvv39,",
                           " 0 rvv39t,0 rvv17,0 apb09,0 apb24,pmm21,pmm43,gec07,pmm22,pmm42,pmm99,",
                           " pml35,pml34,pml33,pml41,pml16,pml24,pml25,trim(nvl(pml12,'')) pml12,pja02,trim(nvl(pml121,'')) pml121,pjb03,pml06 ", #darcy:2023/11/27 add  #TQC-CC0141
@@ -4317,7 +4333,8 @@ FUNCTION q001()
         ##sfb15,sfb15,sfb15,'','','','','',''
         
       LET l_sql ="SELECT '' speed,'' state,sfb01 pmk01,sfb02 pmk02,sfb81 pmk04,trim(nvl(sfb44,'')) pmk12,gen02,'' pmk13,'' gem02,trim(nvl(sfb82,'')) pmk09,", 
-                       " pmc03,sfb87 pmk18,'' pml02,sfb05 pml04,ima02 pml041,ima021,ima55 pml07,nvl(sfb08,0) pml20,ima55 pml86,nvl(sfb08,0) pml87,",
+                       " pmc03,sfb87 pmk18,'' pml02,sfb05 pml04,ima02 pml041,ima021,imaud33,imaud34,ima55 pml07,nvl(sfb08,0) pml20,ima55 pml86,nvl(sfb08,0) pml87,",
+                       #darcy:2024/09/05 add
                        " nvl(pmn20,0) pml21,nvl(pmn31,0) pmn31,nvl(pmn31t,0) pmn31,nvl(pmn88,0) pmn88,nvl(pmn88t,0) pmn88t,nvl(pmn50,0) pmn50,nvl(pmn55,0) pmn55,nvl(pmn20-(pmn50-pmn55-pmn58),0) pmn50a,nvl(pmn53-pmn58,0) pmn53,pmnud07,0 rvv39,",#add by pmn31t by guanyao160912 #mod pmn53 ->pmn53-pmn58 by liy210615  #谢宇彬要求退货换货未收货入库的要去掉
                        " 0 rvv39t,0 rvv17,0 apb09,0 apb24,pmm21,pmm43,gec07,pmm22,pmm42,pmm99,", 
                        " sfb15 pml35,sfb15 pml34,sfb15 pml33,'' pml41,'' pml16,'' pml24,'' pml25,'' pml12,'' pja02,'' pml121,'' pjb03,'' pml06 ",

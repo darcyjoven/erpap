@@ -137,6 +137,10 @@ DEFINE #FUN-730068
 #No:TQC-650108 --end--
           pmn041   LIKE pmn_file.pmn041, #料件品名
           ima021   LIKE ima_file.ima021, #規格
+          #darcy:2024/09/05 add s---
+          imaud33   like ima_file.imaud33,
+          imaud34   like ima_file.imaud34,
+          #darcy:2024/09/05 add e---
 	        pmniicd14 LIKE pmni_file.pmniicd14, #No.FUN-7C0017
 	        pmniicd15 LIKE pmni_file.pmniicd15, #No.FUN-7C0017
           pmn07    LIKE pmn_file.pmn07,  #單位
@@ -268,6 +272,10 @@ DEFINE #FUN-730068
 #No:TQC-650108 --end--
           pmn041   LIKE pmn_file.pmn041, #料件品名
           ima021   LIKE ima_file.ima021, #規格
+          #darcy:2024/09/05 add s---
+          imaud33   like ima_file.imaud33,
+          imaud34   like ima_file.imaud34,
+          #darcy:2024/09/05 add e---
 	        pmniicd14 LIKE pmni_file.pmniicd14, #No.FUN-7C0017
 	        pmniicd15 LIKE pmni_file.pmniicd15, #No.FUN-7C0017
           pmn07    LIKE pmn_file.pmn07,  #單位
