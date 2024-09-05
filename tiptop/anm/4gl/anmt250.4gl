@@ -977,6 +977,10 @@ FUNCTION t250_g_b1()                       #由應付票據產生單身
    DEFINE l_wc    STRING   #No:9589  #No.FUN-680107 VARCHAR(1000) #MOD-BB0301 mod 1000 -> STRING
    DEFINE l_npn01 LIKE npn_file.npn01
    DEFINE l_rate  LIKE nmh_file.nmh39 #MOD-C20085
+   #darcy:2024/09/04 add s---
+   define l_npo04 like npo_file.npo04 
+   define l_npo05 like npo_file.npo05 
+   #darcy:2024/09/04 add e---
  
    LET b_npo.npo01=g_npn.npn01
    LET b_npo.npo02=0
@@ -1035,6 +1039,7 @@ FUNCTION t250_g_b1()                       #由應付票據產生單身
   #-----------------MOD-C90252---------------(S)
    IF g_npn.npn03 ='5' THEN
       LET g_sql = g_sql CLIPPED," AND nmh24 = 1 AND nmh05 >= '",g_npn.npn02,"'"
+      let g_sql = g_sql , " or ( nmh24 = '5' and nmh02 > (select sum(npo04) from npo_file,npn_file where npo01 = npn01 and npnconf <> 'X' and npo03 = nmh01) ) "#darcy:2024/09/04 add
    END IF
   #-----------------MOD-C90252---------------(E)
 
@@ -1074,6 +1079,18 @@ FUNCTION t250_g_b1()                       #由應付票據產生單身
       END IF
       LET b_npo.npo02=b_npo.npo02+1
       LET b_npo.npo03=g_nmh.nmh01
+      #darcy:2024/09/04 add s---
+      # 票据金额去掉已转付金额
+      if g_npn.npn03 MATCHES '[45]' then 
+         select sum(npo04),sum(npo05) into l_npo04,l_npo05
+           from npo_file,npn_file where npn01 = npo01
+            and npnconf <> 'X' and npn03 = '5' and npo03 = g_nmh.nmh01 
+         if cl_null(l_npo04) then let l_npo04 = 0 end if
+         if cl_null(l_npo05) then let l_npo05 = 0 end if
+         let g_nmh.nmh02 = g_nmh.nmh02 - l_npo04
+         let g_nmh.nmh32 = g_nmh.nmh32 - l_npo05
+      end if
+      #darcy:2024/09/04 add e---
       LET b_npo.npo04=g_nmh.nmh02
       IF g_nmz.nmz59 = 'Y' THEN
          #No.MOD-C20085  --Begin
@@ -3956,7 +3973,7 @@ FUNCTION t250_ins_nme()
   #END IF 
   ##FUN-C70129--add--end
   #FUN-CA0083--mark--str
-   LET g_nme.nme04 = g_nmh.nmh02
+   LET g_nme.nme04 = m_npo.npo04 #darcy:2024/09/04 mod  g_nmh.nmh02-->m_npo.npo04
    LET g_nme.nme05 = g_npn.npn08
    LET g_nme.nme06 = g_npn.npn07
  IF g_aza.aza63 = 'Y' THEN
@@ -3966,7 +3983,7 @@ FUNCTION t250_ins_nme()
    LET g_nme.nme08 = m_npo.npo06
    #FUN-C80083--ADD--STR
    IF g_aza.aza26='2' AND g_npn.npn03 = '4' THEN
-      LET g_nme.nme04 = g_nmh.nmh02-m_npo.npo10
+      LET g_nme.nme04 = m_npo.npo04-m_npo.npo10 #darcy:2024/09/04 mod  g_nmh.nmh02-->m_npo.npo04
       LET g_nme.nme08 = m_npo.npo06-m_npo.npo09
    END IF
    #FUN-C80083--ADD--END
