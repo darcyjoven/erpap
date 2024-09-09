@@ -7643,6 +7643,14 @@ FUNCTION i100_u_upd()
       end if
    end if
    #darcy:2022/11/18 add e---
+   #darcy:2024/09/09 add s---
+   if g_ima.ima02 != g_ima_t.ima02 or g_ima.ima021 != g_ima_t.ima021 then
+      select count(*) into g_cnt from pml_file,pmk_file
+       where pml01 = pmk01 and pmk18 <> 'X' and pml04 = g_ima01_t
+      call cl_err(g_ima01_t,'cim-094',1)
+      return false
+   end if
+   #darcy:2024/09/09 add e---
    IF cl_null(g_ima01_t) THEN  #FUN-AC0072
       UPDATE ima_file SET ima_file.* = g_ima.*   # 更新DB
        WHERE ima01 = g_ima.ima01             # COLAUTH?
@@ -7676,7 +7684,7 @@ FUNCTION i100_u_upd()
               LET g_success = 'Y'    #FUN-9A0056 add
          WHEN 1  #呼叫 MDM 成功
               CALL cl_msg('Update O.K, Update MDM O.K')
-             #LET g_u_flag='0'       #FUN-870101 add #FUN-9A0056 mark
+             #LET g_ u_flag='0'       #FUN-870101 add #FUN-9A0056 mark
               LET g_success = 'Y'    #FUN-9A0056 add
          WHEN 2  #呼叫 MDM 失敗
              #LET g_u_flag='1'       #FUN-870101 add #FUN-9A0056 mark
