@@ -59,6 +59,7 @@ MAIN
              "rvu07.rvu_file.rvu07,",    #add by huanglf160922
              "gen02.gen_file.gen02,",      #add by huanglf160922
              "luok.type_file.chr30" 
+             ,",pmm12.gen_file.gen02" #darcy:2024/09/12 add
             
                      
              
@@ -66,7 +67,7 @@ MAIN
    LET  l_table = cl_prt_temptable('cpmr720',g_sql) CLIPPED
    IF l_table=-1 THEN EXIT PROGRAM END IF
    LET g_sql = "INSERT INTO ",g_cr_db_str CLIPPED,l_table CLIPPED,
-               " VALUES(?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,? ,?,?,?,?)"         #add  by guanyao160826             
+               " VALUES(?,?,?,?,?, ?,?,?,?,?, ?,?,?,?,? ,?,?,?,? ,?)"         #add  by guanyao160826             #darcy:2024/09/12 add  ?
    PREPARE insert_prep FROM g_sql                                        #add by huanglf160922    
    IF STATUS THEN
       CALL cl_err('insert_prep:',status,1) EXIT PROGRAM
@@ -286,6 +287,7 @@ FUNCTION cpmr720()
                     rvu07    LIKE rvu_file.rvu07,
                     gen02    LIKE gen_file.gen02,
                     luok     LIKE type_file.chr30
+                    ,pmm12   like gen_file.gen02 #darcy:2024/09/12 add
                    
                     END RECORD
    DEFINE l_cnt     LIKE type_file.num5            
@@ -304,9 +306,10 @@ FUNCTION cpmr720()
  
      LET tm.wc = tm.wc CLIPPED 
      
-LET l_sql="select rvu04,rvu05,rvu03,rvu01,rvv02,rvv31,rvv031,ima021,rvv34,rvv17,rvv35,rvv32,'',rvv36,'',rvu00,rvu07,'',''",  #add rvu00 by guanyao160826
+LET l_sql="select rvu04,rvu05,rvu03,rvu01,rvv02,rvv31,rvv031,ima021,rvv34,rvv17,rvv35,rvv32,'',rvv36,'',rvu00,rvu07,'','',pmm12",  #add rvu00 by guanyao160826 #darcy:2024/09/12 add pmm12
            " from rvu_file,rvv_file ",
            " left join ima_file on ima01 = rvv31",
+           " left join pmm_file on rvv36 = pmm01", #darcy:2024/09/12 add
            " where ",tm.wc ,
            "   AND rvu01=rvv01 "
      PREPARE cpmr720_prepare1 FROM l_sql
@@ -328,6 +331,7 @@ LET l_sql="select rvu04,rvu05,rvu03,rvu01,rvv02,rvv31,rvv031,ima021,rvv34,rvv17,
           LET sr.luok  = '退货厂商:'
        END IF 
      SELECT gen02 INTO sr.gen02 FROM gen_file WHERE gen01 = sr.rvu07
+     select gen02 into sr.pmm12 from gen_file where gen01 = sr.pmm12 #darcy:2024/09/12 add
      EXECUTE insert_prep USING sr.*
      END FOREACH
  
