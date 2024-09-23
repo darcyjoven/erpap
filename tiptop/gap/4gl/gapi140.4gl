@@ -922,7 +922,8 @@ DEFINE l_pmm02     LIKE pmm_file.pmm02      #MOD-C90185 add
   #--------------------MOD-CB0281---------------(E)
    CALL cl_opmsg('b')
  # LET g_forupd_sql = "SELECT rvw99,rvw08,rvw09,'','',rvw02,rvw10,rvw17,rvw05f,rvw06f,rvw05,rvw06",    #FUN-9B0130 add rvw99  #FUN-C80027 mark
-   LET g_forupd_sql = "SELECT rvw99,'',rvw08,rvw09,'','','',rvw02,rvw10,rvw17,rvw05f,rvw06f,'',rvw05,rvw06,''",    #FUN-C80027 ADD
+   LET g_forupd_sql = "SELECT rvw99,'',rvw08,rvw09,'','','','','',rvw02,rvw10,rvw17,rvw05f,rvw06f,'',rvw05,rvw06,''",    #FUN-C80027 ADD
+                     #darcy:2024/09/12 add '','',
                       "  FROM rvw_file ",
                       " WHERE rvw01 = ? ",
                       "   AND rvw08 = ? ",
@@ -978,6 +979,7 @@ DEFINE l_pmm02     LIKE pmm_file.pmm02      #MOD-C90185 add
 		         CALL cl_parse_qry_sql(g_sql,g_rvw[l_ac].rvw99) RETURNING g_sql #FUN-A50102	            
                  PREPARE sel_rvv09_pre FROM g_sql
                  EXECUTE sel_rvv09_pre INTO g_rvw[l_ac].rvv36,g_rvw[l_ac].rvv09,g_rvw[l_ac].ima01,g_rvw[l_ac].ima02
+                 select imaud33,imaud34 into g_rvw[l_ac].imaud33,g_rvw[l_ac].imaud34 from ima_file where ima01 = g_rvw[l_ac].ima01  #darcy:2024/09/12 add 
                END IF
             IF NOT cl_null(g_rvw_t.rvw08) AND NOT cl_null(g_rvw_t.rvw09) THEN
                SELECT COUNT(*) INTO l_cnt
@@ -3107,7 +3109,8 @@ DEFINE l_rvv36     LIKE rvv_file.rvv36
    LET p_wc2=cl_replace_str(p_wc2,"ima01","rvv31")
    LET p_wc2=cl_replace_str(p_wc2,"ima02","rvv031")
    LET g_sql =
-          "SELECT rvw99,'',rvw08,rvw09,rvv31,rvv031,'','',rvw10,rvw17,rvw05f,rvw06f,'',rvw05,rvw06,'',ta_rvw01",      #FUN-C80027
+          "SELECT rvw99,'',rvw08,rvw09,rvv31,rvv031,'','','','',rvw10,rvw17,rvw05f,rvw06f,'',rvw05,rvw06,'',ta_rvw01",      #FUN-C80027
+          # darcy:2024/09/06 add '',''
           "  FROM rvw_file,",cl_get_target_table(g_plant_new,'rvv_file'),   
           " WHERE rvw01 ='",g_head_1.rvw01,"'",      #單頭
           "  and rvv01=rvw08 and rvv02=rvw09 ",
