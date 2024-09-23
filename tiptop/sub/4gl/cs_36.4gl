@@ -20,7 +20,7 @@ function cs_36_encode(p_int)
 
     while p_int > 0
         let l_re = p_int mod 36
-        let l_chr = cws_create_asfi514_encodeDigit(l_re),l_chr
+        let l_chr = cs_36_encodeDigit(l_re),l_chr
         let p_int = p_int / 36
     end while
 
@@ -46,7 +46,7 @@ function cs_36_decode(p_chr)
     while not cl_null(p_chr)
 
         let l_chr = p_chr.getCharAt(p_chr.getLength())
-        let l_int = l_int + cws_create_asfi514_decodeDigit(l_chr) *36**l_index
+        let l_int = l_int + cs_36_decodeDigit(l_chr) *36**l_index
 
         let p_chr = p_chr.subString(1,p_chr.getLength()-1)
         let l_index = l_index + 1
