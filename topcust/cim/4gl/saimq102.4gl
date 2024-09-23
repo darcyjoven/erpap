@@ -175,6 +175,49 @@ DEFINE tm     RECORD
                  ,rpc13      like rpc_file.rpc13   #darcy:2023/06/15 add --独立需求量
                  
               END RECORD,
+       #darcy:2024/09/20 add s---
+       g_ima_ap  RECORD
+                 ima01    LIKE ima_file.ima01, # 料件編號
+                 ima02    LIKE ima_file.ima02, # 品名規格
+                 ima021   LIKE ima_file.ima02, # 品名規格
+                 ima25    LIKE ima_file.ima25, #
+                 ima05    LIKE ima_file.ima05, # 版本
+                 ima06    LIKE ima_file.ima06, # 分群碼
+                 ima08    LIKE ima_file.ima08, # 來源碼
+                 ima37    LIKE ima_file.ima37, #
+                 ima70    LIKE ima_file.ima70, #
+                 ima15    LIKE ima_file.ima15, #
+                 ima906   LIKE ima_file.ima906, #單位管制方式   #FUN-5C0086
+                 ima907   LIKE ima_file.ima907, #第二單位       #FUN-5C0086
+                 #darcy:2023/06/26 add s---
+                 ima44     LIKE ima_file.ima44,
+                 ima44_fac LIKE ima_file.ima44_fac,
+                 ima45     LIKE ima_file.ima45,
+                 ima46     LIKE ima_file.ima46,
+                 ima881    LIKE ima_file.ima881,
+                 unavl_stk  LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 avl_stk    LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 oeb_q      LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 sfa_q1     LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 sfa_q2     LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 sie_q      LIKE type_file.num15_3,   #No.FUN-A20048 add 
+                 pml_q      LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 pmn_q      LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 rvb_q2     LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 rvb_q      LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 sfb_q1     LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 sfb_q2     LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 qcf_q      LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+            #    alocated   LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044  #FUN-AC0074
+                 atp_qty    LIKE type_file.num15_3,   ###GP5.2  #NO.FUN-A20044
+                 img_q      LIKE type_file.num15_3,   #add by huanglf170314
+                 sfe_c      LIKE type_file.num15_3    #add by donghy170420 超领未扣帐数量
+                 ,sfa_xiaban LIKE type_file.num15_3  #darcy:2022/05/20 add
+                 ,sfa_liuzhi LIKE type_file.num15_3  #darcy:2022/05/20 add
+                 ,ima27      like ima_file.ima27   #darcy:2023/04/03 add
+                 ,rpc13      like rpc_file.rpc13   #darcy:2023/06/15 add --独立需求量
+              END RECORD,
+       #darcy:2024/09/20 add e---
        g_img  DYNAMIC ARRAY OF RECORD
                  img02    LIKE img_file.img02,   #倉庫編號 #No.FUN-850153
                  imd02    LIKE imd_file.imd02,   #TQC-CC0092--add
@@ -333,7 +376,7 @@ FUNCTION aimq102(p_argv1,p_argv2,p_argv3)
       LET g_line1 = 1
       LET g_line2 = 2
  
-      OPEN WINDOW q102_w WITH FORM "aim/42f/aimq102"
+      OPEN WINDOW q102_w WITH FORM "cim/42f/cimq102"
         ATTRIBUTE (STYLE = g_win_style CLIPPED) 
       
       CALL cl_ui_init() #TQC-9A0192
@@ -996,10 +1039,41 @@ FUNCTION q102_show()
            ,g_ima.ima44,g_ima.ima44_fac,g_ima.ima45,g_ima.ima46,g_ima.ima881  #darcy:2023/06/26 add
    DISPLAY g_unavl_stk to FORMONLY.unavl_stk      #NO.FUN-A20044    
    DISPLAY g_avl_stk to FORMONLY.avl_stk          #NO.FUN-A20044    
+   #darcy:2024/09/20 add s---
+   if g_argv3 = "2" then
+      let g_argv3 = "3"
+      initialize g_ima_ap.* to null
+      call q102_get_g_ima(g_ima.ima01) returning g_ima_ap.*
+      display g_ima_ap.avl_stk          to avl_stk1
+      display g_ima_ap.img_q            to img_q1
+      display g_ima_ap.oeb_q            to oeb_q1
+      display g_ima_ap.sfa_q1           to sfa_q3
+      display g_ima_ap.sfe_c            to sfe_c1
+      display g_ima_ap.sfa_q2           to sfa_q4
+      display g_ima_ap.sfa_xiaban       to sfa_xiaban1
+      display g_ima_ap.sfa_liuzhi       to sfa_liuzhi1
+      display g_ima_ap.pml_q            to pml_q1
+      display g_ima_ap.pmn_q            to pmn_q1
+      display g_ima_ap.sfb_q1           to sfb_q3
+      display g_ima_ap.sfb_q2           to sfb_q4
+      display g_ima_ap.rvb_q2           to rvb_q1
+      display g_ima_ap.rvb_q            to rvb_q3
+      display g_ima_ap.qcf_q            to qcf_q1
+      display g_ima_ap.ima27            to ima1
+      display g_ima_ap.rpc13            to rpc1
+      display g_ima_ap.atp_qty          to atp_qty1
+      display g_ima_ap.unavl_stk        to unavl_stk1
+      display g_ima_ap.sie_q            to sie_q1
+      let g_argv3 = "2"
+   end if
+   #darcy:2024/09/20 add e---
    #darcy:2023/06/20 add s---
-   let g_ima.avl_stk = g_avl_stk
-   let g_ima.unavl_stk = g_unavl_stk
+   # let g_ima.avl_stk = g_avl_stk
+   # let g_ima.unavl_stk = g_unavl_stk
    #darcy:2023/06/20 add e---
+   #darcy:2024/09/23 add s---
+   call saimq102_get_stk()
+   #darcy:2024/09/23 add e---
    IF g_gui_type MATCHES "[13]" AND fgl_getenv('GUI_VER') = '6' THEN
        DISPLAY '!','!' TO ima70,ima15
    END IF
@@ -1615,12 +1689,14 @@ FUNCTION q102_b_fill()              #BODY FILL UP
         "   AND ",tm.wc2 #FUN-620040
    #darcy:2024/07/25 mod s---
    # " ORDER BY img02,img03,img04"
-   case g_argv3 
-      when '2'
-      let l_sql = l_sql, " and img02 not in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
-      when '3'
-      let l_sql = l_sql, " and img02 in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
-   end case
+   #darcy:2024/09/23 mark s---
+   # case g_argv3 
+   #    when '2'
+   #    let l_sql = l_sql, " and img02 not in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
+   #    when '3'
+   #    let l_sql = l_sql, " and img02 in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
+   # end case
+   #darcy:2024/09/23 mark e---
    let l_sql = l_sql ," ORDER BY img02,img03,img04"
    #darcy:2024/07/25 mod e---
     PREPARE q102_pb FROM l_sql
@@ -1671,12 +1747,14 @@ FUNCTION q102_b_fill()              #BODY FILL UP
                 "  WHERE imgs01 = '",g_ima.ima01,"' "
    #darcy:2024/07/25 mod s---
    #"  ORDER BY imgs02,imgs03,imgs04 "
-   case g_argv3 
-      when '2'
-      let l_sql = l_sql, " and imgs02 not in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
-      when '3'
-      let l_sql = l_sql, " and imgs02 in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
-   end case
+   # darcy:2024/09/23 mark s---
+   # case g_argv3 
+   #    when '2'
+   #    let l_sql = l_sql, " and imgs02 not in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
+   #    when '3'
+   #    let l_sql = l_sql, " and imgs02 in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
+   # end case
+   # darcy:2024/09/23 mark e---
    let l_sql = l_sql ,"  ORDER BY imgs02,imgs03,imgs04 "
 
     PREPARE sel_imgs_pre FROM g_sql
@@ -2888,9 +2966,52 @@ function q102_get_g_ima(p_ima01)
    end if
    #CALL s_getstock(g_ima.ima01,g_plant) RETURNING  l_n1,l_n2,l_n3  ###GP5.2  #NO.FUN-A20044
    #darcy:2024/08/02 add e---
-    LET g_unavl_stk = l_n2
-    LET g_avl_stk = l_n3
-    CALL q102_show()
+   call saimq102_get_stk()
+   call q102_show2()
 
    return g_ima.*
+end function
+
+
+function saimq102_get_stk()
+   define l_n2,l_n3  decimal(16,3)
+   #darcy:2024/08/02 add s---
+   let g_sql = "select sum(img10*img21) ",
+               " from ", cl_get_target_table( g_plant, 'img_file'),
+               " where img01 = ? and img24 = 'Y' "
+   case g_argv3 
+      when '2'
+      let g_sql = g_sql, " and img02 not in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
+      when '3'
+      let g_sql = g_sql, " and img02 in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
+   end case
+   call cl_parse_qry_sql(g_sql,g_plant) returning g_sql
+   prepare avl_stk_mpsmrp_pre2 from g_sql
+   execute avl_stk_mpsmrp_pre2 into l_n3  using g_ima.ima01       
+   if cl_null(l_n3) then
+      let l_n3 = 0
+   end if
+   let g_sql = "select sum(img10*img21) ",
+               " from ", cl_get_target_table( g_plant, 'img_file'),
+               " where img01 = ? and img23 = 'N'  "
+   case g_argv3 
+      when '2'
+      let g_sql = g_sql, " and img02 not in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
+      when '3'
+      let g_sql = g_sql, " and img02 in (select tc_sma02 from tc_sma_file where tc_sma01 ='csmi109' and tc_sma06 ='1')"
+   end case
+   call cl_parse_qry_sql(g_sql,g_plant) returning g_sql
+   prepare unavl_stk_pre2 from g_sql
+   execute unavl_stk_pre2 into l_n2  using g_ima.ima01
+   if cl_null(l_n2) then
+      let l_n2 = 0
+   end if
+   #CALL s_getstock(g_ima.ima01,g_plant) RETURNING  l_n1,l_n2,l_n3  ###GP5.2  #NO.FUN-A20044
+   #darcy:2024/08/02 add e---
+    LET g_unavl_stk = l_n2                                  #NO.FUN-A20044
+    LET g_avl_stk = l_n3                                    #NO.FUN-A20044  
+    #darcy:2023/06/20 add s---
+    let g_ima.avl_stk = g_avl_stk
+    let g_ima.unavl_stk = g_unavl_stk
+    #darcy:2023/06/20 add e---
 end function
