@@ -173,6 +173,8 @@
 # Modify.........: No.FUN-D70008 13/07/01 By xujing 工單為發料,工單入庫前提示'此工單尚未發料，重新輸入'
 # Modify.........: No:TQC-D70056 13/07/22 By yangtt 在AFTER FIELD sfv20里添加控管
 # Modify.........: ------------- 16/10/11 By donghy 修改s_minp()为cs_minp()
+# Modify.........: No:2021111901 21/11/19 By jc 增加自动审核扣账
+# Modify.........: No:2022032401 22/03/24 By jc SCM抛转单据限定日期后不可修改
 
 DATABASE ds
  
@@ -398,7 +400,9 @@ DEFINE  p_argv   LIKE type_file.chr1,   #No.FUN-680121 VARCHAR(1)  #No.FUN-6A009
    WHENEVER ERROR CONTINUE
     #CALL s_padd_img_create() RETURNING l_img_table   #FUN-C70087  #FUN-CC0095
     #CALL s_padd_imgg_create() RETURNING l_imgg_table #FUN-C70087  #FUN-CC0095
+    IF cl_null(g_bgjob) OR g_bgjob <> 'Y' THEN     #2021111901 add
     CALL t623_mu_ui()
+    END IF     #2021111901 add
  
     LET g_forupd_sql = "SELECT * FROM sfu_file WHERE sfu01 = ? FOR UPDATE"
  
@@ -428,6 +432,20 @@ DEFINE  p_argv   LIKE type_file.chr1,   #No.FUN-680121 VARCHAR(1)  #No.FUN-6A009
              IF cl_chk_act_auth() THEN
                 CALL t623_a()
              END IF
+          #2021111901 add----begin----
+          WHEN "stock_post"
+             CALL t623_q()
+             LET g_success = 'Y'
+             IF g_sfu.sfuconf = 'N' THEN 
+                CALL t623_y_chk()
+                IF g_success = "Y" THEN
+                  CALL t623_y_upd()
+                END IF
+             END IF 
+             IF g_success = 'Y' AND g_sfu.sfupost = 'N' THEN 
+             	  CALL t623_s()
+             END IF 
+          #2021111901 add----end----
           OTHERWISE
              CALL t623_q()
        END CASE
@@ -800,9 +818,12 @@ DEFINE g_type LIKE sfv_file.sfv04
                     SELECT count(*) INTO g_sy  FROM oea_file, oeb_file WHERE oeb01 = oea01 AND oea00 = '1'
                     AND oeb70 = 'N'
                     AND oeaconf = 'Y'
-                    AND ( oea01 LIKE 'XRI%'OR oea01 LIKE 'XRX%') and oeb04 = g_sfv[l_ac].sfv04
+                    AND ( oea01 LIKE 'XRI%'OR oea01 LIKE 'XRX%' OR oea01 LIKE 'XRB%') and oeb04 = g_sfv[l_ac].sfv04
                     END IF
                     END IF 
+                    IF  g_sy = 0 THEN
+                    SELECT count(*) INTO g_sy FROM gl_623 WHERE ima01 = g_sfv[l_ac].sfv04
+                   END IF
                    IF  g_sy = 0 THEN
                     CALL cl_err(g_sfv[l_ac].sfv04,'xyb-888',1)
                    END IF 
@@ -812,7 +833,7 @@ DEFINE g_type LIKE sfv_file.sfv04
                     IF g_success = "Y" THEN
                         LET l_ecu01 = g_sfu.sfu01 
                        # SELECT SYSDATE INTO l_date FROM DUAL  #日期+时间
-                        CALL cl_ect('asft623',l_ecu01,g_user,'1',g_today,TIME)
+                        # CALL cl_ect('asft623',l_ecu01,g_user,'1',g_today,TIME) #darcy:2024/01/04 add
                     #add by zhangzs 201208   记录审核状态到中间表 ect_file   ----e------
                     END IF
                  END IF
@@ -824,7 +845,7 @@ DEFINE g_type LIKE sfv_file.sfv04
                   IF g_success = "Y" THEN
                         LET l_ecu01 = g_sfu.sfu01 
                       #  SELECT SYSDATE INTO l_date FROM DUAL  #日期+时间
-                        CALL cl_ect('asft623',l_ecu01,g_user,'2',g_today,TIME)
+                        # CALL cl_ect('asft623',l_ecu01,g_user,'2',g_today,TIME) #darcy:2024/01/04 mark
                     #add by zhangzs 201208   记录审核状态到中间表 ect_file   ----e------
                     END IF
               END IF
@@ -849,7 +870,7 @@ DEFINE g_type LIKE sfv_file.sfv04
                  IF g_success = "Y" THEN
                         LET l_ecu01 = g_sfu.sfu01 
                        #s SELECT SYSDATE INTO l_date FROM DUAL  #日期+时间
-                        CALL cl_ect('asft623',l_ecu01,g_user,'3',g_today,TIME)
+                        # CALL cl_ect('asft623',l_ecu01,g_user,'3',g_today,TIME)  #mark darcy:2024/01/04
                     #add by zhangzs 201208   记录审核状态到中间表 ect_file   ----e------
                 END IF
               END IF
@@ -858,7 +879,8 @@ DEFINE g_type LIKE sfv_file.sfv04
               IF cl_chk_act_auth() THEN
                  CALL t623_w()
                 IF g_success = 'Y' THEN 
-                CALL cl_ect('asft623',l_ecu01,g_user,'4',g_today,TIME)
+                  let l_ecu01 = g_sfu.sfu01 #darcy:2023/04/03 add
+               #  CALL cl_ect('asft623',l_ecu01,g_user,'4',g_today,TIME) #darcy:2024/01/04 mark
                   LET g_msg=TIME
                   INSERT INTO azo_file(azo01,azo02,azo03,azo04,azo05,azo06,azoplant,azolegal)     #FUN-980008 add
                     VALUES ('asft623',g_user,g_today,g_msg,g_sfu.sfu01,'undo_post',g_plant,g_legal) #FUN-980008 add
@@ -1454,7 +1476,9 @@ FUNCTION t623_show()
      DISPLAY l_smydesc TO smydesc LET g_buf = NULL #MOD-4C0010
     CALL t623_show2()
  
+    IF cl_null(g_bgjob) OR g_bgjob <> 'Y' THEN      #2021111901 add
     CALL t623_pic() #圖形顯示 #FUN-660137
+    END IF     #2021111901 add
  
     CALL t623_b_fill(g_wc2)
 END FUNCTION
@@ -1677,12 +1701,28 @@ DEFINE l_year1     LIKE type_file.chr30
 DEFINE l_month1    LIKE type_file.chr30
 DEFINE l_number    LIKE type_file.chr30  
 DEFINE l_sql       STRING 
+DEFINE l_sfb93     LIKe sfb_file.sfb93 
 #str----end by huanglf161014
+#2022032401 add----begin----
+DEFINE l_tc_zsa02   LIKE type_file.chr1,
+       l_tc_zsa03   LIKE type_file.chr10
+#2022032401 add----end----
     LET g_action_choice = ""
  
     IF g_sfu.sfu01 IS NULL THEN RETURN END IF
     IF g_sfu.sfuconf = 'Y' THEN CALL cl_err('','9023',0) RETURN END IF #FUN-660137
     IF g_sfu.sfuconf = 'X' THEN CALL cl_err('','9024',0) RETURN END IF #FUN-660137
+    #2022032401 add----begin----
+    IF g_sfu.sfu07[1,3] = 'CR1' THEN 
+    	LET l_tc_zsa02 = ''
+    	LET l_tc_zsa03 = ''
+    	SELECT tc_zsa02,tc_zsa03 INTO l_tc_zsa02,l_tc_zsa03 FROM tc_zsa_file
+    	IF l_tc_zsa02 = 'Y' AND NOT cl_null(l_tc_zsa03) AND g_today >= l_tc_zsa03 THEN 
+    		CALL cl_err('','cpm-066',0)
+    		RETURN 
+    	END IF 
+    END IF 
+    #2022032401 add----end----
       #是否使用FQC功能                               #入庫
  
     CALL cl_opmsg('b')
@@ -2030,7 +2070,7 @@ DEFINE l_sql       STRING
                WHERE sfe01 = g_sfv[l_ac].sfv11 AND sfe02 = sfp01 AND sfp04 = 'Y'
           #TQC-B90222  --end
            END IF
-           SELECT sfb39 INTO g_sfb.sfb39 FROM sfb_file 
+           SELECT sfb39,sfb93 INTO g_sfb.sfb39,l_sfb93 FROM sfb_file 
               WHERE sfb01 = g_sfv[l_ac].sfv11
           #FUN-D70008-mark---str
           #IF cl_null(l_date) OR l_date > g_sfu.sfu02 THEN
@@ -2128,6 +2168,36 @@ DEFINE l_sql       STRING
                  #add by donghy  160826--end
                  #LET g_sfv[l_ac].sfv09=g_min_set - tmp_woqty
                  LET g_min_set=g_min_set + g_over_qty
+                 #darcy 2022年1月25日 s---
+                 #-->取最終製程之總轉出量(良品轉出量+Bonus)
+                  IF l_sfb93='Y' THEN  # 製程否
+                     CALL s_schdat_max_sgm03(g_sfv[l_ac].sfv20) RETURNING l_ecm012,l_ecm03     #FUN-A60076 
+                     SELECT sgm311,sgm315 INTO g_sgm311,g_sgm315 FROM sgm_file
+                     WHERE sgm01=g_sfv[l_ac].sfv20
+                        AND sgm03 = l_ecm03                               #FUN-A60076 
+                        AND sgm012 = l_ecm012                             #FUN-A60076 
+                     IF STATUS THEN LET g_sgm311=0 LET g_sgm315 = 0 END IF
+                     LET g_sgm_out=g_sgm311 + g_sgm315
+                     IF g_min_set>g_sgm_out THEN
+                        LET g_sfv[l_ac].sfv09=g_sgm_out - tmp_qty
+                     END IF
+                  END IF
+                 #add by donghy  160826--start
+                  IF g_min_set - tmp_woqty <= 0 THEN 
+                     LET g_sfv[l_ac].sfv09 = 0
+                  END IF
+                  IF g_min_set - tmp_woqty > 0 THEN
+                     SELECT shm08 INTO l_shm08 FROM shm_file WHERE shm01=g_sfv[l_ac].sfv20
+                     IF g_min_set - tmp_woqty > l_shm08 THEN 
+                        LET g_sfv[l_ac].sfv09=l_shm08
+                     ELSE
+                        LET g_sfv[l_ac].sfv09=g_min_set - tmp_woqty 
+                     END IF
+                  END IF 
+                  #add by donghy  160826--end 
+                 #darcy 2022年1月25日 e---
+
+
                  DISPLAY BY NAME g_sfv[l_ac].sfv09
 
                  IF cl_null(g_min_set) THEN LET g_min_set = 0 END IF
@@ -4363,6 +4433,7 @@ END FUNCTION
  
 FUNCTION t623_bp(p_ud)
    DEFINE   p_ud   LIKE type_file.chr1    #No.FUN-680121 VARCHAR(1)
+   define   l_sfv09_1      like sfv_file.sfv09  #darcy:2024/05/27 add
  
    IF p_ud <> "G" OR g_action_choice = "detail" THEN
       RETURN
@@ -4380,7 +4451,13 @@ FUNCTION t623_bp(p_ud)
       BEFORE ROW
          LET l_ac = ARR_CURR()
          CALL cl_show_fld_cont()
-         AFTER DISPLAY
+         #darcy:2024/05/27 add s---
+         # sfv04_1,sfb09_1 汇总料号入库数量
+         select sum(sfv09) into l_sfv09_1 from sfv_file
+            where sfv01 = g_sfu.sfu01 and sfv04 = g_sfv[l_ac].sfv04
+         display g_sfv[l_ac].sfv04,l_sfv09_1 to sfv04_1,sfv09_1
+         #darcy:2024/05/27 add e---
+      AFTER DISPLAY
          CONTINUE DIALOG   #因為外層是DIALOG
       END DISPLAY
       DISPLAY ARRAY g_rvbs TO s_rvbs.* ATTRIBUTE(COUNT=g_rec_b1)
@@ -4914,6 +4991,7 @@ FUNCTION t623_s()       #過帳
  DEFINE l_cnt_imgg      LIKE type_file.num5     #FUN-C70087
  DEFINE l_sql            STRING                 #FUN-C70087
  DEFINE l_sfv           RECORD LIKE sfv_file.*  #FUN-C70087
+ define l_hour,l_minute integer #darcy:2023/09/15 add
  
    IF s_shut(0) THEN RETURN END IF
    #str----add by guanyao160928
@@ -4931,6 +5009,7 @@ FUNCTION t623_s()       #過帳
       CALL cl_err('','aba-100',1)
       RETURN
    END IF
+   
    SELECT COUNT(*) INTO l_cnt FROM sfv_file WHERE sfv01 = g_sfu.sfu01
    IF l_cnt = 0 THEN
       CALL cl_err('','mfg-009',0)
@@ -4954,6 +5033,46 @@ FUNCTION t623_s()       #過帳
       CALL cl_err('chk_sfv17_qcf','asf-711',0)
       RETURN
    END IF
+   #darcy:2023/09/15 add s---
+   #darcy:2024/07/16 add s---
+   # 当入库料号有半成品或者有仓库S005或YP002的资料，才卡控不允许8.30~9.00过账。
+   let g_cnt = 0
+   select count(*) into g_cnt from sfv_file
+    where sfv01 = g_sfu.sfu01 and (
+      sfv04 not like '%-%'
+      or  sfv05 in ('S005','YP002')
+    )
+   #darcy:2024/07/16 add e---
+   # 管控每天早上7:30~8:00 不允许工单入库
+   # 需求来源--张玉坤
+   if g_cnt > 0 then #darcy:2024/07/16 add
+      select to_char(sysdate,'hh24'),to_char(sysdate,'mi') into l_hour,l_minute from dual
+      if l_hour = 7 and l_minute >= 30 then #darcy:2024/07/16 mod 7 -> 8 #darcy:2024/07/19 mod 8->7
+         call cl_err(current,'csf-116',1)
+         return
+      end if
+   end if #darcy:2024/07/16 add
+   #darcy:2023/09/15 add e---
+
+   #darcy:2023/10/11 add s---
+   if ((l_hour = 7 and l_minute <30) or (l_hour < 7)) and (g_sfu.sfu02 == today) then
+      if not cl_confirm('csf-117') then
+         return
+      end if
+   end if
+   #darcy:2023/10/11 add e---
+   #darcy:2024/05/31 add s---
+   # 最后一次入库前检查
+   if g_sfu.sfu01 not matches "TT*" then
+      call sasft623_last_in_chk(g_sfu.sfu01)
+      if g_success = 'N' then
+         if not cl_confirm("csf-127") then
+            return
+         end if
+      end if
+   end if
+   #darcy:2024/05/31 add e---
+
    BEGIN WORK
 
    OPEN t623_cl USING g_sfu.sfu01
@@ -5077,6 +5196,7 @@ FUNCTION t623_s()       #過帳
        CLOSE t623_cl ROLLBACK WORK RETURN
    END IF
  
+ IF cl_null(g_bgjob) OR g_bgjob <> 'Y' THEN     #2021111901 add
   #MOD-AC0057---add---start---    #將此段搬到FETCH後面 
    IF NOT cl_confirm('mfg0176') THEN 
       CLOSE t623_cl
@@ -5084,10 +5204,11 @@ FUNCTION t623_s()       #過帳
       RETURN 
    END IF
   #MOD-AC0057---add---end---
+ END IF     #2021111901 add
    LET g_success = 'Y'
  
  
-   UPDATE sfu_file SET sfupost='Y' WHERE sfu01=g_sfu.sfu01
+   UPDATE sfu_file SET sfupost='Y',sfudate =g_today WHERE sfu01=g_sfu.sfu01 #darcy:2023/03/16 更新sfudate
    IF sqlca.sqlcode THEN LET g_success='N' END IF
  
    CALL t623_s1()
@@ -5101,6 +5222,7 @@ FUNCTION t623_s()       #過帳
    IF g_success = 'Y' THEN
       LET g_sfu.sfupost='Y'
       DISPLAY BY NAME g_sfu.sfupost
+      CALL cl_ect('asft623',g_sfu.sfu01,g_user,'3',g_today,TIME) #darcy:2024/01/04 add
       COMMIT WORK
       CALL cl_flow_notify(g_sfu.sfu01,'S')
    ELSE
@@ -5167,7 +5289,7 @@ FUNCTION t623_s1()
                CALL t623_sgm_minp(b_sfv.sfv20,b_sfv.sfv11)
                RETURNING g_min_set
             END IF
-            IF cl_null(g_sfv[l_ac].sfv20) OR g_min_set = 0 THEN
+            IF cl_null(b_sfv.sfv20) OR g_min_set = 0 THEN    #2021111901 modify g_sfv[l_ac]->b_sfv
             #FUN-A60095--end--add-----------
             #  CALL s_minp(b_sfv.sfv11,g_sma.sma73,l_ima153,'','','')   #FUN-A60027 #FUN-C70037 mark
                CALL s_minp(b_sfv.sfv11,g_sma.sma73,l_ima153,'','','',g_sfu.sfu02)   #FUN-C70037
@@ -5688,6 +5810,7 @@ FUNCTION t623_w()       #過帳還原
    IF g_success = 'Y' THEN
       LET g_sfu.sfupost='N'
       DISPLAY BY NAME g_sfu.sfupost
+      CALL cl_ect('asft623',g_sfu.sfu01,g_user,'4',g_today,TIME) #darcy:2024/01/04 add
       COMMIT WORK
    ELSE
       LET g_sfu.sfupost='Y'
@@ -5741,6 +5864,7 @@ FUNCTION t623_w()       #過帳還原
  
  
       IF g_success = "Y" AND NOT cl_null(g_imm01) THEN
+         CALL cl_ect('asft623',g_sfu.sfu01,g_user,'4',g_today,TIME) #darcy:2024/01/04 add
          COMMIT WORK
          LET g_msg="aimt324 '",g_imm01,"'"
          CALL cl_cmdrun_wait(g_msg)
@@ -7166,9 +7290,14 @@ FUNCTION t623_y_chk()
    DEFINE l_min      LIKE sfv_file.sfv09
    DEFINE l_x        LIKE type_file.num5
 #str----end by huanglf1161017
-   #darcy:2024/09/02 add s---
-   define l_ima06    like ima_file.ima06
-   #darcy:2024/09/02 add s---
+   #darcy:2022/09/22 add s---
+   define l_oeb12    like oeb_file.oeb12
+   define l_oeb01    like oeb_file.oeb01
+   define l_oeb03    like oeb_file.oeb03
+   define l_sfbud09  like sfb_file.sfbud09
+   define l_num      like oeb_file.oeb12
+   #darcy:2022/09/22 add e---
+   define l_ima06    like ima_file.ima06 
    LET g_success = 'Y'
   #str ly180328 bolck
     LET l_cn=0
@@ -7208,7 +7337,9 @@ FUNCTION t623_y_chk()
       RETURN
    END IF
  
+   IF cl_null(g_bgjob) OR g_bgjob <> 'Y' THEN     #2021111901 add
    IF NOT cl_confirm('axm-108') THEN LET g_success = 'N' RETURN END IF    #TQC-C90042 add  LET g_success = 'N'
+   END IF     #2021111901 add
 #CHI-C30107 ------------- add -------------- end
    SELECT * INTO g_sfu.* FROM sfu_file WHERE sfu01 = g_sfu.sfu01
    IF g_sfu.sfuconf='Y' THEN
@@ -7257,32 +7388,30 @@ FUNCTION t623_y_chk()
          CONTINUE FOREACH
       END IF
       #End Add No.FUN-AB0054
+   
+      SELECT ima918,ima921,ima06 INTO g_ima918,g_ima921,l_ima06 #darcy:2024/09/02 add ima06
+        FROM ima_file
+       WHERE ima01 = b_sfv.sfv04
+         AND imaacti = "Y"
 
       #darcy:2024/09/02 add s---
-      # 成品料号仓库管控
-      select ima06 into l_ima06 from ima_file where ima01 = b_sfv.sfv04
-      if l_ima06 = 'G01' or l_ima06 = 'G02' then
+      # 样品与量产成品入库仓库检查 
+      if l_ima06 = 'G01' or l_ima06 = 'G02' then 
          if b_sfv.sfv04[10,10] = 'S' then
             if b_sfv.sfv05 != 'YP003' or b_sfv.sfv06 != 'SC03' then
-               call cl_err3("sel","img_file",b_sfv.sfv05,b_sfv.sfv06,'csf-131',"","sel img09",1)
-               let g_success = 'N'
+               call cl_err(sfmt("%1/%2",b_sfv.sfv05,b_sfv.sfv06),'csf-131',1)
+               let g_success = "N"
                return
             end if
          else
             if b_sfv.sfv05 != 'P001' or b_sfv.sfv06 != 'CP01' then
-               call cl_err3("sel","img_file",b_sfv.sfv05,b_sfv.sfv06,'csf-132',"","sel img09",1)
-               let g_success = 'N'
+               call cl_err(sfmt("%1/%2",b_sfv.sfv05,b_sfv.sfv06),'csf-132',1)
+               let g_success = "N"
                return
             end if
          end if
       end if
       #darcy:2024/09/02 add e---
-   
-      SELECT ima918,ima921 INTO g_ima918,g_ima921 
-        FROM ima_file
-       WHERE ima01 = b_sfv.sfv04
-         AND imaacti = "Y"
-
 
 #str-------add by guanyao160830
       IF g_argv = '1' OR g_argv= '2' THEN 
@@ -7399,6 +7528,26 @@ FUNCTION t623_y_chk()
                  CALL cl_err(b_sfv.sfv20,'asf-668',1)
                 END IF
               END IF 
+              #darcy:2022/09/22 s---
+              # 样品总数量不能大于订单数量
+              if b_sfv.sfv04 not matches "BX0153R4DR*" then  #darcy:2022/10/21 add 
+              if b_sfv.sfv04 matches "?????????S*" then
+                  let l_sfb09 = 0
+                  select sfb22,sfb221 into l_oeb01,l_oeb03 from sfb_file where sfb01 = b_sfv.sfv11
+                  if not cl_null(l_oeb01) then
+                     select sum(sfb09) into l_sfb09 from sfb_file
+                      where sfb22 = l_oeb01 and sfb221 = l_oeb03 and sfb87 ='Y'
+                     if cl_null(l_sfb09) then let l_sfb09 = 0 end if
+                     let l_oeb12 = 0
+                     select oeb12 into l_oeb12 from oeb_file where oeb01 = l_oeb01 and oeb03 = l_oeb03
+                     if l_sfb09-(l_sfb09 mod 1) + l_num - (l_num mod 1) > l_oeb12  then
+                        let g_success = 'N' 
+                        call cl_err(b_sfv.sfv20,'asf-939',1)
+                     end if
+                  end if
+              end if
+              end if  #darcy:2022/10/21 add 
+              #darcy:2022/09/22 e---
           END IF 
       END IF 
 #str-----end by huanglf161017
@@ -7448,6 +7597,7 @@ FUNCTION t623_y_upd()
    END IF
  
    IF g_success='Y' THEN
+      CALL cl_ect('asft623',g_sfu.sfu01,g_user,'1',g_today,TIME) #darcy:2024/01/04 add
       COMMIT WORK
       LET g_sfu.sfuconf='Y'
       CALL cl_flow_notify(g_sfu.sfu01,'Y')
@@ -7456,7 +7606,9 @@ FUNCTION t623_y_upd()
       LET g_sfu.sfuconf='N'
    END IF
    DISPLAY BY NAME g_sfu.sfuconf
+   IF cl_null(g_bgjob) OR g_bgjob <> 'Y' THEN     #2021111901 add
    CALL t623_pic() #圖形顯示
+   END IF      #2021111901 add
 END FUNCTION
  
 FUNCTION t623_z()
@@ -7501,6 +7653,7 @@ FUNCTION t623_z()
    END IF
    IF g_success = 'Y' THEN
       LET g_sfu.sfuconf='N'
+      CALL cl_ect('asft623',g_sfu.sfu01,g_user,'2',g_today,TIME) #darcy:2024/01/04 add
       COMMIT WORK
       DISPLAY BY NAME g_sfu.sfuconf
    ELSE
@@ -8508,3 +8661,169 @@ END FUNCTION
 
 
 #str----end by huanglf161017
+
+
+# 工单最后一次入库检查
+# 检查工单是否有待报废的报工资料
+function sasft623_last_in_chk(p_sfu01)
+    define p_sfu01      like sfu_file.sfu01
+    define l_sql        string
+    define l_ok,l_flag         boolean
+    define l_ret dynamic array of record
+        sfb01   like sfb_file.sfb01,
+        sfb12   like sfb_file.sfb12
+    end record
+    define l_sfb01      like sfb_file.sfb01
+    define l_wip        like sfb_file.sfb12
+    define l_i          integer
+    define l_postdate   date
+    define l_sfe02      like sfe_file.sfe02,
+           l_sfe04      like sfe_file.sfe04
+    define l_sgm313     like sgm_file.sgm313
+    define l_sfv09      like sfv_file.sfv09
+    define l_sfv091     like sfv_file.sfv09
+    define l_sfb08      like sfb_file.sfb08
+    
+
+    select sfu02 into l_postdate from sfu_file where sfu01 = p_sfu01
+
+    call s_showmsg_init() 
+    let g_success ='Y'
+    # 工单在制数量查询
+    let l_sql = "with sgm_t1 as
+                (select sgm01,sgm02,sgm03,sgm65,sgm301,sgm311,sgm313,sgm314,
+                        sum(sgm314) OVER(partition by sgm01 order by sgm03) sgm314s,
+                        sum(sgm313) OVER(partition by sgm01 order by sgm03) sgm313s
+                    from sgm_file,
+                        (select unique sfv11 sfb01 from sfv_file
+                          where sfv01 = '",p_sfu01,"' ) sub_query
+                where sgm02 = sub_query.sfb01 order by sgm01, sgm03),
+                sgm_t2 as (select sgm01,sgm02,sgm03,sgm65,sgm301,
+                        sgm311,sgm313,sgm314,sgm314s - sgm314 sgm314s,sgm313s - sgm313 sgm313s
+                    from sgm_t1),
+                sgm_t3 as (select sgm01,sgm02,sgm03,sgm65 - sgm314s - sgm313s sgm65,
+                        sgm301,sgm311,sgm313,sgm314,sgm314s,sgm313s
+                    from sgm_t2),
+                sgm_t4 as (select sgm01,sgm02,sgm03,sgm65,sgm301,sgm311,
+                                  sgm313,sgm314,sgm313s,sgm314s,
+                                  least(sgm65, sgm301) - sgm311 - sgm313 sgmwip
+                    from sgm_t3)
+                select unique sfv11, nvl(sgmwip, 0) sgmwip
+                from sfv_file
+                left join (select sgm02, sum(sgmwip) sgmwip
+                            from sgm_t4
+                            where sgmwip > 0
+                            group by sgm02)
+                    on sgm02 = sfv11
+                where sfv01 = '",p_sfu01,"' "
+    prepare cs_asf_p8 from l_sql
+    declare cs_asf_cur8 cursor for cs_asf_p8
+
+    # 发退料日期
+    let l_sql = "select sfe02, sfe04
+                   from sfe_file, (select '",l_postdate,"' postdate from dual)
+                  where sfe01 = ? 
+                    and ((year(sfe04) = year(postdate) and month(sfe04) > month(postdate)) or
+                        (year(sfe04) > year(postdate))) order by sfe04,sfe02"
+    prepare cs_asf_p10 from l_sql
+    declare cs_asf_cur10 cursor for cs_asf_p10
+
+    # 报工日期
+    let l_sql = "select shb01,shb03 
+                   from shb_file,(select '",l_postdate,"' postdate from dual)
+                  where shb05 = ? 
+                    and ((year(shb03) = year(postdate) and month(shb03) > month(postdate)) or
+                        (year(shb03) > year(postdate)))"
+    prepare cs_asf_p11 from l_sql
+    declare cs_asf_cur11 cursor for cs_asf_p11
+
+
+    # 待报废查询
+    declare cs_asf_cur9 cursor for 
+        select unique sfv11 from sfv_file where sfv01 = p_sfu01
+    let l_sql = ""
+    foreach cs_asf_cur9 into l_sfb01
+        if sqlca.sqlcode then
+            call cl_err("cs_asf_cur9",sqlca.sqlcode,1)
+            exit foreach
+        end if
+        let l_sql = l_sql,l_sfb01,","
+    end foreach
+    let l_sql = l_sql.subString(1,l_sql.getLength()-1)
+
+    call l_ret.clear()
+    call GetWaitScrapR(l_sql) returning l_ok,l_ret
+
+    # 是否是最后一次入库
+    let l_flag = false  # 是否是最后一次入库
+    foreach cs_asf_cur8 into l_sfb01,l_wip
+        if sqlca.sqlcode then
+            call cl_err("cs_asf_cur8",sqlca.sqlcode,1)
+            exit foreach
+        end if
+
+        let l_sfv09 = 0
+        select sum(sfv09) into l_sfv09 from sfv_file,sfu_file
+         where sfv01=sfu01 and sfv11=l_sfb01 and sfupost='Y' and sfu01 <> p_sfu01
+        if cl_null(l_sfv09) then let l_sfv09 = 0 end if
+
+        let l_sfv091 = 0
+        select sum(sfv09) into l_sfv091 from sfv_file
+         where sfv01=p_sfu01 and sfv11=l_sfb01
+        if cl_null(l_sfv091) then let l_sfv091 = 0 end if
+    
+        let l_sgm313 = 0
+        select sum(sgm313) into l_sgm313 from sgm_file
+         where sgm02 = l_sfb01
+        if cl_null(l_sgm313) then let l_sgm313 = 0 end if
+
+        let l_sfb08 = 0
+        select sfb08 into l_sfb08 from sfb_file
+         where sfb01 = l_sfb01
+        if cl_null(l_sfb08) then let l_sfb08 = 0 end if
+
+        if cl_null(l_wip) or l_wip = 0 then
+            # 还需要判断剩余入库数量也为0
+            if l_sfb08 <= l_sfv09 + l_sfv091 + l_sgm313 then
+                let l_flag = true
+                goto jump_wip
+            end if
+        end if
+        # 检查在制数量是否都是待报废
+        # CALL s_errmsg(field,date,msg,'mfg0301',1)
+        for l_i = 1 to l_ret.getLength()
+            if l_ret[l_i].sfb01 = l_sfb01 then
+                if l_ret[l_i].sfb12 >= l_wip then
+                    let l_flag = true
+                    call s_errmsg("sfb01,sfb12",sfmt("%1|%2",l_sfb01,l_ret[l_i].sfb12),"",'csf-124',1)
+                    let g_success ='N'
+                end if
+            end if
+        end for
+
+        label jump_wip:
+        if l_flag then
+            # 检查发退料是否在入库月份中
+            foreach cs_asf_cur10 using l_sfb01 into l_sfe02,l_sfe04
+                if sqlca.sqlcode then
+                    let g_success ='N'
+                    call cl_err("cs_asf_cur10",sqlca.sqlcode,1)
+                    exit foreach
+                end if
+                call s_errmsg("sfb01,sfe02,sfe03",sfmt("%1|%2|%3",l_sfb01,l_sfe02,l_sfe04),"",'csf-125',1)
+                let g_success ='N'
+            end foreach
+            # 检查报工日期是否在入库月份中
+            foreach cs_asf_cur11 using l_sfb01 into l_sfe02,l_sfe04
+                if sqlca.sqlcode then
+                    let g_success ='N'
+                    call cl_err("cs_asf_cur11",sqlca.sqlcode,1)
+                    exit foreach
+                end if
+                call s_errmsg("sfb01,shb01,shb03",sfmt("%1|%2|%3",l_sfb01,l_sfe02,l_sfe04),"",'csf-126',1)
+                    let g_success ='N'
+            end foreach
+        end if
+    end foreach
+    call s_showmsg() 
+end function
