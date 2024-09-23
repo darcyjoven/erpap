@@ -1320,7 +1320,7 @@ FUNCTION s_cbmp600_get_recipient()
     #增加aimi100的邮件通知
 
     LET l_recipient = "gongcheng1@forewin-sz.com.cn;", #工程
-                      "bruce.han@forewin-sz.com.cn;",  #韩志伟
+                    #   "bruce.han@forewin-sz.com.cn;",  #韩志伟 #darcy:2024/09/04 mark
                       "yukun.zhang@forewin-sz.com.cn;",
                       "w.wang@forewin-sz.com.cn;",     #王委
                       "weixing.li@forewin-sz.com.cn;", #李卫星
@@ -1330,7 +1330,7 @@ FUNCTION s_cbmp600_get_recipient()
                     #   "huijing.gao@forewin-sz.com.cn;",
                       "eng11@forewin-sz.com.cn;",
                       "jun.xu@forewin-sz.com.cn;",
-                      "yifan.yang@forewin-sz.com.cn;",
+                    #   "yifan.yang@forewin-sz.com.cn;", #darcy:2024/09/04 mark
                       "wangwei@forewin-sz.com.cn;",
                     #   "hailong.zheng@forewin-sz.com.cn;", #darcy:2024/01/08 mark
                       "eng32@forewin-sz.com.cn;"  #darcy:2023/11/20 add 增加邮箱地址
