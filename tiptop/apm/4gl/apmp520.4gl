@@ -2376,38 +2376,38 @@ DEFINE l_str1     STRING
       # 请购单别能产生的采购单别
       # FRA->PSF/PRS
       # PRA->PRB 
-      #for i=1 to g_rec_b 
-      #   if g_pnn[i].select = 'Y' then
-      #      if g_pnn[i].pml01[1,3] == "FRA" then
-      #         if not (tm3.slip == "PSF" or tm3.slip == "PRS") then
-      #            call cl_err(g_pnn[i].pml01,"cpm-078",1)
-      #            close window p5201_w
-      #            return
-      #         end if
-      #      end if
-      #      if g_pnn[i].pml01[1,3] == "PRA" then
-      #         if not (tm3.slip == "PRB") then
-      #            call cl_err(g_pnn[i].pml01,"cpm-079",1)
-      #            close window p5201_w
-      #            return
-      #         end if
-      #      end if
-      #      if tm3.slip == "PSF" or tm3.slip == "PRS" then
-      #         if g_pnn[i].pml01[1,3] != "FRA" then
-      #            call cl_err(g_pnn[i].pml01,"cpm-080",1)
-      #            close window p5201_w
-      #            return
-      #         end if
-      #      end if
-      #      if tm3.slip == "PRB" then
-      #         if g_pnn[i].pml01[1,3] != "PRA" then
-      #            call cl_err(g_pnn[i].pml01,"cpm-081",1)
-      #            close window p5201_w
-      #            return
-      #         end if
-      #      end if
-      #   end if
-      #end for
+      for i=1 to g_rec_b 
+         if g_pnn[i].select = 'Y' then
+            if g_pnn[i].pml01[1,3] == "FRA" then
+               if not (tm3.slip == "PSF" or tm3.slip == "PRS") then
+                  call cl_err(g_pnn[i].pml01,"cpm-078",1)
+                  close window p5201_w
+                  return
+               end if
+            end if
+            if g_pnn[i].pml01[1,3] == "PRA" then
+               if not (tm3.slip == "PRB") then
+                  call cl_err(g_pnn[i].pml01,"cpm-079",1)
+                  close window p5201_w
+                  return
+               end if
+            end if
+            #if tm3.slip == "PSF" or tm3.slip == "PRS" then
+            #   if g_pnn[i].pml01[1,3] != "FRA" then
+            #      call cl_err(g_pnn[i].pml01,"cpm-080",1)
+            #      close window p5201_w
+            #      return
+            #   end if
+            #end if
+            #if tm3.slip == "PRB" then
+            #   if g_pnn[i].pml01[1,3] != "PRA" then
+            #      call cl_err(g_pnn[i].pml01,"cpm-081",1)
+            #      close window p5201_w
+            #      return
+            #   end if
+            #end if
+         end if
+      end for
       #darcy:2024/08/07 add e---
       BEGIN WORK
       LET l_i = 1 
