@@ -8854,10 +8854,10 @@ DEFINE l_tc_zsa02   LIKE type_file.chr1,
                    #END IF 
                    #MOD-D60234 mark end----------------------------
                     IF g_sfs[l_ac].sfs26 <> l_sfa26 OR g_sfs[l_ac].sfs27 <> l_sfa27 OR cl_null(g_sfs[l_ac].sfs26) OR cl_null(g_sfs[l_ac].sfs27) THEN
-                       IF cl_confirm("asf-450") THEN
+                     #   IF cl_confirm("asf-450") THEN #darcy:2024/09/12 add
                           LET g_sfs[l_ac].sfs26 = l_sfa26
                           LET g_sfs[l_ac].sfs27 = l_sfa27
-                       END IF 
+                     #   END IF #darcy:2024/09/12 add
                     END IF 
                    #MOD-D60234 add begin----------------------
                     IF l_sfa26 NOT  MATCHES '[9BCUSTZ]' THEN
