@@ -26,6 +26,10 @@ DEFINE
          tlf01    LIKE tlf_file.tlf01,
          ima02    LIKE ima_file.ima02,
          ima021   LIKE ima_file.ima021,
+         #darcy:2024/09/09 add s---
+         imaud33  like ima_file.imaud33,
+         imaud34  like ima_file.imaud34,
+         #darcy:2024/09/09 add e---
          tlf19    LIKE tlf_file.tlf19,
          gem02    LIKE gem_file.gem02,
          tlf14    LIKE tlf_file.tlf14,
@@ -64,6 +68,10 @@ DEFINE
          tlf01    LIKE tlf_file.tlf01,
          ima02    LIKE ima_file.ima02,
          ima021   LIKE ima_file.ima021,
+         #darcy:2024/09/09 add s---
+         imaud33  like ima_file.imaud33,
+         imaud34  like ima_file.imaud34,
+         #darcy:2024/09/09 add e---
          tlf19    LIKE tlf_file.tlf19,
          gem02    LIKE gem_file.gem02,
          tlf14    LIKE tlf_file.tlf14,
@@ -841,7 +849,8 @@ DEFINE #l_name    LIKE type_file.chr20,
    LET l_sql =  "SELECT '' order1,tlf037,tlf907,tlf13,nvl(tlf14,' ') tlf14,azf03,nvl(tlf17,' ') tlf17,nvl(tlf19,' ') tlf19,'' gem02,tlf021,tlf031,",       #FUN-D10022 azf03 
                 "       tlf06,tlf026,tlf027,",   
                 "       tlf036,'' ima39,'' ima391,tlf01,nvl(tlf10*tlf60,0) tlf10,nvl(tlfc221,0) ccc23a,nvl(tlfc222,0) ccc23b,nvl(tlfc2231,0) ccc23c,nvl(tlfc2232,0) ccc23d,", 
-                "       nvl(tlfc224,0) ccc23e,nvl(tlfc2241,0) ccc23f,nvl(tlfc2242,0) ccc23g,nvl(tlfc2243,0) ccc23h,ima02,tlfccost,ima021,ima12, ",
+                "       nvl(tlfc224,0) ccc23e,nvl(tlfc2241,0) ccc23f,nvl(tlfc2242,0) ccc23g,nvl(tlfc2243,0) ccc23h,ima02,tlfccost,ima021,imaud33,imaud34,ima12, ",
+                # darcy:2024/09/09 add imaud33,imaud34
                #"       0 l_ccc23a,0 l_ccc23b,0 l_ccc23c,0 l_ccc23d,0 l_ccc23e,0 l_ccc23f,0 l_ccc23g,0 l_ccc23h,0 l_tot,'' ina09,",   #MOD-D30247 mark
                 "       0 l_ccc23a,0 l_ccc23b,0 l_ccc23c,0 l_ccc23d,0 l_ccc23e,0 l_ccc23f,0 l_ccc23g,0 l_ccc23h,0 l_tot,",            #MOD-D30247 
                 "       ima57,ima08,tlf032,tlf930 ",
@@ -1285,7 +1294,8 @@ FUNCTION q775_b_fill()
                 " AND pml01 =pmk01 )",
                 " WHERE r = 1"
    
-   LET g_sql = "SELECT ima12,ima57,ima08,tlf01,ima02,ima021,tlf19,axcq775_tmp.gem02,tlf14,azf03,tlf17, ",
+   LET g_sql = "SELECT ima12,ima57,ima08,tlf01,ima02,ima021,imaud33,imaud34,tlf19,axcq775_tmp.gem02,tlf14,azf03,tlf17, ",
+               #darcy:2024/09/09 add imaud33,imaud34
                "       tlf021,tlf06,tlf026,ima39,ima391,tlf930,tlfccost,tlf10,l_ccc23a, ",
                "       l_ccc23b,l_ccc23c,l_ccc23d,l_ccc23e,l_ccc23f,l_ccc23g,l_ccc23h,l_tot ",
                "       ,pmk12,gen02,pmk13,gem_file.gem02,pmk04 ", #darcy:2023/07/04 add
@@ -1890,6 +1900,8 @@ FUNCTION q775_table()
               ima02     LIKE    ima_file.ima02, 
               tlfccost  LIKE    tlfc_file.tlfccost, 
               ima021    LIKE    ima_file.ima021,    
+              imaud33   LIKE    ima_file.imaud33,
+              imaud34   LIKE    ima_file.imaud34,
               ima12     LIKE    ima_file.ima12,     
               l_ccc23a  LIKE    ccc_file.ccc23a,
               l_ccc23b  LIKE    ccc_file.ccc23b,
