@@ -3402,7 +3402,7 @@ define l_delete   like type_file.chr1
                      exit for
                   end if
                end if
-            end for
+            end for 
 
             let l_i = 1
             let l_cnt = g_ecb.getLength()
@@ -3414,14 +3414,17 @@ define l_delete   like type_file.chr1
                   let l_i = l_i + 1
                end if 
             end while 
-            # 复制一笔l_ac让程序自动删除 
-            call g_ecb.insertElement(l_ac)
-            let g_ecb[l_ac].* = g_ecb[l_ac+1].*
 
-            display array g_ecb to s_ecb.*
-               before display
-                  exit display
-            end display
+            # 复制一笔l_ac让程序自动删除 
+            # call g_ecb.insertElement(l_ac)
+            # let g_ecb[l_ac].* = g_ecb[l_ac+1].*
+            cancel delete
+            continue input
+
+            # display array g_ecb to s_ecb.*
+            #    before display
+            #       exit display
+            # end display
 
             # IF g_ecb_t.ecb03 IS NOT NULL THEN
             #     IF NOT cl_delb(0,0) THEN
