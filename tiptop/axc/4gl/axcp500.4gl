@@ -1423,6 +1423,7 @@ FUNCTION p500()
      END FOREACH
     END FOREACH
    END FOREACH
+   #
    #產生成本項目分析資料
    DECLARE p500_cxz_c1 CURSOR FOR
      SELECT cxz01,cxz02,cxz03,cxz08,SUM(cxz04+cxz05) FROM cxz_file #CHI-970021 add cxz08
