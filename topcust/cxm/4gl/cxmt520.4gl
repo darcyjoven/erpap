@@ -2658,6 +2658,8 @@ function t520_ef()
    # IF g_success = "N" THEN
    #    RETURN
    # END IF
+
+   #darcy:2024/10/12 a
   
    # UPDATE tc_xme_file SET tc_xmeacti='S' WHERE tc_xme00 = g_tc_xme.tc_xme00 
 
