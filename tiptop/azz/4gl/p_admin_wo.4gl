@@ -3,7 +3,7 @@
 # Pattern name...: p_admin_wo.4gl
 # Descriptions...: 管理员工单处理工具
 # Date & Author..: 22/11/02 By darcy
-
+import libmail
 
 database ds
 globals "../../config/top.global"
@@ -773,6 +773,8 @@ function p_admin_wo_bp1(p_ud)
         on action unatmt260_all
             # 所有下版一并取消
             call unatmt260_all()
+        on action test_mail
+            call test_mail()
         # TODO: 功能按钮 e---
         
         # TODO：公共按钮 s---
@@ -1856,4 +1858,25 @@ function unatmt260_all()
     if sqlca.sqlcode then
         call cl_err('',sqlca.sqlcode,1)
     end if
+end function
+
+# function test_mail()
+
+#     call cs_html_init(cl_get_progname(g_prog,g_lang),"这个是p_admin_wo作业导出的格式样式测试")
+#     call cs_html_main_field(ui.Interface.getRootNode(),"sfb01_q,sgm03_q,sgm01_q")
+#     call cs_html_detail_field(ui.Interface.getRootNode(),"sfb02,sfb81,sfb87,sfb01,sfb44,",base.typeinfo.create(g_sfb_excel))   
+#     run "echo '"||cs_html_end()||"' >> /u1/topprod/tiptop/doc/help/2/czz/mail.html"
+# end function
+
+function test_mail()
+    define l_path   string
+    define l_ok     varchar(1)
+
+    call cs_html_init(cl_get_progname(g_prog,g_lang),"这个是p_admin_wo作业导出的格式样式测试")
+    call cs_html_main_field(ui.Interface.getRootNode(),"sfb01_q,sgm03_q,sgm01_q")
+    call cs_html_detail_field(ui.Interface.getRootNode(),"sfb02,sfb81,sfb87,sfb01,sfb44,",base.typeinfo.create(g_sfb_excel))
+    
+    let l_path = sfmt("/u1/out/%1.html",cs_uuid())
+    call cs_html_write(l_path)
+    call cs_mail_sendfile("p_admin_wo",l_path,"darcy.li@forewin-sz.com.cn","","","") returning l_ok
 end function

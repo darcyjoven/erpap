@@ -4,6 +4,7 @@
 #Descriptions...:个人sub函数 
 import util
 import os
+import libuuid
 
 database ds
 globals "../../../tiptop/config/top.global"
@@ -381,4 +382,9 @@ function cs_darcy_get_cron(cron)
         return result
     end if
     return result
+end function
+
+
+function cs_uuid()
+    return genuuidc()
 end function

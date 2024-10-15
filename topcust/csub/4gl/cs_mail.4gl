@@ -4,6 +4,8 @@
 # Descriptions...: 邮件立即发送系统
 # Date & Author..:darcy:2023/03/23
 
+import libmail
+
 function cs_mail(
     subject,
     body,
@@ -67,4 +69,30 @@ function cs_mail(
     run l_cmd
 
     return true
+end function
+
+
+# 发送邮件
+function cs_mail_send(p_subject,p_body,p_to,p_attach)
+    define p_subject,p_body,p_to,p_attach       string
+    define l_ok     varchar(10)
+    call mailto(p_subject,p_body,p_to,p_attach)
+        returning l_ok
+    return l_ok
+end function
+
+function cs_mail_sendcc(p_subject,p_body,p_to,p_cc,p_bcc,p_attach)
+    define p_subject,p_body,p_to,p_cc,p_bcc,p_attach        string
+    define l_ok     varchar(10)
+    call mailsend(p_subject,p_body,p_to,p_cc,p_bcc,p_attach)
+        returning l_ok
+    return l_ok
+end function
+
+function cs_mail_sendfile(p_subject,p_bodyfile,p_to,p_cc,p_bcc,p_attach)
+    define p_subject,p_bodyfile,p_to,p_cc,p_bcc,p_attach        string
+    define l_ok     varchar(10)
+    call mailsendfile(p_subject,p_bodyfile,p_to,p_cc,p_bcc,p_attach)
+        returning l_ok
+    return l_ok
 end function

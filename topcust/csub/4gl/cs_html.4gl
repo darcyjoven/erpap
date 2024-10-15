@@ -22,14 +22,28 @@ function cs_html_init(p_title,p_subtitle)
     # head 
     call g_buf.append(cs_html_head())
 
+    call g_buf.append("    <table style=\"border: none;\">")
     # 标题
-    call g_buf.append(sfmt("<h2 class=\"center\">%1</h2>\n",p_title))
+    call g_buf.append(sfmt("        <tr style=\"border: none;\">
+                                        <td style=\"border: none;text-align: center;\">
+                                            <h2 class=\"center\">%1</h2>
+                                        </td>
+                                    </tr>\n",p_title)) 
     # 副标题
-    call g_buf.append(sfmt("<h3 class=\"center\">%1</h3>\n",p_subtitle)) 
+    call g_buf.append(sfmt("        <tr style=\"border: none;\">
+                                        <td style=\"border: none;text-align: center;\">
+                                            <span>%1</span>
+                                        </td>
+                                    </tr>\n",p_subtitle)) 
 
     # 生成参数
-    call g_buf.append(sfmt("<h4 class=\"center\">生成时间：%1 操作员：%2 部门：%3 </h4>\n",cs_html_now(),cs_html_user(),cs_html_partment()))
-    call g_buf.append("<hr>\n")
+    call g_buf.append(sfmt("        <tr style=\"border: none;\">
+                                        <td style=\"border: none;text-align: center;\">
+                                            <span>生成时间：%1 操作员：%2 部门：%3</span>
+                                            <hr>
+                                        </td>
+                                    </tr>\n",
+                    cs_html_now(),cs_html_user(),cs_html_partment()))
 
 end function
 
@@ -45,23 +59,24 @@ function cs_html_main(p_desc,p_value)
     if l_cnt < p_value.getlength() then
         let l_cnt = p_value.getlength()
     end if
-    call g_buf.append("<div class=\"container\">\n") 
-        for i = 1 to l_cnt
-            if i > p_desc.getLength() then
-                let l_desc = ""
-            else
-                let l_desc = p_desc[i]
-            end if
-            if i > p_value.getLength() then
-                let l_value = ""
-            else
-                let l_value = p_value[i]
-            end if
-            call g_buf.append(sfmt("<div><span>%1：</span><span>%2</span></div>\n",l_desc,l_value))
-        end for
-    call g_buf.append("</div>\n")
-    call g_buf.append("<hr>\n")
+    call g_buf.append("        <tr style=\"border: none;\">
+            <td style=\"border: none;\">
+                <div class=\"container\">")
+    for i = 1 to l_cnt
+        if i > p_desc.getLength() then
+            let l_desc = ""
+        else
+            let l_desc = p_desc[i]
+        end if
+        if i > p_value.getLength() then
+            let l_value = ""
+        else
+            let l_value = p_value[i]
+        end if
+        call g_buf.append(sfmt("<div><span>%1：</span><span>%2</span></div>\n",l_desc,l_value))
+    end for
 
+    call g_buf.append("                </div>\n                <hr>\n            </td>\n        </tr>\n")
 end function
 
 # 新增一笔单身，可以运行多个
@@ -73,7 +88,9 @@ function cs_html_detail(p_title,p_table,p_value)
     define l_cnt,i,j    integer
     define l_desc,l_value       string
 
-    call g_buf.append("<table>\n")
+    call g_buf.append("        <tr style=\"border: none;\">
+            <td style=\"border: none;\">\n")
+    call g_buf.append("                <table>\n")
     # 表格标题
     call g_buf.append(sfmt("<caption>%1</caption>\n",p_title))
 
@@ -109,7 +126,10 @@ function cs_html_detail(p_title,p_table,p_value)
         end for
         call g_buf.append("</tr>\n")
     end for
-    call g_buf.append("</table>\n")
+    call g_buf.append("                </table>\n")
+    call g_buf.append("                <hr>
+            </td>
+        </tr>")
 end function
 
 # 返回产生的html字符串
@@ -219,8 +239,8 @@ private function cs_html_head()
 end function 
 # 尾部
 private function cs_html_footer()
-    return "</body>
-
+    return "    </table>
+</body>
 </html>"
 end function 
 
