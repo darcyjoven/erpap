@@ -1972,7 +1972,7 @@ FUNCTION t720_menu()
                #---end-----
                #darcy:2023/03/23 add s---
                # 退货和仓退审核邮件通知
-               if g_prog ='apmt722' or g_prog = 'apmt721' then
+               if (g_prog ='apmt722' or g_prog = 'apmt721') and g_user != 'tiptop' and g_rvu.rvu116 <> '3' then #darcy:2024/08/21 add tiptop add rvu116<>'3'
                    let l_body = "<!DOCCTYPE html>
                               <html lang=\"en\">
 
@@ -18172,3 +18172,8 @@ END FOREACH
 RETURN l_ret.msg
 END FUNCTION 
 #No.18010101 ---end ----- 
+
+# 退货过账时通知
+function sapmt720_mail_info()
+   # 
+end function

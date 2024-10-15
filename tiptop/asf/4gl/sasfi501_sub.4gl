@@ -541,6 +541,7 @@ define l_action_choice varchar(2000)
    #darcy:2024/09/23 add s---
    # 每月最后一天无法进行发退料过账，如果需要发退料，需要找生产办公室进行过账
    # 18:00~24:00期间，为防止卡点，提前五分钟
+   {
    let g_bgjob = "Y"
    let l_action_choice = g_action_choice
    let g_action_choice = "stock_post_admin"
@@ -558,6 +559,7 @@ define l_action_choice varchar(2000)
    end if
    let g_action_choice = l_action_choice
    let g_bgjob = "N"
+   }
    #darcy:2024/09/23 add e---
 
    LET l_sfp03 = l_sfp.sfp03                                                
@@ -9694,4 +9696,3 @@ END FUNCTION
     --
 --END FUNCTION 
 #end----add by guanyao160804
-
