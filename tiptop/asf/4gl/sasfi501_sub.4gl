@@ -418,6 +418,9 @@ DEFINE l_ret        RECORD
           msg       STRING
                     END RECORD
 #2021113001 add----end----
+#darcy:2024/09/23 add s--- 
+define l_action_choice varchar(2000)
+#darcy:2024/09/23 add e---
 
    WHENEVER ERROR CONTINUE                #忽略一切錯誤  #FUN-740187
    #IF NOT s_industry('icd') THEN  #CHI-C90045  #FUN-CC0095
@@ -534,6 +537,28 @@ DEFINE l_ret        RECORD
       END IF
    END IF
    #No.TQC-B80182  --End
+
+   #darcy:2024/09/23 add s---
+   # 每月最后一天无法进行发退料过账，如果需要发退料，需要找生产办公室进行过账
+   # 18:00~24:00期间，为防止卡点，提前五分钟
+   let g_bgjob = "Y"
+   let l_action_choice = g_action_choice
+   let g_action_choice = "stock_post_admin"
+   if g_prog ==  'asfi513' or g_prog == 'asfi514' or g_prog == 'asfi528' or g_prog == 'asfi526' then
+      if not cl_chk_act_auth() then
+         if MONTH(today) != MONTH(today+1) then
+            let l_str = current hour to second
+            if l_str >= "17:55" then
+               call cl_err(l_sfp.sfp01,"csf-134",1)
+               let g_success='N'
+               return
+            end if
+         end if 
+      end if
+   end if
+   let g_action_choice = l_action_choice
+   let g_bgjob = "N"
+   #darcy:2024/09/23 add e---
 
    LET l_sfp03 = l_sfp.sfp03                                                
    IF p_ask_post='Y' THEN  #FUN-840012 外部呼叫的程式不可出現詢問視窗
@@ -9669,3 +9694,4 @@ END FUNCTION
     --
 --END FUNCTION 
 #end----add by guanyao160804
+

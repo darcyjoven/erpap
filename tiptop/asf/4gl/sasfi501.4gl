@@ -746,6 +746,7 @@ FUNCTION i501(p_argv1, p_argv2, p_argv3, p_argv4)
        CALL cl_set_comp_visible("sfs27",TRUE) #FUN-940039 add 
        CALL cl_set_comp_visible("sfq08",TRUE) #FUN-940008 add 
     END IF
+    call cl_set_act_visible("stock_post_admin",false) #darcy:2024/09/23 add
     IF g_aza.aza115 ='Y' THEN                  #FUN-CB0087 add 
        CALL cl_set_comp_required('sfs37',TRUE) #FUN-CB0087 add
     END IF 
@@ -13095,6 +13096,11 @@ FUNCTION i501_bp(p_ud)
          CALL fgl_set_arr_curr(1)  ######add in 040505
            END IF
 	      ACCEPT DIALOG                   #No.FUN-530067 HCN TEST
+      #darcy:2024/09/23 add s---
+      on ACTION stock_post_admin
+         let g_action_choice = "stock_post_admin"
+         exit dialog
+      #darcy:2024/09/23 add e---
       ON ACTION detail
          LET g_action_choice="detail"
          LET l_ac = 1

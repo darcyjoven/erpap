@@ -4497,7 +4497,7 @@ FUNCTION t623_bp(p_ud)
            ACCEPT DIALOG                   #No.FUN-530067 HCN TEST
 
       #darcy:2024/09/23 add s---
-      on actrion stock_post_admin
+      on ACTION stock_post_admin
          let g_action_choice = "stock_post_admin"
          exit dialog
       #darcy:2024/09/23 add e---
@@ -5066,21 +5066,26 @@ define l_action_choice varchar(2000)
    #darcy:2024/09/23 add s---
    # 每月最后一天无法进行发退料过账，如果需要发退料，需要找生产办公室进行过账
    # 18:00~24:00期间，为防止卡点，提前五分钟
-   let g_bgjob = "Y"
-   let l_action_choice = g_action_choice
-   let g_action_choice = "stock_post_admin"
-   if not cl_chk_act_auth() then
-      if MONTH(today) != MONTH(today+1) then
-         let l_str = current hour to second
-         if l_str >= "17:55" then
-            call cl_err(""l_sfp.sfp01,"csf-134",1)
-            let g_success='N'
-            return
-         end if
-      end if
-   end if
-   let g_action_choice = l_action_choice
-   let g_bgjob = "N"
+   # let g_bgjob = "Y"
+   # let l_action_choice = g_action_choice
+   # let g_action_choice = "stock_post_admin"
+   # if not cl_chk_act_auth() then
+   #    if MONTH(today) != MONTH(today+1) then
+   #       let l_str = current hour to minute
+   #       if l_str >= "17:55" then
+   #          call cl_err(g_sfu.sfu01,"csf-134",1)
+   #          let g_success='N'
+   #          return
+   #       end if
+   #    end if
+   #    if g_today = "24/09/26" and l_str >= "14:30" and l_str <= "17:00" then
+   #       call cl_err(g_sfu.sfu01,"csf-134",1)
+   #       let g_success='N'
+   #       return
+   #    end if
+   # end if
+   # let g_action_choice = l_action_choice
+   # let g_bgjob = "N"
    #darcy:2024/09/23 add e---
 
    #darcy:2023/10/11 add s---
