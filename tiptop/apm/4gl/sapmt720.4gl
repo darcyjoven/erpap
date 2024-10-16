@@ -1973,56 +1973,7 @@ FUNCTION t720_menu()
                #darcy:2023/03/23 add s---
                # 退货和仓退审核邮件通知
                if (g_prog ='apmt722' or g_prog = 'apmt721') and g_user != 'tiptop' and g_rvu.rvu116 <> '3' then #darcy:2024/08/21 add tiptop add rvu116<>'3'
-                   let l_body = "<!DOCCTYPE html>
-                              <html lang=\"en\">
-
-                                 <head>
-                                    <meta charset=\"UTF-8\">
-                                    <title>Document</title>
-                                 </head>
-
-                                 <body>
-                                    <span>Dear All:</span>
-                                    <H3>退货单/仓退单",g_rvu.rvu01,"已审核，详情如下:</H3>
-                                    <table border=\"1\" style=\"border-collapse:collapse;\">
-                                          <tr>
-                                             <td style=\"text-align:left\">供应商</td>
-                                             <td style=\"text-align:left\">物料编码</td>
-                                             <td style=\"text-align:left\">物料品名</td>
-                                             <td style=\"text-align:left\">单位</td>
-                                             <td style=\"text-align:left\">数量</td>
-                                          </tr>"
-                     let g_sql = "select rvu05,rvv31,ima02,rvv35,rvv17 from rvv_file,rvu_file,ima_file where ima01=rvv31 and rvu01 =rvv01 and rvu01 ='",g_rvu.rvu01,"'"
-                     prepare t720_mail_p from g_sql
-                     declare t720_mail_c cursor for t720_mail_p
-                     foreach t720_mail_c into l_rvu05,l_rvv31,l_ima02,l_rvv35,l_rvv17
-                        if status then
-                           call cl_err("t720_mail_c",status,1)
-                           exit foreach
-                        end if
-                        let l_body = l_body,
-                                     "<tr>",
-                                     "<td>",l_rvu05,"</td>",
-                                     "<td>",l_rvv31,"</td>",
-                                     "<td>",l_ima02,"</td>",
-                                     "<td>",l_rvv35,"</td>",
-                                     "<td>",l_rvv17,"</td>",
-                                     "<tr/>"
-                     end foreach
-                     let l_body = l_body , "<table/>
-                                             <body/>
-                                          <html>"
-                  if cs_mail(
-                     "仓退/验退单"||g_rvu.rvu01||"已审核",
-                     l_body,
-                     "",
-                     "min.cao@forewin-sz.com.cn;yueqing.gu@forewin-sz.com.cn;mc10@forewin-sz.com.cn;kang.wei@forewin-sz.com.cn;fufang.wang@forewin-sz.com.cn;yong.li@forewin-sz.com.cn;mc15@forewin-sz.com.cn;junying.sun@forewin-sz.com.cn;darcy.li@forewin-sz.com.cn;lusi.cheng@forewin-sz.com.cn;MC@forewin-sz.com.cn;",
-                     # "darcy.li@forewin-sz.com.cn",
-                     "",
-                     ""
-                  ) then
-                     message ""
-                  end if
+                  call sapmt720_mail_warn()
                end if
                #darcy:2023/03/23 add e---
             END IF
@@ -18173,7 +18124,37 @@ RETURN l_ret.msg
 END FUNCTION 
 #No.18010101 ---end ----- 
 
-# 退货过账时通知
-function sapmt720_mail_info()
-   # 
+# 邮件
+function sapmt720_mail_warn()
+   define l_path   string
+   define l_ok     varchar(1)
+   define l_receipt  string
+   define l_gen06    like gen_file.gen06
+
+   let l_path = sfmt("/u1/out/%1.html",cs_uuid())
+
+   # 产生邮件正文
+   call cs_html_init(cl_get_progname(g_prog,g_lang),"料件仓退/验退提醒")
+   call cs_html_main_field(ui.Interface.getRootNode(),"rvu01,rvu02,rvu00,rvu116,rvu03,rvu04,rvu05,rvu07,gen02,")
+   call cs_html_detail_field(ui.Interface.getRootNode(),"rvv02,rvv05,rvv36,rvv37,rvv31,rvv031,ima021,rvv35,rvv17,rvv32,rvv33,rvv34",base.typeinfo.create(g_rvv))
+   call cs_html_write(l_path)
+
+   # 收件人处理
+   declare sapmt720_mail_cur cursor for
+      select gen06 from smu_file,gen_file where gen01 = smu02 and smu01 = 'YTI'
+   foreach sapmt720_mail_cur into l_gen06
+      if sqlca.sqlcode then
+         call cl_err("sapmt720_mail_cur",sqlca.sqlcode,1)
+         exit foreach
+      end if
+      let l_receipt = l_receipt,l_gen06 , ";"
+   end foreach
+
+   # 发送邮件
+   call cs_mail_sendfile("料件仓退/验退提醒",l_path,l_receipt,"","darcy.li@forewin-sz.com.cn","") returning l_ok
+   if l_ok then
+      message "邮件通知成功"
+   else
+      message "邮件通知失败"
+   end if
 end function
