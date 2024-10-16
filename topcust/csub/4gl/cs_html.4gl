@@ -295,7 +295,13 @@ function cs_html_main_field(p_node,p_field)
         else
             # 查看是否是Label标签
             if l_n1.getTagName() != "Label" then
-                goto _write
+                if l_n1.getTagName() == "Button" then
+                    # 可能是超链接，向前找一个
+                    call l_n1.getPrevious() returning l_n1
+                    if l_n1 is null or l_n1.getTagName() != "Label" then
+                        goto _write
+                    end if
+                end if
             end if
             call l_n1.getAttribute("text") returning l_desc
         end if
