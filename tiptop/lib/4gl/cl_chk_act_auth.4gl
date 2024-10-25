@@ -263,7 +263,7 @@ FUNCTION cl_chk_act_auth()
      END IF 
   END IF 
   #No.FUN-BC0055 --- end ---
- 
+  call cl_chk_act_auth_record()
   RETURN li_act_allow
  
 END FUNCTION
@@ -483,3 +483,49 @@ FUNCTION cl_chk_tgrup_list()
 END FUNCTION
  
  
+#darcy:2024/10/23 add s---
+function cl_chk_act_auth_record()
+   define l_zxa   record like zxa_file.*
+   define l_sql   string
+   define l_zxa01 varchar(40)
+   define l_zxd01 varchar(40)
+   define l_cnt   integer
+
+   let l_zxd01 = g_action_choice
+   select count(1) into l_cnt from zxd_file where zxd01 = l_zxd01
+   if l_cnt = 0 then
+      return
+   end if
+
+   initialize l_zxa.* to null
+ 
+   let l_zxa.zxa03 = g_prog
+   let l_zxa.zxa04 = g_action_choice
+   let l_zxa.zxa07 = g_today
+   let l_zxa.zxa08 = current hour to second
+
+   let l_zxa.zxa01 = g_user
+   let l_zxa.zxa02 = '1'
+   #  人员 + 作业权限 记录
+   insert into zxa_file values (l_zxa.*)
+
+   let l_sql = "select zy01 from zy_file ",
+               " where zy01 in ( ",
+               " select zx04 from zx_file where zx01 = '",g_user,"'",
+               " union select zxw04 from zxw_file where zxw01 = '",g_user,"' and zxw03 ='1'",
+               " ) and zy02 = '",g_prog,"' and zy03 like '%",g_action_choice,"%'"
+
+   declare zxa_ins1 cursor from l_sql
+   foreach zxa_ins1 into l_zxa01
+      if sqlca.sqlcode then
+         # call cl_err("zxa_ins1",sqlca.sqlcode,1)
+         exit foreach
+      end if
+      let l_zxa.zxa01 = l_zxa01
+      let l_zxa.zxa02 = '2'
+      # 权限类型 + 作业权限 记录
+      insert into zxa_file values (l_zxa.*)
+   end foreach
+
+end function
+#darcy:2024/10/23 add e---

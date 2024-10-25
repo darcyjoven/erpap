@@ -657,6 +657,7 @@ FUNCTION cl_set_priv()
             lc_char            LIKE type_file.num5,   #No.FUN-690005 VARCHAR(1),
             li_i,li_j          LIKE type_file.num5    #No.FUN-690005 SMALLINT
 DEFINE      l_priv4_tag        LIKE type_file.num5    #No.FUN-690005 SMALLINT    #FUN-630099
+define      l_action_choice    varchar(40)            #darcy:2024/10/24 add
  
 # Save Your Life Function
 # Starting
@@ -679,6 +680,12 @@ DEFINE      l_priv4_tag        LIKE type_file.num5    #No.FUN-690005 SMALLINT   
          RETURN FALSE
       ELSE
          LET g_priv1 = DOWNSHIFT(g_priv1)
+         #darcy:2024/10/24 add s---
+         let l_action_choice = g_action_choice
+         let g_action_choice = "fglrun"
+         call cl_setup_record()
+         let g_action_choice = l_action_choice
+         #darcy:2024/10/24 add e---
          RETURN TRUE
       END IF
    END IF
@@ -967,6 +974,12 @@ DEFINE      l_priv4_tag        LIKE type_file.num5    #No.FUN-690005 SMALLINT   
          END IF
       END IF      
    END FOREACH
+   #darcy:2024/10/24 add s---
+   let l_action_choice = g_action_choice
+   let g_action_choice = "fglrun"
+   call cl_setup_record()
+   let g_action_choice = l_action_choice
+   #darcy:2024/10/24 add e---
    RETURN TRUE
 END FUNCTION
  
@@ -1429,3 +1442,49 @@ DEFINE l_str                  STRING
     RETURN l_str
 END FUNCTION
 #--FUN-B20029--end--
+#darcy:2024/10/23 add s---
+private function cl_setup_record()
+   define l_zxa   record like zxa_file.*
+   define l_sql   string
+   define l_zxa01 varchar(40)
+   define l_zxd01 varchar(40)
+   define l_cnt   integer
+
+   let l_zxd01 = g_action_choice
+   select count(1) into l_cnt from zxd_file where zxd01 = l_zxd01
+   if l_cnt = 0 then
+      return
+   end if
+
+   initialize l_zxa.* to null
+
+   let l_zxa.zxa03 = g_prog
+   let l_zxa.zxa04 = g_action_choice
+   let l_zxa.zxa07 = g_today
+   let l_zxa.zxa08 = current hour to second
+
+   let l_zxa.zxa01 = g_user
+   let l_zxa.zxa02 = '1'
+   #  人员 + 作业权限 记录
+   insert into zxa_file values (l_zxa.*)
+
+   let l_sql = "select zy01 from zy_file ",
+               " where zy01 in ( ",
+               " select zx04 from zx_file where zx01 = '",g_user,"'",
+               " union select zxw04 from zxw_file where zxw01 = '",g_user,"' and zxw03 ='1'",
+               " ) and zy02 = '",g_prog,"' " 
+
+   declare zxa_ins2 cursor from l_sql
+   foreach zxa_ins2 into l_zxa01
+      if sqlca.sqlcode then
+         # call cl_err("zxa_ins1",sqlca.sqlcode,1)
+         exit foreach
+      end if
+      let l_zxa.zxa01 = l_zxa01
+      let l_zxa.zxa02 = '2'
+      # 权限类型 + 作业权限 记录
+      insert into zxa_file values (l_zxa.*)
+   end foreach
+
+end function
+#darcy:2024/10/23 add e---
