@@ -1729,6 +1729,9 @@ FUNCTION i501_menu()
              msg       STRING
                        END RECORD
    #No.18010101---end---
+   #darcy:2024/10/16 add s---
+   define l_str         string
+   #darcy:2024/10/16 add e---
    LET l_flowuser = "N"                         #FUN-AB0001 add
 
    WHILE TRUE
@@ -1884,6 +1887,25 @@ FUNCTION i501_menu()
                      CALL i501sub_refresh(g_sfp.sfp01) RETURNING g_sfp.*
                      CALL i501_show()
                      LET l_ecu01 = g_sfp.sfp01 
+                     #darcy:2024/10/16 add s---
+                     # 如果月底则发送邮件
+                     if g_prog == 'asfi513' or g_prog == 'asfi514' or g_prog == 'asfi528' or g_prog == 'asfi526' then
+                        # 光板料号才提醒
+                        let l_cnt = 0
+                        select count(1) into l_cnt from sfe_file,sfb_file
+                         where sfe02 = g_sfp.sfp01  and sfb01 = sfe01 and substr(sfb05,7,1) not in ('A','B','C')
+                        if l_cnt > 0 then
+                           # 月底最后一天
+                           if MONTH(today) != MONTH(today+1) then
+                              let l_str = current hour to second
+                              # 时间大于13:00 的时候
+                              if l_str >= "13:00" then
+                                 call sasfi501_mail_info()
+                              end if
+                           end if
+                        end if
+                     end if
+                     #darcy:2024/10/16 add e---
                        #s SELECT SYSDATE INTO l_date FROM DUAL  #日期+时间
                     CALL cl_ect('asfi511',l_ecu01,g_user,'3',g_today,TIME)
                     #add by zhangzs 201208   记录审核状态到中间表 ect_file   ----e------
@@ -16757,3 +16779,41 @@ function i501_insert_amri506()
    end if
 end function
 #darcy:2023/06/15 add e---
+
+#darcy:2024/10/16 add s---
+function sasfi501_mail_info()
+   define l_path   string
+   define l_ok     varchar(1)
+   define l_receipt  string
+   define l_gen06    like gen_file.gen06
+
+   let l_path = sfmt("/u1/out/%1.html",cs_uuid())
+
+   # 产生邮件正文
+   call cs_html_init(cl_get_progname(g_prog,g_lang),"月末发退料提醒")
+   call cs_html_main_field(ui.Interface.getRootNode(),"sfp01,symdesc,sfp06,sfp03,sfp07,gem02,sfp16,gen02,sfpud03")
+   call cs_html_detail_field(ui.Interface.getRootNode(),"sfs02,sfs03,sfs04,sfs10,ima02,ima021,sfs06,sfs05,sfs07,sfs08,sfs09,sfs21",base.typeinfo.create(g_sfs))
+   call cs_html_write(l_path)
+
+   # 收件人处理
+   declare sasfi501_mail_cur cursor for
+      select gen06 from smu_file,gen_file where gen01 = smu02 and smu01 = 'YT1'
+   foreach sasfi501_mail_cur into l_gen06
+      if sqlca.sqlcode then
+         call cl_err("sasfi501_mail_cur",sqlca.sqlcode,1)
+         exit foreach
+      end if
+      let l_receipt = l_receipt,l_gen06 , ";"
+   end foreach
+
+   let l_receipt = l_receipt.subString(1,l_receipt.getLength()-1)
+   
+   # 发送邮件
+   call cs_mail_sendfile("月末发退料提醒",l_path,l_receipt,"","darcy.li@forewin-sz.com.cn","") returning l_ok
+   if l_ok then
+      message "邮件通知成功"
+   else
+      message "邮件通知失败"
+   end if
+end function
+#darcy:2024/10/16 add e---

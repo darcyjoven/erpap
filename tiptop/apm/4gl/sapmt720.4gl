@@ -1972,7 +1972,7 @@ FUNCTION t720_menu()
                #---end-----
                #darcy:2023/03/23 add s---
                # 退货和仓退审核邮件通知
-               if (g_prog ='apmt722' or g_prog = 'apmt721') and g_user != 'tiptop' and g_rvu.rvu116 <> '3' then #darcy:2024/08/21 add tiptop add rvu116<>'3'
+               if g_success = "Y" and (g_prog ='apmt722' or g_prog = 'apmt721') and g_user != 'tiptop' and g_rvu.rvu116 <> '3' then #darcy:2024/08/21 add tiptop add rvu116<>'3'
                   call sapmt720_mail_warn()
                end if
                #darcy:2023/03/23 add e---
@@ -18149,6 +18149,8 @@ function sapmt720_mail_warn()
       end if
       let l_receipt = l_receipt,l_gen06 , ";"
    end foreach
+
+   let l_receipt = l_receipt.subString(1,l_receipt.getLength()-1)
 
    # 发送邮件
    call cs_mail_sendfile("料件仓退/验退提醒",l_path,l_receipt,"","darcy.li@forewin-sz.com.cn","") returning l_ok

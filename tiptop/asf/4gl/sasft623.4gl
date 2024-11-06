@@ -771,6 +771,8 @@ DEFINE l_ecu01  LIKE type_file.chr50
 DEFINE l_date LIKE type_file.chr50
 DEFINE g_sy LIKE img_file.img10
 DEFINE g_type LIKE sfv_file.sfv04
+define l_cnt   integer #darcy:2024/10/17 add
+define l_str   string #darcy:2024/10/17 add
    WHILE TRUE
    
       CALL t623_bp("G")
@@ -872,6 +874,21 @@ DEFINE g_type LIKE sfv_file.sfv04
                        #s SELECT SYSDATE INTO l_date FROM DUAL  #日期+时间
                         # CALL cl_ect('asft623',l_ecu01,g_user,'3',g_today,TIME)  #mark darcy:2024/01/04
                     #add by zhangzs 201208   记录审核状态到中间表 ect_file   ----e------
+                     #darcy:2024/10/17 add s---
+                     # 月末最后一天完工入库提醒
+                     let l_cnt = 0
+                     select count(1) into l_cnt from sfv_file 
+                      where substr(sfv04,7,1) not in ('A','B','C') and sfv01 = g_sfu.sfu01 
+                     if l_cnt > 0 then
+                        if MONTH(today) != MONTH(today+1) then
+                           let l_str = current hour to second
+                           # 时间大于13:00 的时候
+                           if l_str >= "13:00" then
+                              call sasft623_mail_info()
+                           end if
+                        end if
+                     end if
+                     #darcy:2024/10/17 add e---
                 END IF
               END IF
               CALL t623_pic() #圖形顯示 #FUN-660137
@@ -971,6 +988,8 @@ END FUNCTION
  
 FUNCTION t623_a()
 DEFINE li_result LIKE type_file.num5                 #No.FUN-550067  #No.FUN-680121 SMALLINT
+define l_cnt      integer           #darcy:2024/10/30 add
+define l_no       varchar(5)        #darcy:2024/10/30 add
  
     IF s_shut(0) THEN RETURN END IF
     MESSAGE ""
@@ -1006,7 +1025,22 @@ DEFINE li_result LIKE type_file.num5                 #No.FUN-550067  #No.FUN-680
           RETURNING li_result,g_sfu.sfu01
         IF (NOT li_result) THEN
            ROLLBACK WORK
-           CONTINUE WHILE
+            #darcy:2024/10/30 add s---
+            #检查是否是入库单号编码流水号问题，如果是，提示需要更换的另一个单别
+            let g_sql = " select substr(max(sfu01),9,4) from sfu_file ",
+                       " where sfu01 like '",g_sfu.sfu01,"%' and year(sfu02) = ",year(g_sfu.sfu02),
+                       "   and month(sfu02) = ",month(g_sfu.sfu02)  
+            prepare sasft623_max_no from g_sql
+            execute sasft623_max_no into l_no
+            if l_no == "9999" then
+               if g_sfu.sfu01 = "MRL" then
+                  call cl_err("请更换MR2单别重新入库","!",1)
+               else
+                  call cl_err("请更换MRL单别重新入库","!",1)
+               end if
+            end if
+            #darcy:2024/10/30 add e---
+            CONTINUE WHILE
         END IF
         DISPLAY BY NAME g_sfu.sfu01
         #FUN-A80128---add---str--
@@ -8861,3 +8895,41 @@ function sasft623_last_in_chk(p_sfu01)
     end foreach
     call s_showmsg() 
 end function
+
+#darcy:2024/10/16 add s---
+function sasft623_mail_info()
+   define l_path     string
+   define l_ok       varchar(1)
+   define l_receipt  string
+   define l_gen06    like gen_file.gen06
+
+   let l_path = sfmt("/u1/out/%1.html",cs_uuid())
+
+   # 产生邮件正文
+   call cs_html_init(cl_get_progname(g_prog,g_lang),"月末完工入库提醒")
+   call cs_html_main_field(ui.Interface.getRootNode(),"sfu01,symdesc,sfu02,sfu04")
+   call cs_html_detail_field(ui.Interface.getRootNode(),"sfv03,sfv11,sfv20,sfv04,ima02,ima021,sfv08,sfv09,sfv05,sfv06,sfv07",base.typeinfo.create(g_sfv))
+   call cs_html_write(l_path)
+
+   # 收件人处理
+   declare sasft623_mail_cur cursor for
+      select gen06 from smu_file,gen_file where gen01 = smu02 and smu01 = 'YT1'
+   foreach sasft623_mail_cur into l_gen06
+      if sqlca.sqlcode then
+         call cl_err("sasft623_mail_cur",sqlca.sqlcode,1)
+         exit foreach
+      end if
+      let l_receipt = l_receipt,l_gen06 , ";"
+   end foreach
+
+   let l_receipt = l_receipt.subString(1,l_receipt.getLength()-1)
+
+   # 发送邮件
+   call cs_mail_sendfile("月末完工入库提醒",l_path,l_receipt,"","darcy.li@forewin-sz.com.cn","") returning l_ok
+   if l_ok then
+      message "邮件通知成功"
+   else
+      message "邮件通知失败"
+   end if
+end function
+#darcy:2024/10/16 add e---
