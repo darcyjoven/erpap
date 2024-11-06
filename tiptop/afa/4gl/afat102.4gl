@@ -133,7 +133,9 @@ DEFINE
                     faj06     LIKE faj_file.faj06,
                     fat04     LIKE fat_file.fat04,
                     fat05     LIKE fat_file.fat05,
+                    gem02_1   like gem_file.gem02,       #darcy:2024/11/06 add
                     fat06     LIKE fat_file.fat06,
+                    faf02     like faf_file.faf02,       #darcy:2024/11/06 add
                     fat07     LIKE fat_file.fat07,
                    #fat071    LIKE fat_file.fat071,     #No.FUN-680028  #FUN-AB0088 mark
                     fat08     LIKE fat_file.fat08, 
@@ -165,7 +167,9 @@ DEFINE
                     faj06     LIKE faj_file.faj06,
                     fat04     LIKE fat_file.fat04,
                     fat05     LIKE fat_file.fat05,
+                    gem02_1   like gem_file.gem02,       #darcy:2024/11/06 add
                     fat06     LIKE fat_file.fat06,
+                    faf02     like faf_file.faf02,       #darcy:2024/11/06 add
                     fat07     LIKE fat_file.fat07,
                    #fat071    LIKE fat_file.fat071,     #No.FUN-680028   #FUN-AB0088 mark
                     fat08     LIKE fat_file.fat08,
@@ -1718,7 +1722,8 @@ DEFINE l_faj09         LIKE faj_file.faj09          #No.FUN-960092 add
  
     CALL cl_opmsg('b')
    #LET g_forupd_sql = " SELECT fat02,fat03,fat031,' ',fat04,fat05,fat06,fat07,fat071,fat08,fat081,fat09, ",     #No.FUN-680028   #FUN-AB0088 mark
-    LET g_forupd_sql = " SELECT fat02,fat03,fat031,' ',fat04,fat05,fat06,fat07,fat08,fat09, ",                   #FUN-AB0088 add
+    LET g_forupd_sql = " SELECT fat02,fat03,fat031,' ',fat04,fat05,'',fat06,'',fat07,fat08,fat09, ",                   #FUN-AB0088 add
+                       # darcy:2024/11/06 add 2 ''
                       #"  fat10,fat11,fat111 ",     #No.FUN-680028   #FUN-AB0088 mark
                        "  fat10,fat11 ",            #FUN-AB0088 add 
                        ",fatud01,fatud02,fatud03,fatud04,fatud05,",
@@ -2850,7 +2855,7 @@ DEFINE
       l_gemacti  LIKE gem_file.gemacti
  
     LET g_errno = ' '
-    SELECT gem01,gemacti INTO l_gem01,l_gemacti
+    SELECT gem01,gem02,gemacti INTO l_gem01,g_fat[l_ac].gem02_1,l_gemacti #darcy:2024/11/06 add gem02
       FROM gem_file
      WHERE gem01 = g_fat[l_ac].fat05
     CASE
@@ -2870,7 +2875,7 @@ DEFINE
       l_fafacti  LIKE faf_file.fafacti
  
      LET g_errno = ' '
-     SELECT faf01,faf03,fafacti INTO l_faf01,l_faf03,l_fafacti
+     SELECT faf01,faf02,faf03,fafacti INTO l_faf01,g_fat[l_ac].faf02,l_faf03,l_fafacti #darcy:2024/11/06 add faf02
        FROM faf_file
       WHERE faf01 = g_fat[l_ac].fat06
      CASE
@@ -3133,13 +3138,18 @@ DEFINE p_wc2           LIKE type_file.chr1000      #No.FUN-680070 VARCHAR(200)
  
     LET g_sql =
        #"SELECT fat02,fat03,fat031,faj06,fat04,fat05,fat06,fat07,fat071,fat08,fat081,fat09,",     #No.FUN-680028  #FUN-AB0088 add
-        "SELECT fat02,fat03,fat031,faj06,fat04,fat05,fat06,fat07,fat08,fat09,",                   #FUN-AB0088 add     
+        "SELECT fat02,fat03,fat031,faj06,fat04,fat05,gem02,fat06,faf02,fat07,fat08,fat09,",                   #FUN-AB0088 add     
+        #darcy:2024/11/06 add gem02,faf02
        #"fat10,fat11,fat111 ",     #No.FUN-680028  #FUN-AB0088 mark
         "fat10,fat11        ",     #No.FUN-680028  #FUN-AB0088 add
         ",fatud01,fatud02,fatud03,fatud04,fatud05,",
         "fatud06,fatud07,fatud08,fatud09,fatud10,",
         "fatud11,fatud12,fatud13,fatud14,fatud15", 
         "  FROM fat_file LEFT OUTER JOIN faj_file ON fat03 = faj02 AND fat031 = faj022 ",
+        #darcy:2024/11/06 add s---
+        "   left join gem_file on gem01 = fat05 ",
+        "   left join faf_file on faf01 = fat06 ",
+        #darcy:2024/11/06 add e---
         " WHERE fat01  ='",g_fas.fas01,"'",  #單頭
         "   AND ",p_wc2 CLIPPED,                     #單身
         " ORDER BY 1"
