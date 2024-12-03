@@ -105,12 +105,15 @@ define l_cnt,l_cnt1,l_i,l_cnt2     integer
         let g_success = 'Y'
         if cl_null(tm.old_itemno) then #darcy:2024/07/11 add 
             call cws_create_pomj_ima()  # 建立料件资料
+        else
+            let g_ima01 = tm.old_itemno
         end if #darcy:2024/07/11 add
         if g_success = 'N' then
             rollback work
             let l_return.flag = 'N'
             let l_return.msg = "料件建立失败"
         end if
+        
         update ima_file 
            set imaud30 = tm.RDno,
                imaud33 = tm.mjtype,
@@ -145,9 +148,17 @@ function cws_create_pomj_ima()
 
     # 需要判断是否是备品
     if tm.ifspare = 'Y' and tm.mjtype = "备品_功能测试" then
-        let l_ima06 = "H.FC" 
+        let l_ima06 = "H.FC"
     else
-        let l_ima06 = "H.MJ"
+        
+        #darcy:2024/09/23 add s---
+        # 玻璃菲林
+        if tm.mjtype = "玻璃菲林" then
+            let l_ima06 = "H.FL"
+        else
+        #darcy:2024/09/23 add e---
+            let l_ima06 = "H.MJ"
+        end if #darcy:2024/09/23 add
     end if 
 
     #darcy:2024/07/26 add s---
