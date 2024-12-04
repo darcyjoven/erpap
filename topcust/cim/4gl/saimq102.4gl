@@ -1236,12 +1236,13 @@ FUNCTION q102_show2()
     ##add by liyjf190226 str
    LET l_ima63  = '' LET l_smd04 = '' LET l_smd06 = '' LET l_bl=1
    SELECT ima63,ima27 INTO l_ima63,g_ima.ima27 FROM ima_file WHERE ima01 = g_ima.ima01  #发料单位 #darcy:2023/04/03 add ima27
+   if g_argv3 = "3" then let g_ima.ima27 = 0 end if #darcy:2024/09/23 add
    #darcy:2023/06/15 add s---
    #darcy:2024/08/05 add s---
    #select sum(rpc13-nvl(rpc131,0)) into g_ima.rpc13 from rpc_file 
    # where rpc01 = g_ima.ima01 --and rpc02 like 'XRO%'
    #   and rpc18='Y' and rpc19='N' #只计算MRO料件
-   let g_sql = " select sum(rpc13-nvl(rpc131,0)) into g_ima.rpc13 from rpc_file ",
+   let l_sql = " select sum(rpc13-nvl(rpc131,0))   from rpc_file ",
                "  where rpc01 = '",g_ima.ima01,"'",
                "    and rpc18='Y' and rpc19='N'" 
    case g_argv3
@@ -1250,7 +1251,7 @@ FUNCTION q102_show2()
       when '3'
          let l_sql = l_sql , "  and ta_rpc06 ='2'  "
    end case
-   prepare q102_rpc_rpc13 from g_sql
+   prepare q102_rpc_rpc13 from l_sql
    execute q102_rpc_rpc13 into g_ima.rpc13
    #darcy:2024/08/05 add e---
    #darcy:2023/06/15 add e---
