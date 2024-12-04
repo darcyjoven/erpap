@@ -158,6 +158,10 @@ DEFINE l_inamksg      LIKE ina_file.inamksg,  #MOD-CC0203 add
 DEFINE l_x            LIKE type_file.num5     #add by guanyao160705
 DEFINE g_cnt          LIKE type_file.num5     #add by jiangln 170526
 define l_msg   string #darcy:2022/11/01 add
+#darcy:2024/10/10 add s---
+define l_ima06        like ima_file.ima06
+define l_imaud30      like ima_file.imaud30
+#darcy:2024/10/10 add e---
 
    WHENEVER ERROR CONTINUE                #忽略一切錯誤  
    
@@ -494,6 +498,23 @@ define l_msg   string #darcy:2022/11/01 add
          exit foreach
       end if
       # darcy:2024/04/28 add e---
+      # darcy:2024/10/10 add s---
+      select ima06,imaud30 into l_ima06,l_imaud30 from ima_file where ima01 = l_inb.inb04
+      if l_ima06 == 'H.MJ' then
+         if l_ina.ina04 == 'B16' and cl_null(l_imaud30) then
+            let g_success = 'N'
+            let l_str="Item ",l_inb.inb03,":"
+            call cl_err(l_str,'cim-036',1) 
+            exit foreach
+         end if
+         if l_ina.ina04 != 'B16' and not cl_null(l_imaud30) then
+            let g_success = 'N'
+            let l_str="Item ",l_inb.inb03,":"
+            call cl_err(l_str,'cim-037',1) 
+            exit foreach
+         end if
+      end if
+      # darcy:2024/10/10 add e---
 
 #FUN-C70087---begin
 #      LET l_cnt=0
