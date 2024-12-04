@@ -3659,7 +3659,7 @@ FUNCTION i501_d_i()
            SELECT tc_sfe02,tc_sfe04,sfb05,'','','','',0,0,tc_sfe03,0   #FUN-870097 add sfb95 #FUN-5C0114 add sfq05    #FUN-A70095 add 0
               FROM sfb_file,tc_sfe_file 
              WHERE tc_sfe01=g_sfp.sfpud03 AND tc_sfe02=sfb01
-              AND tc_sfeud02 = 'Y'           #No.FUN-870117
+              #AND tc_sfeud02 = 'Y'           #No.FUN-870117 #darcy 241202
          CALL g_sfq.clear()
          LET i=1
         FOREACH i501_s_sfq_d INTO g_sfq[i].sfq02,
@@ -3965,20 +3965,20 @@ FUNCTION i501_d_i()
                   SELECT tc_sfe03 INTO l_sfb08_1 FROM tc_sfe_file 
                    WHERE tc_sfe01 =  g_sfp.sfpud03
                      AND tc_sfe02 = g_sfq[i].sfq02
-                     AND tc_sfeud02 = 'Y' 
+                     #AND tc_sfeud02 = 'Y'  #darcy 241202
                      AND tc_sfe04 = g_sfq[i].sfq04
                   IF cl_null(l_sfb08_1) OR l_sfb08_1 = 0 THEN 
                         SELECT tc_sfe03 INTO l_sfb08_1 FROM tc_sfe_file 
                          WHERE tc_sfe01 =  g_sfp.sfpud03
                            AND tc_sfe02 = g_sfq[i].sfq02
-                           AND tc_sfeud02 = 'Y' 
+                           #AND tc_sfeud02 = 'Y'  #darcy 241202
                   END IF 
                   LET l_sfb08 = l_sfb08_1
                ELSE 
                   SELECT tc_sfe03 INTO l_sfb08 FROM tc_sfe_file 
                    WHERE tc_sfe01 =  g_sfp.sfpud03
                      AND tc_sfe02 = g_sfq[i].sfq02
-                     AND tc_sfeud02 = 'Y' 
+                     #AND tc_sfeud02 = 'Y'  #darcy 241202
                END IF                 
             END IF 
             #end----add by guanyao160909
@@ -4146,20 +4146,20 @@ FUNCTION i501_d_i()
                      SELECT tc_sfe03 INTO l_sfb08_1 FROM tc_sfe_file 
                       WHERE tc_sfe01 =  g_sfp.sfpud03
                         AND tc_sfe02 = g_sfq[i].sfq02
-                        AND tc_sfeud02 = 'Y' 
+                        #AND tc_sfeud02 = 'Y' 
                         AND tc_sfe04 = g_sfq[i].sfq04
                      IF cl_null(l_sfb08_1) OR l_sfb08_1 = 0 THEN 
                         SELECT tc_sfe03 INTO l_sfb08_1 FROM tc_sfe_file 
                          WHERE tc_sfe01 =  g_sfp.sfpud03
                            AND tc_sfe02 = g_sfq[i].sfq02
-                           AND tc_sfeud02 = 'Y' 
+                          # AND tc_sfeud02 = 'Y' 
                      END IF 
                      LET l_sfb08 = l_sfb08_1
                   ELSE 
                      SELECT tc_sfe03 INTO l_sfb08 FROM tc_sfe_file 
                       WHERE tc_sfe01 =  g_sfp.sfpud03
                         AND tc_sfe02 = g_sfq[i].sfq02
-                        AND tc_sfeud02 = 'Y' 
+                        #AND tc_sfeud02 = 'Y' 
                   END IF                 
                END IF 
                #end----add by guanyao160909
@@ -4341,20 +4341,20 @@ FUNCTION i501_d_i()
                      SELECT tc_sfe03 INTO l_sfb08_1 FROM tc_sfe_file 
                       WHERE tc_sfe01 =  g_sfp.sfpud03
                         AND tc_sfe02 = g_sfq[i].sfq02
-                        AND tc_sfeud02 = 'Y' 
+                        #AND tc_sfeud02 = 'Y' 
                         AND tc_sfe04 = g_sfq[i].sfq04
                      IF cl_null(l_sfb08_1) OR l_sfb08_1 = 0 THEN 
                         SELECT tc_sfe03 INTO l_sfb08_1 FROM tc_sfe_file 
                          WHERE tc_sfe01 =  g_sfp.sfpud03
                            AND tc_sfe02 = g_sfq[i].sfq02
-                           AND tc_sfeud02 = 'Y' 
+                         #  AND tc_sfeud02 = 'Y' 
                      END IF 
                      LET l_sfb08 = l_sfb08_1
                   ELSE 
                      SELECT tc_sfe03 INTO l_sfb08 FROM tc_sfe_file 
                       WHERE tc_sfe01 =  g_sfp.sfpud03
                         AND tc_sfe02 = g_sfq[i].sfq02
-                        AND tc_sfeud02 = 'Y' 
+                       # AND tc_sfeud02 = 'Y' 
                   END IF                 
                END IF 
                #end----add by guanyao160909
@@ -4708,13 +4708,13 @@ FUNCTION i501_d_i()
                   SELECT tc_sfe03 INTO l_sfb08 FROM tc_sfe_file 
                    WHERE tc_sfe01 =  g_sfp.sfpud03
                      AND tc_sfe02 = g_sfq[i].sfq02
-                     AND tc_sfeud02 = 'Y' 
+                     #AND tc_sfeud02 = 'Y' 
                      AND tc_sfe04 = g_sfq[i].sfq04
                ELSE 
                   SELECT tc_sfe03 INTO l_sfb08 FROM tc_sfe_file 
                    WHERE tc_sfe01 =  g_sfp.sfpud03
                      AND tc_sfe02 = g_sfq[i].sfq02
-                     AND tc_sfeud02 = 'Y' 
+                     #AND tc_sfeud02 = 'Y' 
                END IF                 
             END IF 
             #end----add by guanyao160909
@@ -10019,7 +10019,8 @@ DEFINE l_tc_zsa02   LIKE type_file.chr1,
                 #2013090084 add begin----------------------------------
                 IF g_sfp.sfp06 = '1' THEN
                    LET l_sfa161 = 0
-                   SELECT sfa161 INTO l_sfa161 FROM sfa_file
+                   let l_sfa05 = 0 #darcy:2024/12/04 add
+                   SELECT sfa161,sfa05 INTO l_sfa161,l_sfa05 FROM sfa_file  #darcy:2024/12/04 add sfa05
                     WHERE sfa01 = g_sfs[l_ac].sfs03
                       AND sfa03 = g_sfs[l_ac].sfs04
                       AND sfa08 = g_sfs[l_ac].sfs10
@@ -10027,6 +10028,12 @@ DEFINE l_tc_zsa02   LIKE type_file.chr1,
                       AND sfa27 = g_sfs[l_ac].sfs27 
                       AND sfa012= g_sfs[l_ac].sfs012
                       AND sfa013= g_sfs[l_ac].sfs013
+                   #darcy:2024/12/04 s---
+                   let l_sfb08 = 0 
+                   select sfb08 into l_sfb08 from sfb_file
+                    where sfb01 = g_sfs[l_ac].sfs03
+                   #darcy:2024/12/04 e---
+
 
                    SELECT SUM(sfq03) INTO l_sfq03 FROM sfq_file
                     WHERE sfq01 = g_sfp.sfp01
@@ -10051,8 +10058,13 @@ DEFINE l_tc_zsa02   LIKE type_file.chr1,
                    #LET l_sfq03_chk = (g_sfs[l_ac].sfs05/l_sfa161) - l_sfq03
                    #IF l_sfq03_chk < 0 THEN LET l_sfq03_chk = l_sfq03_chk * -1 END IF
                    #IF l_sfq03_chk > 0.5 THEN 
+                     #darcy:2024/12/04 add s---
+                     -- 如果发料套数等于工单套数，发料数量等于应发数量，不要管这个数量
+                     if g_sfs[l_ac].sfs05 != l_sfa05 or l_sfq03 != l_sfb08 then
                         CALL cl_err(g_sfs[l_ac].sfs05,'asf-958',0)
                         NEXT FIELD sfs05 
+                     end if 
+                     #darcy:2024/12/04 add e---
                       END IF  
                    END IF
                 END IF
