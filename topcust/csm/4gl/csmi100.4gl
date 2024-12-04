@@ -113,6 +113,7 @@ MAIN
    let g_prog = g_argv1 
    let g_tc_sma01 = g_argv1
    call i100_set_dny_combo()
+   call i100_b_fill(" 1=1") #darcy:2024/11/29 add
    CALL i100_menu()
  
    CLOSE WINDOW i100_w              #結束畫面
@@ -204,7 +205,7 @@ DEFINE  lc_qbe_sn       LIKE    gbm_file.gbm01
 END FUNCTION
  
 FUNCTION i100_menu()
- 
+
    WHILE TRUE
       CALL i100_bp("G")
       CASE g_action_choice
@@ -266,17 +267,13 @@ FUNCTION i100_q()
     CALL i100_cs()
     IF INT_FLAG THEN
         LET INT_FLAG = 0
-        LET g_tc_sma01 = '' 
-        LET g_tc_sma04 = '' 
         RETURN
     END IF
  
     MESSAGE " SEARCHING ! " 
     OPEN i100_cs                            # 從DB產生合乎條件TEMP(0-30秒)
     IF SQLCA.sqlcode THEN
-       CALL cl_err('',SQLCA.sqlcode,0)
-       LET g_tc_sma01 = '' 
-       LET g_tc_sma04 = '' 
+       CALL cl_err('',SQLCA.sqlcode,0) 
     ELSE
        OPEN i100_count
        FETCH i100_count INTO g_row_count
@@ -328,9 +325,7 @@ DEFINE
   END CASE
  
     IF SQLCA.sqlcode THEN
-        CALL cl_err(g_tc_sma01,SQLCA.sqlcode,0)
-        LET g_tc_sma01 = '' 
-        LET g_tc_sma04 = '' 
+        CALL cl_err(g_tc_sma01,SQLCA.sqlcode,0) 
         RETURN
     ELSE
        CASE p_flag
@@ -353,22 +348,14 @@ FUNCTION i100_show()
     DISPLAY g_tc_sma01  TO tc_sma01 
 
  
-    CALL i100_b_fill(g_wc2)                 #單身
+    CALL i100_b_fill(g_wc)                 #單身
     CALL cl_show_fld_cont()        
 END FUNCTION
  
 #取消整筆 (所有合乎單頭的資料)
 FUNCTION i100_r()
-    IF s_shut(0) THEN RETURN END IF
-    IF g_tc_sma04 IS NULL THEN
-        RETURN
-    END IF
+    IF s_shut(0) THEN RETURN END IF  
 
-    #檢查是否已有單別正在使用中，若是則無清刪除
-    IF g_cnt <> 0 THEN 
-       CALL cl_err('','aoo-504',1)
-       RETURN 
-    END IF 
     BEGIN WORK
     IF cl_delh(0,0) THEN                   #確認一下
         DELETE FROM tc_sma_file WHERE tc_sma01 = g_tc_sma01 
@@ -438,6 +425,8 @@ DEFINE   l_length    STRING
 DEFINE   l_azw05    LIKE  azw_file.azw05   #FUN-A50016
 DEFINE   l_dic      LIKE type_file.chr1    #FUN-A70026
 define l_cnt INTEGER
+define l_repeat     boolean #darcy:2024/11/29
+define l_msg        string #darcy:2024/11/29
  
     LET g_action_choice = ""
     IF g_tc_sma01 IS NULL THEN RETURN END IF
@@ -508,6 +497,22 @@ define l_cnt INTEGER
                LET INT_FLAG = 0
                CANCEL INSERT
             END IF
+            #darcy:2024/11/28 add s---
+            let l_repeat = false
+            case g_tc_sma01
+                when "csmi110"
+                    select count(1) into l_cnt from tc_sma_file
+                     where tc_sma01 = g_tc_sma01 and tc_sma02 = g_tc_sma[l_ac].tc_sma02
+                    if l_cnt > 0 then
+                        let l_repeat = true
+                        let l_msg = g_tc_sma[l_ac].tc_sma02
+                    end if
+            end case
+            if l_repeat then
+                call cl_err(l_msg,"-239",1)
+                CANCEL INSERT
+            end if
+            #darcy:2024/11/28 add e---
             INSERT INTO tc_sma_file(
                 tc_sma01,tc_sma02,tc_sma03,tc_sma04,tc_sma05,
                 tc_sma06,tc_sma07,tc_sma08,tc_sma09,tc_sma10,
@@ -763,6 +768,16 @@ define l_cnt INTEGER
                         DISPLAY g_tc_sma[l_ac].tc_sma06 TO tc_sma02
                         NEXT FIELD tc_sma02
                     #darcy:2024/07/25 add e---
+                    #darcy:2024/11/28 add s---
+                    when 'csmi110'
+                        CALL cl_init_qry_var()
+                        LET g_qryparam.form = "cq_ima09"
+                        LET g_qryparam.arg1 = g_lang
+                        LET g_qryparam.default1 = g_tc_sma[l_ac].tc_sma02
+                        CALL cl_create_qry() RETURNING g_tc_sma[l_ac].tc_sma02
+                        DISPLAY g_tc_sma[l_ac].tc_sma02 TO tc_sma02
+                        NEXT FIELD tc_sma02
+                    #darcy:2024/11/28 add e---
                         
                 end case
               
@@ -1058,6 +1073,15 @@ FUNCTION i100_set_entry(p_cmd)
    IF p_cmd = 'a' AND ( NOT g_before_input_done ) THEN                                                                              
      CALL cl_set_comp_entry("tc_sma04,tc_sma01,tc_sma02",TRUE)                                                                                     
    END IF                                                                                                                           
+
+   #darcy:2024/11/29 add s---
+   case g_tc_sma01
+    when "csmi110"
+        if p_cmd == 'a' then
+            call cl_set_comp_entry("tc_sma02",true)    
+        end if
+   end case
+   #darcy:2024/11/29 add e---
                                                                                                                                     
 END FUNCTION                                                                                                                        
                                                                                                                                     
@@ -1068,6 +1092,15 @@ FUNCTION i100_set_no_entry(p_cmd)
      CALL cl_set_comp_entry("tc_sma04,tc_sma01,tc_sma02",FALSE)                                                                                    
    END IF                                                                                                                           
 
+   #darcy:2024/11/29 add s---
+   case g_tc_sma01
+    when "csmi110"
+        if p_cmd = 'u' then
+            call cl_set_comp_entry("tc_sma02",false)    
+        end if
+   end case
+   #darcy:2024/11/29 add e---
+
 END FUNCTION                                                                                                                        
                                                                                                                                     
 FUNCTION i100_set_dny_combo() 
@@ -1077,7 +1110,7 @@ FUNCTION i100_set_dny_combo()
     define l_ze01      like ze_file.ze01
     define l_gaz03      like gaz_file.gaz03
 
-    let ps_values = "csmi100,csmi101,csmi102,csmi103,csmi104,csmi105,csmi106,csmi107,csmi108,csmi109"
+    let ps_values = "csmi100,csmi101,csmi102,csmi103,csmi104,csmi105,csmi106,csmi107,csmi108,csmi109,csmi110"
 
     LET tok = base.StringTokenizer.create(ps_values,",")
     let l_ze01 = tok.nextToken()
@@ -1112,6 +1145,8 @@ FUNCTION i100_set_dny_combo()
             display "请按照料号维护光板拆分规则" to lb_msg
         when 'csmi109'
             display "此作业用来维护样品原材仓库、和相关单据编号" to lb_msg
+        when 'csmi110'
+            display "此作业维护原材料对应的成品料号，呆滞分析报表中使用" to lb_msg
     end case
 
     call i100_set_visiable()
@@ -1248,6 +1283,15 @@ function i100_set_visiable()
             call cl_set_comp_visible("tc_sma02_desc,tc_sma03,tc_sma04,tc_sma05,tc_sma07,tc_sma08,tc_sma09,tc_sma10,tc_sma11,tc_sma12,tc_sma13,,tc_sma14,tc_sma15,tc_sma16,tc_sma17,tc_sma18,tc_sma19",false)
             call cl_set_comp_entry("tc_sma02,tc_sma06",true)
         #darcy:2024/07/25 add e---
+        #darcy:2024/11/28 add s---
+        when "csmi110"
+            call cl_set_comp_att_text("tc_sma02","料件编号")
+            call cl_set_comp_att_text("tc_sma10","成品料号1")
+            call cl_set_comp_att_text("tc_sma12","成品料号2")
+            call cl_set_comp_att_text("tc_sma13","成品料号3")
+            call cl_set_comp_visible("tc_sma02_desc,tc_sma03,tc_sma04,tc_sma05,tc_sma06,tc_sma07,tc_sma08,tc_sma09,tc_sma11,,tc_sma14,tc_sma15,tc_sma16,tc_sma17,tc_sma18,tc_sma19",false)
+            call cl_set_comp_entry("tc_sma02,tc_sma10,tc_sma12,tc_sma13",true)
+        #darcy:2024/11/28 add e---
     end case
     
 end function
