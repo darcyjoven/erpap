@@ -1997,7 +1997,7 @@ FUNCTION i510_d_i()
 
       BEFORE INSERT
          INITIALIZE g_tc_sff[i].* TO NULL 
-         LET g_tc_sfe[i].tc_sfeud02 = 'Y'
+         -- LET g_tc_sfe[i].tc_sfeud02 = 'Y'  #darcy:2024/12/02 remark
          NEXT FIELD tc_sfe02
          
       BEFORE ROW
@@ -3954,7 +3954,7 @@ FUNCTION i510_g_b()
   #  對應table字段:sfa30,sfa31,ima23
   LET g_x = 1   #str--add by huanglf160823
   DECLARE i510_g_b_c CURSOR FOR
-         SELECT * FROM tc_sfe_file WHERE tc_sfe01=g_tc_sfd.tc_sfd01 AND tc_sfeud02 = 'Y'
+         SELECT * FROM tc_sfe_file WHERE tc_sfe01=g_tc_sfd.tc_sfd01 -- AND tc_sfeud02 = 'Y' #darcy:2024/12/02 remark tc_sfeud02
       FOREACH i510_g_b_c INTO b_tc_sfe.*
          SELECT * INTO g_sfb.* FROM sfb_file WHERE sfb01=b_tc_sfe.tc_sfe02
          IF STATUS THEN 
@@ -5546,7 +5546,7 @@ DEFINE l_tc_sfe03          LIKE tc_sfe_file.tc_sfe03  #2013090084 add
                  SELECT COUNT(*) INTO l_n FROM tc_sfe_file
                   WHERE tc_sfe01 = g_tc_sfd.tc_sfd01
                     AND tc_sfe02 = g_tc_sff[l_ac].tc_sff03
-                    AND tc_sfeud02 = 'Y' #add by guanyao160824
+                  --   AND tc_sfeud02 = 'Y' #add by guanyao160824 #darcy:2024/12/02
                  IF l_n = 0 THEN
                     CALL cl_err(g_tc_sff[l_ac].tc_sff03,'asf-999',1)
                     NEXT FIELD tc_sff03
@@ -7784,8 +7784,8 @@ FUNCTION i510_sub_y_chk(p_tc_sfd01,p_action_choice) #TQC-C60079 add
      #str-----add by guanyao160824
      LET l_tc_sfe02 = NULL
      LET l_tc_sfe04 = NULL 
-     LET l_sql = "SELECT tc_sfe02,tc_sfe04 FROM tc_sfe_file WHERE tc_sfe01 = '",l_tc_sfd.tc_sfd01,"'",
-                 "   AND tc_sfeud02 = 'Y'"
+     LET l_sql = "SELECT tc_sfe02,tc_sfe04 FROM tc_sfe_file WHERE tc_sfe01 = '",l_tc_sfd.tc_sfd01,"'"--,
+               --   "   AND tc_sfeud02 = 'Y'" #darcy:2024/12/02 
      PREPARE i510_check_tc_sff_p FROM l_sql
      DECLARE i510_check_tc_sff_c CURSOR FOR i510_check_tc_sff_p
      FOREACH i510_check_tc_sff_c INTO l_tc_sfe02,l_tc_sfe04
