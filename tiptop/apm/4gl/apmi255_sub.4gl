@@ -104,6 +104,17 @@ DEFINE l_pmj09     LIKE pmj_file.pmj09       #MOD-D10199
       END IF
    END FOREACH
    #MOD-D10199 -- add end --  
+
+   #darcy:2024/12/04 add s---
+   let l_cnt = 0 
+   select count(*) into l_cnt from pmj_file
+    where pmj01 = l_pmi.pmi01 and pmj03 like 'K.%'
+   if l_cnt > 0 then
+      call cl_err(l_pmi.pmi01,'cpm-082',1)
+      let g_success = 'N'
+      return
+   end if
+   #darcy:2024/12/04 add e---
  
     #MOD-530602
    #控管分量計價='N',有單身新單價<=0
