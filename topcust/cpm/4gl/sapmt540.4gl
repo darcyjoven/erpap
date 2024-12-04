@@ -7808,21 +7808,21 @@ ELSE      #FUN-C20006--add
                #darcy:2024/08/07 add s---
                # 请购单别能产生的采购单别
                # FRA->PSF/PRS
-               # PRA->PRB 
-               case 
-                  when g_pmm.pmm01[1,3] == "PRB" and g_pmn[l_ac].pmn24[1,3] != "PRA"
-                     call cl_err(g_pmn[l_ac].pmn24,'cpm-081',1)
-                     next field pmn24
-                  when (g_pmm.pmm01[1,3] == "PSF" and g_pmm.pmm01[1,3] == "PRS") and g_pmn[l_ac].pmn24[1,3] != "FRA"
-                     call cl_err(g_pmn[l_ac].pmn24,'cpm-080',1)
-                     next field pmn24
+               # PRA->PRB
+               case
+                  #when g_pmm.pmm01[1,3] == "PRB" and g_pmn[l_ac].pmn24[1,3] != "PRA"
+                  #   call cl_err(g_pmn[l_ac].pmn24,'cpm-081',1)
+                  #   next field pmn24
+                  #when (g_pmm.pmm01[1,3] == "PSF" and g_pmm.pmm01[1,3] == "PRS") and g_pmn[l_ac].pmn24[1,3] != "FRA"
+                  #   call cl_err(g_pmn[l_ac].pmn24,'cpm-080',1)
+                  #   next field pmn24
                   when g_pmn[l_ac].pmn24[1,3] == "PRA" and g_pmm.pmm01[1,3] != "PRB"
                      call cl_err(g_pmn[l_ac].pmn24,'cpm-079',1)
                      next field pmn24
                   when g_pmn[l_ac].pmn24[1,3] == "FRA" and (g_pmm.pmm01[1,3] != "PSF" and g_pmm.pmm01[1,3] != "PRS")
                      call cl_err(g_pmn[l_ac].pmn24,'cpm-078',1)
                      next field pmn24
-               end case 
+               end case
                #darcy:2024/08/07 add e---
 #TQC-BC0027  begin #分單別對是否存在此單號進行判斷
               IF g_pmm.pmm909 = '5' THEN
