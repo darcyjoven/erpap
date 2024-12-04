@@ -956,7 +956,7 @@ FUNCTION r300_chk_adj(p_faj02,p_faj022,p_fan15,p_fan04,p_fan06)   #CHI-CA0063
           p_fan04       LIKE type_file.num5,              #MOD-C40130 add
           l_yy          LIKE type_file.num5               #MOD-C40130 add
          ,p_fan06       LIKE fan_file.fan06               #CHI-CA0063
-
+   define l_sql         string   #darcy:2024/12/03 add
    LET l_cnt = 0
    LET l_adj_fan07 = 0
    SELECT COUNT(*) INTO l_cnt FROM fan_file
@@ -988,21 +988,45 @@ FUNCTION r300_chk_adj(p_faj02,p_faj022,p_fan15,p_fan04,p_fan06)   #CHI-CA0063
       AND fan04 BETWEEN p_fan04 AND tm.mm
       AND fan041 = '2'
 
+   #darcy:2024/12/03 remark s---
    #調整折舊
-   IF cl_null(p_fan06) THEN 		   #CHI-CA0063
-   SELECT fan07 INTO l_adj_fan07_1 FROM fan_file
-    WHERE fan01 = p_faj02 AND fan02 = p_faj022
-      AND fan03 = tm.yyyy AND fan04 = tm.mm
-      AND fan041 = '2'
-  #CHI-CA0063--(B)--
-   ELSE
-      SELECT fan07 INTO l_adj_fan07_1 FROM fan_file
-       WHERE fan01 = p_faj02 AND fan02 = p_faj022
-         AND fan03 = tm.yyyy AND fan04 = tm.mm         
-         AND fan041 = '2'
-         AND fan06 = p_fan06
-   END IF
+--    IF cl_null(p_fan06) THEN 		   #CHI-CA0063
+--    SELECT fan07 INTO l_adj_fan07_1 FROM fan_file
+--     WHERE fan01 = p_faj02 AND fan02 = p_faj022
+--       AND fan03 = tm.yyyy AND fan04 = tm.mm
+--       AND fan041 = '2'
+--   #CHI-CA0063--(B)--
+--    ELSE
+--       SELECT fan07 INTO l_adj_fan07_1 FROM fan_file
+--        WHERE fan01 = p_faj02 AND fan02 = p_faj022
+--          AND fan03 = tm.yyyy AND fan04 = tm.mm         
+--          AND fan041 = '2'
+--          AND fan06 = p_fan06
+--    END IF
   #CHI-CA0063--(E)--
+   #darcy:2024/12/03 remark e---
+
+   #darcy:2024/12/03 add s---
+   let l_sql = "SELECT fan07 FROM fan_file ",
+              " WHERE fan01 = '",p_faj02,"' AND fan02 = '",p_faj022,"'",
+              " AND fan03 = ",tm.yyyy," AND fan04 = ",tm.mm,
+              " AND fan041 = '2' "
+   CASE
+      WHEN tm.a = '1' #--->分攤前
+         LET l_sql = l_sql CLIPPED ," AND fan05 != '3' " CLIPPED
+      WHEN tm.a = '2' #--->分攤後
+         LET l_sql = l_sql CLIPPED ," AND fan05 != '2' " CLIPPED
+      OTHERWISE EXIT CASE
+   END CASE
+
+   if not cl_null(p_fan06) then
+      let l_sql = l_sql clipped, " AND fan06 = '",p_fan06,"'"
+   end if
+
+   prepare afar300_fan07 from l_sql
+   execute afar300_fan07 into l_adj_fan07_1
+
+   #darcy:2024/12/03 add e---
   #-----------------------MOD-C40130-----------------------(E)
    IF cl_null(l_adj_fan07) THEN LET l_adj_fan07 = 0 END IF
    IF cl_null(l_adj_fan07_1) THEN LET l_adj_fan07_1 = 0 END IF    #MOD-C40130 add
