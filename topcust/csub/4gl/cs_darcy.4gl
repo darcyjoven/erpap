@@ -386,5 +386,7 @@ end function
 
 
 function cs_uuid()
-    return genuuidc()
+    define l_uuid   varchar(50)
+    call genuuidc() returning l_uuid
+    return l_uuid
 end function
